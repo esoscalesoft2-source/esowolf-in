@@ -502,6 +502,13 @@ html.deck .contact{border-radius:0;display:flex;flex-direction:column;justify-co
 html.deck .about,html.deck .projects,html.deck #experience,html.deck #writing{padding-bottom:max(128px,10vw)}
 html.deck .signup{padding-bottom:max(110px,10vw)}
 
+
+/* entrance replays: reset instantly, then animate in from the direction of travel */
+.deck-slide.rv-reset *,.deck-slide.rv-reset *::before{transition:none!important}
+.deck-slide.from-above .rv:not(.in){transform:translateY(-30px)!important}
+.deck-slide.from-above .signup:not(.is-in) .signup-title .w>span{transform:translate3d(0,-108%,0) rotate(-4deg)!important}
+.deck-slide.from-above .signup:not(.is-in) .signup-cta{transform:translateY(-24px)!important}
+
 /* controls: counter + progress, arrows, dots */
 .deck-ui{position:fixed;z-index:45;left:0;right:0;bottom:calc(env(safe-area-inset-bottom,0px) + 18px);display:flex;align-items:center;justify-content:space-between;
   padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));pointer-events:none}
@@ -1072,7 +1079,7 @@ window.deck=(function(){
   prevB.onclick=()=>go(index-1); nextB.onclick=()=>go(index+1);
 
   let index=0, locked=false; const listeners=[];
-  function paint(instant){
+  function paint(instant,dir){
     if(instant){ track.style.transition="none"; slides.forEach(s=>s.querySelector(".deck-inner").style.transition="none"); }
     track.style.transform=`translate3d(0,${-index*100}%,0)`;
     slides.forEach((s,i)=>{ s.classList.toggle("is-active",i===index); s.classList.toggle("is-before",i<index); s.classList.toggle("is-after",i>index);
@@ -1083,14 +1090,21 @@ window.deck=(function(){
     [...dots.children].forEach((d,i)=>d.setAttribute("aria-current",i===index?"true":"false"));
     prevB.disabled=index===0; nextB.disabled=index===els.length-1;
     nav.classList.toggle("solid",index>0);
-    // play the active slide's entrance even if its own observer missed it (deep links, instant jumps)
-    const cur=els[index]; setTimeout(()=>{ cur.classList.add("is-in"); cur.querySelectorAll(".rv").forEach(r=>r.classList.add("in")); }, instant?60:350);
+    // replay the active slide's entrance on every visit, from the side it enters from
+    const cur=els[index], sl=slides[index];
+    if(!instant){
+      sl.classList.add("rv-reset"); sl.classList.toggle("from-above",dir==="prev");
+      cur.classList.remove("is-in"); cur.querySelectorAll(".rv").forEach(r=>r.classList.remove("in"));
+      void sl.offsetHeight; sl.classList.remove("rv-reset");
+    }
+    clearTimeout(sl._rvT);
+    sl._rvT=setTimeout(()=>{ cur.classList.add("is-in"); cur.querySelectorAll(".rv").forEach(r=>r.classList.add("in")); }, instant?60:300);
   }
   function go(i,instant){
     i=Math.max(0,Math.min(els.length-1,i));
     if(i===index || (locked && !instant)) return;
     const dir=i>index?"next":"prev";
-    index=i; paint(instant);
+    index=i; paint(instant,dir);
     if(!instant){
       locked=true; setTimeout(()=>locked=false,1250);
       wipe.className="deck-wipe"; void wipe.offsetWidth; wipe.classList.add(dir==="next"?"go-next":"go-prev");
