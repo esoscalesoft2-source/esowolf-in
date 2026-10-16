@@ -423,9 +423,6 @@ html.deck .signup{padding-bottom:max(110px,10vw)}
       <li><a href="#meesho">Meesho</a></li>
       <li><a href="#myntra">Myntra</a></li>
       <li><a href="#whatsapp">WhatsApp</a></li>
-      <li><a href="#projects">Projects</a></li>
-      <li><a href="#experience">Experience</a></li>
-      <li><a href="#writing">Writing</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
     <a class="btn btn-ember" href="#contact">Let's talk</a>
@@ -517,29 +514,8 @@ html.deck .signup{padding-bottom:max(110px,10vw)}
     </div>
   </section>
 
-  <!-- ======================= PROJECTS ======================= -->
-  <section class="projects" id="projects">
-    <div class="wrap">
-      <div class="head rv"><h2>Selected<br>Projects</h2><span class="count">04 projects</span></div>
-      <div class="list" id="projList"></div>
-    </div>
-  </section>
 
-  <!-- ======================= EXPERIENCE ======================= -->
-  <section id="experience" style="background:var(--ink-2)">
-    <div class="wrap">
-      <div class="head rv"><h2>Work<br>Experience</h2><span class="count">Most recent first</span></div>
-      <ol class="xp" id="xpList"></ol>
-    </div>
-  </section>
 
-  <!-- ======================= WRITING ======================= -->
-  <section id="writing">
-    <div class="wrap">
-      <div class="head rv"><h2>Writing</h2><span class="count">Articles &amp; build notes</span></div>
-      <div class="posts" id="postList"></div>
-    </div>
-  </section>
 
   <!-- ======================= CONTACT ======================= -->
   <footer class="contact" id="contact">
@@ -610,7 +586,7 @@ const chips = a => a.map(t=>`<span class="chip">${esc(t)}</span>`).join("");
 
 (document.getElementById("mq")||{}).innerHTML = [...CONTENT.marquee, ...CONTENT.marquee].map(t=>`<span>${esc(t)}</span>`).join("");
 
-document.getElementById("projList").innerHTML = CONTENT.projects.map((p,i)=>`
+(document.getElementById("projList")||{}).innerHTML = CONTENT.projects.map((p,i)=>`
   <article class="proj rv">
     <div class="media"><canvas data-h1="${p.hue[0]}" data-h2="${p.hue[1]}" data-seed="${i+1}"></canvas><span class="tag">${esc(p.kind)}</span></div>
     <div class="body">
@@ -622,14 +598,14 @@ document.getElementById("projList").innerHTML = CONTENT.projects.map((p,i)=>`
     </div>
   </article>`).join("");
 
-document.getElementById("xpList").innerHTML = CONTENT.experience.map((x,i)=>`
+(document.getElementById("xpList")||{}).innerHTML = CONTENT.experience.map((x,i)=>`
   <li class="rv">
     <div class="n">${String(i+1).padStart(2,"0")}</div>
     <div><h3>${esc(x.company)}</h3><div class="role">${esc(x.role)}</div><div class="meta"><span>${esc(x.dates)}</span><span>${esc(x.place)}</span></div></div>
     <div><ul>${x.points.map(p=>`<li>${esc(p)}</li>`).join("")}</ul><div class="stack">${chips(x.stack)}</div></div>
   </li>`).join("");
 
-document.getElementById("postList").innerHTML = CONTENT.posts.map(p=>`
+(document.getElementById("postList")||{}).innerHTML = CONTENT.posts.map(p=>`
   <a class="post rv" href="${esc(p.link)}" target="_blank" rel="noopener">
     <div class="top"><span>${esc(p.where)}</span><span>${esc(p.year)}</span></div>
     <h3>${esc(p.title)}</h3><p>${esc(p.desc)}</p><span class="read">Read →</span>
@@ -893,7 +869,7 @@ const SIGNUP_URL = "";
    Wheel / trackpad, swipe, arrow keys, the arrow buttons, the dots and nav links all move one slide.
    A slide taller than the screen scrolls inside itself first; at its edge the next move changes slide. */
 window.deck=(function(){
-  const order=["top","signup","meesho","myntra","whatsapp","projects","experience","writing","contact"];
+  const order=["top","signup","meesho","myntra","whatsapp","contact"];
   const els=order.map(id=>document.getElementById(id)).filter(Boolean);
   if(els.length<2) return null;
   const mq=document.querySelector(".marquee");
