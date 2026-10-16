@@ -232,16 +232,6 @@ section{padding-block:clamp(72px,10vw,128px)}
 .meesho .me-list li:nth-child(3){transition-delay:.64s}.meesho .me-list li:nth-child(4){transition-delay:.76s}
 @media (max-width:960px){.me-grid{grid-template-columns:1fr}.meesho{align-items:flex-start}}
 
-/* Myntra: same design as Meesho, mirrored (title on the right) */
-.myntra{background:var(--ink-2)}
-.myntra .me-glow{inset:auto auto -30% -10%}
-.myntra .me-grid{grid-template-columns:minmax(0,1fr) minmax(0,1.05fr)}
-.myntra .me-title{grid-column:2;grid-row:1;text-align:right;justify-self:end}
-.myntra .me-body{grid-column:1;grid-row:1}
-.meesho.myntra .me-title.rv{transform:translateX(60px)}
-.meesho.myntra .rv:not(.me-title){transform:translateX(-50px)}
-.meesho.myntra .rv.in{transform:none}
-@media (max-width:960px){.myntra .me-grid{grid-template-columns:1fr}.myntra .me-title{grid-column:1;text-align:left;justify-self:start}.myntra .me-body{grid-column:1;grid-row:2}}
 
 
 /* WhatsApp Business API slide — styled after the WOO Chat sign-in screen */
@@ -314,6 +304,40 @@ section{padding-block:clamp(72px,10vw,128px)}
   .wa-left-in{padding-bottom:64px}
 }
 @media (prefers-reduced-motion:reduce){.wa-bubble{opacity:1;transform:none}}
+
+
+/* Myntra slide — styled after the Myntra Profit sign-in screen */
+.mp{--mp-bg:#0b0b12;--mp-pink:#f43f74;--mp-orange:#fb923c;--mp-card:#16161d;--mp-line:#2a2a33;
+  padding:0;min-height:100svh;display:flex;align-items:center;background:
+  radial-gradient(50% 45% at 80% 20%,rgba(244,63,116,.10),transparent 70%),
+  radial-gradient(40% 40% at 10% 90%,rgba(251,146,60,.07),transparent 70%),var(--mp-bg);color:#f3f3f7}
+.mp-grid{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(320px,400px);gap:clamp(40px,8vw,140px);align-items:center;width:100%;
+  padding-block:clamp(110px,13vh,150px) clamp(120px,14vh,160px)}
+.mp-logo{display:block;width:clamp(170px,15vw,228px);height:auto;margin:0 0 clamp(32px,6vh,64px);mix-blend-mode:lighten}
+.mp-title{font-family:var(--body);text-transform:none;font-weight:800;letter-spacing:-.03em;line-height:1.08;font-size:clamp(36px,3.9vw,60px);margin:0 0 20px;color:#fff;max-width:15ch}
+.mp-title span{display:block;background:linear-gradient(90deg,var(--mp-pink),var(--mp-orange));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent}
+.mp-lead{margin:0 0 26px;max-width:52ch;color:#a9a9b8;font-size:clamp(15px,1.15vw,17px);line-height:1.65}
+.mp-list{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+.mp-list li{display:flex;gap:12px;align-items:flex-start;font-size:15px;line-height:1.5;color:#e6e6ee}
+.mp-list svg{flex:none;width:20px;height:20px;padding:3px;border-radius:6px;background:rgba(244,63,116,.14);color:var(--mp-pink);margin-top:1px}
+.mp-card{padding:clamp(26px,2.4vw,34px);border-radius:14px;background:var(--mp-card);border:1px solid var(--mp-line);box-shadow:0 30px 80px rgba(0,0,0,.45)}
+.mp-card h3{font-family:var(--body);text-transform:none;font-weight:800;font-size:clamp(22px,1.7vw,26px);letter-spacing:-.01em;margin:0 0 6px;color:#fff}
+.mp-card>p{margin:0 0 24px;color:#a9a9b8;font-size:14px;line-height:1.55}
+.mp-btn{display:flex;align-items:center;justify-content:center;height:46px;border-radius:8px;background:var(--mp-pink);color:#fff;text-decoration:none;
+  font:700 15px/1 var(--body);box-shadow:0 12px 30px rgba(244,63,116,.3);transition:background .2s,transform .2s,box-shadow .2s}
+.mp-btn:hover{background:#e62e64;transform:translateY(-2px);box-shadow:0 16px 36px rgba(244,63,116,.4)}
+.mp-btn:focus-visible{outline:3px solid var(--mp-orange);outline-offset:3px}
+.mp-small{margin:20px 0 0;text-align:center;font-size:14px;color:#a9a9b8}
+.mp-small a{color:var(--mp-pink);font-weight:700;text-decoration:none}
+.mp-small a:hover{text-decoration:underline}
+.mp .rv{transform:translateY(26px);transition:transform 1s cubic-bezier(.16,1,.3,1),opacity .9s ease}
+.mp .rv.in{transform:none}
+.mp .mp-title.rv{transition-delay:.1s}.mp .mp-lead.rv{transition-delay:.22s}
+.mp .mp-list li:nth-child(1){transition-delay:.32s}.mp .mp-list li:nth-child(2){transition-delay:.4s}
+.mp .mp-list li:nth-child(3){transition-delay:.48s}.mp .mp-list li:nth-child(4){transition-delay:.56s}
+.mp .mp-card.rv{transform:translateY(40px) scale(.97);transition-delay:.4s}
+.mp .mp-card.rv.in{transform:none}
+@media (max-width:960px){.mp-grid{grid-template-columns:1fr}.mp-card{max-width:440px}}
 
 /* tablet & phone: copy first, portrait anchored to the bottom of the section */
 @media (max-width:960px){
@@ -553,19 +577,25 @@ html.deck .signup{padding-bottom:max(110px,10vw)}
       </div>
     </div>
   </section>
-  <!-- ======================= MYNTRA ======================= -->
-  <section class="meesho myntra" id="myntra" aria-labelledby="myntraTitle">
-    <div class="me-glow" aria-hidden="true"></div>
-    <div class="wrap me-grid">
-      <h2 id="myntraTitle" class="me-title rv">Myntra <span>Reconciliation</span> Software</h2>
-      <div class="me-body">
-        <p class="me-lead rv">Checks every Myntra order against what Myntra actually pays out, so commission, fee and return gaps never go unnoticed.</p>
-        <ul class="me-list">
-          <li class="rv"><span class="me-n">01</span>Matches each order with its settlement and payout</li>
-          <li class="rv"><span class="me-n">02</span>Catches short payments and commission or fee mismatches</li>
-          <li class="rv"><span class="me-n">03</span>Tracks RTO and customer returns until stock is back</li>
-          <li class="rv"><span class="me-n">04</span>Shows real profit per SKU after commission, shipping and returns</li>
+  <!-- ======================= MYNTRA (Myntra Profit) ======================= -->
+  <section class="mp" id="myntra" aria-labelledby="myntraTitle">
+    <div class="wrap mp-grid">
+      <div class="mp-copy">
+        <img class="mp-logo rv" src="assets/myntra-profit-logo.webp" alt="Myntra Profit" width="228" height="116">
+        <h2 id="myntraTitle" class="mp-title rv">Myntra <span>Reconciliation Software.</span></h2>
+        <p class="mp-lead rv">Checks every Myntra order against what Myntra actually pays out, so commission, fee and return gaps never go unnoticed.</p>
+        <ul class="mp-list">
+          <li class="rv"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Matches each order with its settlement and payout</li>
+          <li class="rv"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Catches short payments and commission or fee mismatches</li>
+          <li class="rv"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Tracks RTO and customer returns until stock is back</li>
+          <li class="rv"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Shows real profit per SKU after commission, shipping and returns</li>
         </ul>
+      </div>
+      <div class="mp-card rv">
+        <h3>Get started</h3>
+        <p>Upload your Myntra inventory, orders and payment reports and see your true profit.</p>
+        <a class="mp-btn" href="https://myntra.esowolf.in/auth" target="_blank" rel="noopener">Sign up</a>
+        <p class="mp-small">Already a vendor? <a href="https://myntra.esowolf.in/auth" target="_blank" rel="noopener">Sign in</a></p>
       </div>
     </div>
   </section>
