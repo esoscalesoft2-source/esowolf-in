@@ -5,10 +5,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#0d0a08">
 <meta property="og:title" content="ESOWOLF — Making Your Online Business Come True">
-<meta property="og:image" content="assets/poster.jpg">
+<meta property="og:image" content="https://esowolf.in/assets/og-image.jpg">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta property="og:url" content="https://esowolf.in/">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://esowolf.in/">
 <link rel="icon" type="image/png" href="assets/favicon.png">
 <link rel="apple-touch-icon" href="assets/eso-icon.png">
-<title>ESOWOLF — Making Your Online Business Come True</title>
+<title>ESOWOLF (Ezy Sell Online) — Grow on Amazon, Meesho, Myntra &amp; Shopify</title>
 <meta name="description" content="ESOWOLF helps sellers grow on Amazon, Meesho, Myntra and Shopify with 10+ years of e-commerce expertise — plus Meesho and Myntra reconciliation software and WhatsApp Business API.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -48,8 +53,6 @@ h1,h2,h3{font-family:var(--display);text-wrap:balance;line-height:.92;margin:0;t
 .nav .wrap{display:flex;align-items:center;gap:24px}
 .brand{font-family:var(--display);font-weight:900;font-size:24px;letter-spacing:.04em;text-decoration:none}
 .brand b{color:var(--ember)}
-.clock{font-family:var(--mono);font-size:11px;letter-spacing:.12em;color:var(--muted);text-transform:uppercase}
-.clock span{color:var(--paper)}
 .nav ul{display:flex;gap:22px;list-style:none;margin:0 0 0 auto;padding:0}
 .nav ul a{text-decoration:none;font-size:14px;font-weight:600;color:var(--muted);transition:color .2s}
 .nav ul a:hover{color:var(--paper)}
@@ -58,8 +61,7 @@ h1,h2,h3{font-family:var(--display);text-wrap:balance;line-height:.92;margin:0;t
 .btn-ember:hover{background:#ff8340;transform:translateY(-1px)}
 .btn-ghost{border-color:var(--line);color:var(--paper);background:transparent}
 .btn-ghost:hover{border-color:var(--ember)}
-@media (max-width:1180px){.clock{display:none}}
-@media (max-width:860px){.nav ul,.clock{display:none}.nav .btn{margin-left:auto}}
+@media (max-width:860px){.nav ul{display:none}.nav .btn{margin-left:auto}}
 
 /* ---------- HERO ---------- */
 /* Video framing: subject sits ~60% across, head in the top half of the 16:9 frame.
@@ -257,7 +259,7 @@ section{padding-block:clamp(72px,10vw,128px)}
   opacity:0;transform:translateY(20px) scale(.9);transition:opacity .6s ease,transform .8s cubic-bezier(.16,1,.3,1)}
 .wa-bubble small{display:block;text-align:right;font-size:11px;font-weight:500;opacity:.7;margin-top:4px}
 .wa-b1{right:6%;top:15%;background:#0f6b4f;color:#eafff5;border-bottom-right-radius:4px;transition-delay:1.1s}
-.wa-b2{left:6%;bottom:11%;background:#fff;color:#1b2a24;border-bottom-left-radius:4px;transition-delay:1.6s}
+.wa-b2{display:none;left:6%;bottom:24%;background:#fff;color:#1b2a24;border-bottom-left-radius:4px;transition-delay:1.6s}
 .wa-b3{right:8%;bottom:16%;background:#0f6b4f;color:#eafff5;border-bottom-right-radius:4px;transition-delay:2.2s}
 .wa.is-in .wa-bubble{opacity:1;transform:none;animation:waFloat 6s ease-in-out 3s infinite}
 .wa.is-in .wa-b2{animation-delay:3.6s}.wa.is-in .wa-b3{animation-delay:4.2s}
@@ -356,7 +358,7 @@ section{padding-block:clamp(72px,10vw,128px)}
 
 
 /* contact details */
-.contact h2{margin-bottom:14px;font-size:clamp(48px,7.4vw,118px)}
+.contact h2{margin-bottom:14px;font-size:clamp(44px,min(6.4vw,9.5vh),104px)}
 html.deck .contact{padding-top:max(108px,9vw)}
 .ct-lead{margin:0 0 36px;font-size:clamp(16px,1.4vw,20px);font-weight:600;max-width:48ch}
 .ct-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:28px 48px;margin-bottom:40px}
@@ -494,7 +496,7 @@ html:not(.js) .signup .signup-title mark::before{transform:none}
 /* contact / footer */
 .contact{background:var(--ember);color:var(--ink);border-radius:28px 28px 0 0;padding-block:clamp(72px,10vw,120px) 32px}
 .contact .eyebrow{color:var(--ink)}
-.contact h2{font-size:clamp(56px,11vw,168px);font-weight:900;margin:16px 0 28px}
+.contact h2{font-size:clamp(40px,min(7vw,8vh),120px);font-weight:900;margin:12px 0 20px}
 .contact .greet{font-family:var(--mono);font-size:13px;letter-spacing:.12em;text-transform:uppercase}
 .mail{display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin-bottom:56px}
 .mail code{font-family:var(--mono);font-size:clamp(16px,2.4vw,24px);background:rgba(13,10,8,.1);padding:10px 16px;border-radius:12px;user-select:all;word-break:break-all}
@@ -564,7 +566,7 @@ html.deck .signup{padding-bottom:max(110px,10vw)}
 .deck-dots button[aria-current="true"]{background:#fff;transform:scale(1.35)}
 .deck-dots button:focus-visible,.deck-arrows button:focus-visible{outline:2px solid var(--ember);outline-offset:3px}
 @media (max-width:760px){
-  .deck-dots{display:none}
+  .deck-dots,.deck-count,.deck-arrows{display:none}
   .deck-arrows button{width:42px;height:42px}
 }
 @media (prefers-reduced-motion:reduce){
@@ -581,6 +583,11 @@ html.deck .signup{padding-bottom:max(110px,10vw)}
   .rv{opacity:1;transform:none}
   html{scroll-behavior:auto}
 }
+.sr-only{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+#signup .os-note{margin:14px 0 0;font-size:14px;line-height:1.5;opacity:.7;text-align:center}
+.wa-trial{display:inline-block;margin:0 0 16px;padding:5px 12px;border-radius:999px;background:rgba(16,185,129,.16);color:#34d399;font-size:13px;font-weight:700}
+@media (max-aspect-ratio:5/6){.eb-loc{display:none}
+  .hero .shade{background:linear-gradient(180deg,rgba(13,10,8,.55) 0%,rgba(13,10,8,0) 18%,rgba(13,10,8,0) 34%,rgba(13,10,8,.78) 54%,rgba(13,10,8,.98) 100%)!important}}
 </style>
 <style>body{margin:0}img,video{max-width:100%}</style>
 </head>
@@ -589,8 +596,8 @@ html.deck .signup{padding-bottom:max(110px,10vw)}
 <header class="nav" id="nav">
   <div class="wrap">
     <a class="brand" href="#top" aria-label="ESO — Ezy Sell Online, home"><img class="brand-logo" src="assets/eso-logo-light.webp" alt="ESO — Ezy Sell Online" width="1000" height="479"></a>
-    <div class="clock">India time · <span id="clock">--:--</span></div>
     <ul>
+      <li><a href="#signup">Amazon</a></li>
       <li><a href="#meesho">Meesho</a></li>
       <li><a href="#myntra">Myntra</a></li>
       <li><a href="#whatsapp">WhatsApp</a></li>
@@ -612,8 +619,8 @@ html.deck .signup{padding-bottom:max(110px,10vw)}
 
   <div class="hero-copy">
     <div class="wrap">
-      <span class="eyebrow">10+ Years · E-commerce Experts · Tamil Nadu</span>
-      <h1 class="hero-name"><span class="l1" style="display:block">ESO</span><span class="l2" style="display:block">WOLF</span></h1>
+      <span class="eyebrow">10+ Years · E-commerce Experts<span class="eb-loc"> · Tamil Nadu</span></span>
+      <h1 class="hero-name"><span class="l1" style="display:block">ESO</span><span class="l2" style="display:block">WOLF</span><span class="sr-only"> — Ezy Sell Online: e-commerce growth for Amazon, Meesho, Myntra and Shopify sellers</span></h1>
       <p class="role">Making your online business come true on Amazon, Meesho, Myntra &amp; Shopify</p>
     </div>
   </div>
@@ -633,7 +640,8 @@ html.deck .signup{padding-bottom:max(110px,10vw)}
       </div>
       <aside class="os-card rv">
         <h3>Get started</h3>
-        <a class="signup-btn os-btn" href="#signup" id="signupLink" data-magnetic><span class="lbl">Sign Up</span><span class="arr" aria-hidden="true">↗</span></a>
+        <a class="signup-btn os-btn" href="https://booking.closer.esowolf.in/book" target="_blank" rel="noopener" id="signupLink" data-magnetic><span class="lbl">Sign Up</span><span class="arr" aria-hidden="true">↗</span></a>
+        <p class="os-note">Book a free Amazon growth call with our team.</p>
       </aside>
     </div>
   </section>
@@ -687,7 +695,7 @@ html.deck .signup{padding-bottom:max(110px,10vw)}
   <section class="wa" id="whatsapp" aria-labelledby="waTitle">
     <div class="wa-left">
       <div class="wa-left-in">
-        <div class="wa-brand rv"><span class="wa-logo"><img src="https://spx.aurotec.in/storage/v1/object/public/app-assets/logo/app-logo.png" alt="" width="46" height="23"></span>WOO Chat</div>
+        <div class="wa-brand rv"><span class="wa-logo"><img src="https://spx.aurotec.in/storage/v1/object/public/app-assets/logo/app-logo.png" alt="WOO Chat logo" width="46" height="23" onerror="this.parentNode.style.display='none'"></span>WOO Chat</div>
         <h2 id="waTitle" class="wa-title rv">WhatsApp <em>Business</em> API</h2>
         <p class="wa-lead rv">Reach customers on the app they already use. Send automated messages and updates from your own business number, at any scale.</p>
         <ul class="wa-chips">
@@ -703,9 +711,10 @@ html.deck .signup{padding-bottom:max(110px,10vw)}
     </div>
     <div class="wa-right">
       <div class="wa-card rv">
-        <span class="wa-logo wa-logo-lg"><img src="https://spx.aurotec.in/storage/v1/object/public/app-assets/logo/app-logo.png" alt="WOO Chat logo" width="56" height="28"></span>
+        <span class="wa-logo wa-logo-lg"><img src="https://spx.aurotec.in/storage/v1/object/public/app-assets/logo/app-logo.png" alt="WOO Chat logo" width="56" height="28" onerror="this.parentNode.style.display='none'"></span>
         <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.5 2.5M15.5 15.5 18 18M6 18l2.5-2.5M15.5 8.5 18 6"/></svg>Get started with WOO Chat</h3>
-        <p>Automated replies, notifications and order updates for your business on WhatsApp.</p>
+        <p>Official WhatsApp Business API from Meta — ban-safe, and your number stays safe. Automated replies, notifications and order updates.</p>
+        <p class="wa-trial">7-day free trial</p>
         <a class="wa-btn" href="https://woochatofficial.esowolf.in/login" target="_blank" rel="noopener">Sign Up <span aria-hidden="true">→</span></a>
         <p class="wa-small">Already have an account? <a href="https://woochatofficial.esowolf.in/login" target="_blank" rel="noopener">Sign In</a></p>
       </div>
@@ -745,101 +754,6 @@ html.deck .signup{padding-bottom:max(110px,10vw)}
 </main>
 
 <script>
-/* =========================================================
-   CONTENT — edit everything here
-   ========================================================= */
-const CONTENT = {
-  marquee: ["Full Stack Engineer","AI Builder","Next.js","System Design","MERN Stack","Python","Three.js","GSAP","FastAPI","Cinematic Web"],
-  projects: [
-    { kind:"Creative web", title:"Chennai Nights", sub:"Scroll-driven cinematic story",
-      desc:"An AI-generated drone film of the city cut into 360 frames and played back on a canvas as you scroll, with chapters that fade in on cue.",
-      stack:["Next.js","GSAP ScrollTrigger","Canvas","WebP frames"], link:"#", hue:[24,8] },
-    { kind:"SaaS", title:"PromptHub", sub:"AI tools marketplace",
-      desc:"Subscription platform with six AI creator tools, Razorpay and Stripe billing, and an admin dashboard for users, prompts and analytics.",
-      stack:["Next.js","MongoDB","Gemini API","Razorpay"], link:"#", hue:[200,250] },
-    { kind:"Platform", title:"FolioKit", sub:"Multi-user portfolio builder",
-      desc:"Database-driven portfolios with themes, role-based admin, live editing and résumé PDF parsing to prefill a profile.",
-      stack:["Next.js","TypeScript","Drizzle ORM","Cloudinary"], link:"#", hue:[150,190] },
-    { kind:"AI system", title:"DM Assist", sub:"LLM agent for creator inboxes",
-      desc:"FastAPI service where agents draft replies in a creator's own tone, queued through BullMQ and Redis so the API stays fast.",
-      stack:["FastAPI","LangChain","Redis","BullMQ"], link:"#", hue:[330,10] }
-  ],
-  experience: [
-    { company:"Company Name", role:"Senior Full Stack Developer", dates:"2025 — Present", place:"Chennai · Full-time",
-      points:["Architected an AI creator platform with Node.js, React and FastAPI.","Built a BullMQ + Redis job queue that cut API latency by 60%.","Secured the platform with JWT, RBAC and sandboxed execution."],
-      stack:["React","Node.js","FastAPI","Redis"] },
-    { company:"Company Name", role:"Full Stack Developer", dates:"2023 — 2025", place:"Bengaluru · Full-time",
-      points:["Led a product sync pipeline handling 100k+ SKUs per run.","Shipped shared micro-frontend packages used by five teams.","Brought Core Web Vitals to passing with SSR, ISR and caching."],
-      stack:["Next.js","Node.js","MongoDB","AWS"] },
-    { company:"Company Name", role:"Software Developer", dates:"2022 — 2023", place:"Remote · Full-time",
-      points:["Built reusable React and React Native components.","Delivered dashboards, admin panels and REST APIs on MERN."],
-      stack:["React","React Native","Express","MongoDB"] }
-  ],
-  posts: [
-    { year:"2026", where:"Medium", title:"Turning an AI video into an Apple-style scroll site", desc:"Frame extraction, canvas playback and ScrollTrigger timing, step by step.", link:"#" },
-    { year:"2026", where:"Medium", title:"Building a cinematic video hero in Next.js", desc:"Ambient blurred video, particle layers and sound controls that don't annoy people.", link:"#" },
-    { year:"2025", where:"Medium", title:"Scaling Node.js with clustering", desc:"Using every CPU core, process management and when clustering is the wrong fix.", link:"#" },
-    { year:"2024", where:"Medium", title:"Stripe subscriptions with React and Node", desc:"Billing flows, webhooks and recurring payments in a full stack app.", link:"#" }
-  ]
-};
-
-/* ---------- render ---------- */
-const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
-const chips = a => a.map(t=>`<span class="chip">${esc(t)}</span>`).join("");
-
-(document.getElementById("mq")||{}).innerHTML = [...CONTENT.marquee, ...CONTENT.marquee].map(t=>`<span>${esc(t)}</span>`).join("");
-
-(document.getElementById("projList")||{}).innerHTML = CONTENT.projects.map((p,i)=>`
-  <article class="proj rv">
-    <div class="media"><canvas data-h1="${p.hue[0]}" data-h2="${p.hue[1]}" data-seed="${i+1}"></canvas><span class="tag">${esc(p.kind)}</span></div>
-    <div class="body">
-      <h3>${esc(p.title)}</h3>
-      <div class="sub">${esc(p.sub)}</div>
-      <p>${esc(p.desc)}</p>
-      <div class="stack">${chips(p.stack)}</div>
-      <div class="row"><a class="btn btn-ember" href="${esc(p.link)}" target="_blank" rel="noopener">Live demo ↗</a><a class="btn btn-ghost" href="${esc(p.link)}" target="_blank" rel="noopener">Case study</a></div>
-    </div>
-  </article>`).join("");
-
-(document.getElementById("xpList")||{}).innerHTML = CONTENT.experience.map((x,i)=>`
-  <li class="rv">
-    <div class="n">${String(i+1).padStart(2,"0")}</div>
-    <div><h3>${esc(x.company)}</h3><div class="role">${esc(x.role)}</div><div class="meta"><span>${esc(x.dates)}</span><span>${esc(x.place)}</span></div></div>
-    <div><ul>${x.points.map(p=>`<li>${esc(p)}</li>`).join("")}</ul><div class="stack">${chips(x.stack)}</div></div>
-  </li>`).join("");
-
-(document.getElementById("postList")||{}).innerHTML = CONTENT.posts.map(p=>`
-  <a class="post rv" href="${esc(p.link)}" target="_blank" rel="noopener">
-    <div class="top"><span>${esc(p.where)}</span><span>${esc(p.year)}</span></div>
-    <h3>${esc(p.title)}</h3><p>${esc(p.desc)}</p><span class="read">Read →</span>
-  </a>`).join("");
-
-/* ---------- project cover art (generated, until real screenshots exist) ---------- */
-function drawCover(cv){
-  const r = cv.getBoundingClientRect(), d = Math.min(devicePixelRatio||1,2);
-  cv.width = r.width*d; cv.height = r.height*d;
-  const g = cv.getContext("2d"), w = cv.width, h = cv.height;
-  const h1 = +cv.dataset.h1, h2 = +cv.dataset.h2; let s = +cv.dataset.seed*9301;
-  const rnd = () => (s = (s*9301+49297)%233280)/233280;
-  const bg = g.createLinearGradient(0,0,w,h);
-  bg.addColorStop(0,`hsl(${h1} 70% 14%)`); bg.addColorStop(1,`hsl(${h2} 60% 6%)`);
-  g.fillStyle = bg; g.fillRect(0,0,w,h);
-  g.globalCompositeOperation = "lighter";
-  for(let i=0;i<26;i++){
-    const x=rnd()*w,y=rnd()*h,rad=(0.04+rnd()*0.22)*w;
-    const rg=g.createRadialGradient(x,y,0,x,y,rad);
-    rg.addColorStop(0,`hsla(${i%2?h1:h2} 90% 60% / .22)`); rg.addColorStop(1,"hsla(0 0% 0% / 0)");
-    g.fillStyle=rg; g.beginPath(); g.arc(x,y,rad,0,Math.PI*2); g.fill();
-  }
-  g.globalCompositeOperation = "source-over";
-  g.strokeStyle="rgba(255,255,255,.07)"; g.lineWidth=d;
-  for(let x=0;x<w;x+=w/12){g.beginPath();g.moveTo(x,0);g.lineTo(x,h);g.stroke();}
-  for(let y=0;y<h;y+=h/8){g.beginPath();g.moveTo(0,y);g.lineTo(w,y);g.stroke();}
-}
-const covers=[...document.querySelectorAll(".proj canvas")];
-covers.forEach(drawCover);
-let rt; addEventListener("resize",()=>{clearTimeout(rt);rt=setTimeout(()=>covers.forEach(drawCover),150)});
-
 /* ---------- hero video ---------- */
 const vMain=document.getElementById("vMain"), vAmb=document.getElementById("vAmb");
 const hint=document.getElementById("hint"), hintText=document.getElementById("hintText");
@@ -859,11 +773,14 @@ function loadSources(){
   const t=vMain.currentTime||0, wasPlaying=currentSrc? !vMain.paused : true;
   switching=true; currentSrc=src; vMain.src=src;
   vMain.addEventListener("loadedmetadata",()=>{ if(t) vMain.currentTime=t; if(wasPlaying) vMain.play().catch(()=>{}); setTimeout(()=>switching=false,300); },{once:true});
-  if(!vAmb.src) vAmb.src=SOURCES[0].src;   // the blurred layer never needs more than 720p
 }
 loadSources();
 let srcT; addEventListener("resize",()=>{clearTimeout(srcT);srcT=setTimeout(()=>{ if(SOURCES.findIndex(s=>s.src===pickSource())>SOURCES.findIndex(s=>s.src===currentSrc)) loadSources(); },400)});
 
+/* The blurred backdrop (720p) loads only once the main video is playing, so it never competes for bandwidth. */
+function loadAmbient(){ if(!vAmb.src){ vAmb.src=SOURCES[0].src; vAmb.currentTime=vMain.currentTime||0; vAmb.play().catch(()=>{}); } }
+vMain.addEventListener("playing",loadAmbient,{once:true});
+setTimeout(loadAmbient,6000);
 vMain.addEventListener("loadeddata",()=>vMain.classList.add("ready"));
 if(vMain.readyState>=2) vMain.classList.add("ready");
 setTimeout(()=>vMain.classList.add("ready"),2500);   // if autoplay is blocked (e.g. low-power mode), still show the poster frame
@@ -988,12 +905,10 @@ document.getElementById("cue").onclick=()=>{ if(window.deck) deck.go(1); else do
   if(reduce) frame(0); else requestAnimationFrame(tick);
 })();
 
-/* ---------- nav, clock, greeting ---------- */
+/* ---------- nav, greeting ---------- */
 const nav=document.getElementById("nav");
 addEventListener("scroll",()=>{ if(!window.deck) nav.classList.toggle("solid",scrollY>innerHeight*.6); },{passive:true});
-function istParts(){ const p=new Intl.DateTimeFormat("en-IN",{timeZone:"Asia/Kolkata",hour:"2-digit",minute:"2-digit",hour12:true}).format(new Date()); return p; }
 function tickClock(){
-  document.getElementById("clock").textContent=istParts().toUpperCase();
   const hr=+new Intl.DateTimeFormat("en-GB",{timeZone:"Asia/Kolkata",hour:"2-digit",hour12:false}).format(new Date());
   document.getElementById("greet").textContent = hr<12?"Good morning":hr<17?"Good afternoon":"Good evening";
 }
@@ -1001,7 +916,7 @@ tickClock(); setInterval(tickClock,30000);
 
 /* ---------- sign-up button ----------
    SIGNUP_URL: where "Sign Up" goes. Empty = the button stays put (no navigation) until a destination is set. */
-const SIGNUP_URL = "";
+const SIGNUP_URL = "https://booking.closer.esowolf.in/book";
 (function(){
   const a=document.getElementById("signupLink");
   if(SIGNUP_URL){ a.href=SIGNUP_URL; a.target="_blank"; a.rel="noopener"; }

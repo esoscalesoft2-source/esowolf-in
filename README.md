@@ -1,18 +1,28 @@
 # esowolf.in
 
-Cinematic developer portfolio — a single static page (`index.html`) with a full-screen intro video hero.
+Website for **ESOWOLF (Ezy Sell Online)**, a company of MV Inc, Thiruvarur, Tamil Nadu.
+Static site — no build step. Hosted on Cloudflare Pages (project `esowolf-in`).
 
-## Structure
-- `index.html` — the whole site (HTML, CSS and JS in one file)
-- `assets/intro-720.mp4`, `intro-1080.mp4`, `intro-1440.mp4` — intro video; the page loads the smallest one that is still sharp for the visitor's screen
-- `assets/poster.jpg` — first frame shown while the video loads
-- `assets/about.jpg` — About section photo
+## Files
+| File | What it is |
+|---|---|
+| `index.html` | Main site: 6 vertical slides — intro video, Amazon (Wolf hunt method), Meesho Profit, Myntra Profit, WOO Chat (WhatsApp Business API), Contact |
+| `policies.html` | About us, Privacy, Terms, Refund and Return policies (`#about`, `#privacy`, `#terms`, `#refund`, `#return`) |
+| `404.html` | Not-found page |
+| `robots.txt`, `sitemap.xml` | Search engine files |
+| `assets/` | Logos, favicon, intro videos (720p/1080p/1440p), poster, social share image (`og-image.jpg`) |
 
-## Edit content
-Projects, experience, articles and the marquee words live in the `CONTENT` object near the top of the `<script>` in `index.html`. Name, email and social links are in the HTML.
+## Common edits
+- **Amazon "Sign Up" link** — `SIGNUP_URL` in the script of `index.html`.
+- **Book Demo (top menu)** — `https://booking.closer.esowolf.in/book`.
+- **Meesho / Myntra demo** — `https://bookdemo.esowolf.in/?platform=Meesho#book` / `?platform=Myntra#book`.
+- **WOO Chat** — Sign Up / Sign In go to `https://woochatofficial.esowolf.in/login`.
 
 ## Run locally
-Any static server works, e.g. `npx serve .` or `python3 -m http.server`.
+```
+python3 -m http.server 3010
+```
+then open http://localhost:3010
 
 ## Deploy
-No build step. On Vercel or Netlify import the repo with framework preset "Other" and output directory `.`; on GitHub Pages serve from the `main` branch root.
+Push to `main`, then trigger the Cloudflare Pages deploy hook (Git connection is currently disconnected in Cloudflare).
