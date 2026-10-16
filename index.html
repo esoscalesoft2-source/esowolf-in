@@ -208,151 +208,6 @@ section{padding-block:clamp(72px,10vw,128px)}
 
 
 
-/* Meesho Reconciliation (slide 3): big title left, what it does right */
-.meesho{position:relative;overflow:hidden;background:var(--ink);color:var(--paper);min-height:100svh;display:flex;align-items:center;
-  padding-block:clamp(110px,12vw,150px) clamp(110px,10vw,140px)}
-.me-glow{position:absolute;inset:auto -10% -30% auto;width:70vw;aspect-ratio:1;border-radius:50%;pointer-events:none;
-  background:radial-gradient(circle,rgba(255,106,26,.28) 0%,rgba(255,106,26,.08) 40%,rgba(255,106,26,0) 70%)}
-.me-grid{position:relative;display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:clamp(40px,7vw,120px);align-items:center;width:100%}
-.me-title{font-family:var(--body);text-transform:none;font-weight:800;letter-spacing:-.035em;line-height:1.02;
-  font-size:clamp(40px,5.4vw,90px);color:var(--paper);margin:0;text-wrap:balance;min-width:0}
-.me-title span{display:inline-block;padding-right:.04em;background:linear-gradient(90deg,var(--ember),#ffb27a);
-  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
-.me-lead{font-size:clamp(18px,1.6vw,22px);line-height:1.55;color:#d9cbbd;margin:0 0 clamp(26px,3vw,40px);max-width:42ch}
-.me-list{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
-.me-list li{display:grid;grid-template-columns:56px 1fr;gap:14px;align-items:baseline;padding-block:18px;border-bottom:1px solid var(--line);
-  font-size:clamp(16px,1.3vw,19px);font-weight:600;line-height:1.45;color:var(--paper)}
-.me-n{font-family:var(--mono);font-size:13px;letter-spacing:.1em;color:var(--ember)}
-.meesho .rv{transform:translateX(50px);transition:transform 1s cubic-bezier(.16,1,.3,1),opacity .9s ease}
-.meesho .rv.in{transform:none}
-.meesho .me-title.rv{transform:translateX(-60px)}
-.meesho .me-title.rv.in{transform:none}
-.meesho .me-lead.rv{transition-delay:.25s}
-.meesho .me-list li:nth-child(1){transition-delay:.4s}.meesho .me-list li:nth-child(2){transition-delay:.52s}
-.meesho .me-list li:nth-child(3){transition-delay:.64s}.meesho .me-list li:nth-child(4){transition-delay:.76s}
-@media (max-width:960px){.me-grid{grid-template-columns:1fr}.meesho{align-items:flex-start}}
-
-
-
-/* WhatsApp Business API slide — styled after the WOO Chat sign-in screen */
-.wa{--wa-g:#10b981;--wa-g2:#4ade80;--wa-ink:#0a1310;padding:0;display:grid;grid-template-columns:1fr 1fr;min-height:100svh;background:var(--wa-ink);color:#eafff5;position:relative;overflow:hidden}
-.wa-left{position:relative;overflow:hidden;display:flex;align-items:center;
-  background:radial-gradient(120% 90% at 30% 40%,#1f7a58 0%,#145d43 38%,#0d3a2b 75%,#0b2e23 100%)}
-.wa-left-in{position:relative;z-index:2;width:100%;padding:clamp(110px,14vh,150px) clamp(24px,5vw,72px) clamp(140px,19vh,190px)}
-.wa-brand{display:flex;align-items:center;gap:14px;font:800 clamp(20px,1.7vw,26px)/1 var(--body);letter-spacing:-.01em;margin-bottom:clamp(40px,7vh,90px)}
-.wa-logo{display:grid;place-items:center;width:50px;height:50px;border-radius:14px;background:rgba(10,19,16,.55);border:1px solid rgba(255,255,255,.12);overflow:hidden}
-.wa-logo img{width:86%;height:auto;object-fit:contain}
-.wa-logo-lg{width:58px;height:58px;border-radius:16px;margin:0 auto 18px;background:#0e1814}
-.wa-title{font-family:var(--body);text-transform:none;font-weight:800;letter-spacing:-.03em;line-height:1.04;font-size:clamp(40px,4.6vw,72px);margin:0 0 20px;color:#f1fff8}
-.wa-title em{font-style:normal;color:var(--wa-g2)}
-.wa-lead{margin:0 0 30px;max-width:44ch;font-size:clamp(16px,1.3vw,19px);line-height:1.55;color:rgba(234,255,245,.78)}
-.wa-chips{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,250px));gap:12px}
-.wa-chips li{display:flex;align-items:center;gap:12px;padding:14px 16px;border-radius:12px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);
-  font-weight:700;font-size:15px;color:#f1fff8;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);transition:background .25s,transform .25s}
-.wa-chips li:hover{background:rgba(255,255,255,.12);transform:translateY(-2px)}
-.wa-chips svg{width:18px;height:18px;flex:none;color:var(--wa-g2)}
-.wa-bubble{position:absolute;z-index:1;padding:12px 16px 8px;border-radius:14px;font-weight:600;font-size:15px;box-shadow:0 18px 40px rgba(0,0,0,.25);
-  opacity:0;transform:translateY(20px) scale(.9);transition:opacity .6s ease,transform .8s cubic-bezier(.16,1,.3,1)}
-.wa-bubble small{display:block;text-align:right;font-size:11px;font-weight:500;opacity:.7;margin-top:4px}
-.wa-b1{right:6%;top:15%;background:#0f6b4f;color:#eafff5;border-bottom-right-radius:4px;transition-delay:1.1s}
-.wa-b2{left:6%;bottom:11%;background:#fff;color:#1b2a24;border-bottom-left-radius:4px;transition-delay:1.6s}
-.wa-b3{right:8%;bottom:16%;background:#0f6b4f;color:#eafff5;border-bottom-right-radius:4px;transition-delay:2.2s}
-.wa.is-in .wa-bubble{opacity:1;transform:none;animation:waFloat 6s ease-in-out 3s infinite}
-.wa.is-in .wa-b2{animation-delay:3.6s}.wa.is-in .wa-b3{animation-delay:4.2s}
-@keyframes waFloat{50%{transform:translateY(-8px)}}
-.wa-right{position:relative;display:grid;place-items:center;padding:clamp(110px,12vh,150px) clamp(20px,4vw,60px) clamp(110px,12vh,150px);
-  background:
-    radial-gradient(60% 50% at 85% 10%,rgba(16,185,129,.22),transparent 70%),
-    radial-gradient(50% 40% at 20% 100%,rgba(16,185,129,.12),transparent 70%),
-    linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px) 0 0/44px 44px,
-    linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px) 0 0/44px 44px,
-    var(--wa-ink)}
-.wa-card{width:min(100%,440px);padding:clamp(28px,3vw,40px);border-radius:18px;text-align:center;
-  background:rgba(17,26,22,.92);border:1px solid rgba(255,255,255,.08);box-shadow:0 40px 90px rgba(0,0,0,.45)}
-.wa-card h3{display:block;font-family:var(--body);text-transform:none;font-weight:800;
-  font-size:clamp(22px,1.8vw,27px);letter-spacing:-.01em;margin:0 0 10px;color:#f1fff8}
-.wa-card h3 svg{display:inline-block;width:22px;height:22px;vertical-align:-3px;margin-right:8px;color:var(--wa-g2)}
-.wa-card>p{margin:0 0 26px;color:rgba(234,255,245,.6);font-size:15px;line-height:1.5}
-.wa-btn{display:flex;align-items:center;justify-content:center;gap:10px;height:54px;border-radius:12px;background:var(--wa-g);color:#fff;
-  font:700 16px/1 var(--body);text-decoration:none;box-shadow:0 14px 34px rgba(16,185,129,.35);transition:transform .2s,background .2s,box-shadow .2s}
-.wa-btn span{transition:transform .25s}
-.wa-btn:hover{background:#0ea371;transform:translateY(-2px);box-shadow:0 18px 40px rgba(16,185,129,.45)}
-.wa-btn:hover span{transform:translateX(4px)}
-.wa-btn:focus-visible{outline:3px solid var(--wa-g2);outline-offset:3px}
-.wa-small{margin:18px 0 0;font-size:14px;color:rgba(234,255,245,.6)}
-.wa-small a{color:var(--wa-g);font-weight:700;text-decoration:none}
-.wa-small a:hover{text-decoration:underline}
-/* entrance */
-.wa .rv{transform:translateY(26px);transition:transform 1s cubic-bezier(.16,1,.3,1),opacity .9s ease}
-.wa .rv.in{transform:none}
-.wa .wa-title.rv{transition-delay:.1s}.wa .wa-lead.rv{transition-delay:.22s}
-.wa .wa-chips li:nth-child(1){transition-delay:.34s}.wa .wa-chips li:nth-child(2){transition-delay:.42s}
-.wa .wa-chips li:nth-child(3){transition-delay:.5s}.wa .wa-chips li:nth-child(4){transition-delay:.58s}
-.wa .wa-card.rv{transform:translateY(40px) scale(.96);transition-delay:.45s}
-.wa .wa-card.rv.in{transform:none}
-@media (max-width:960px){
-  .wa{grid-template-columns:1fr}
-  .wa-left-in{padding-bottom:180px}
-  .wa-right{padding-top:56px}
-  .wa-b3{display:none}
-}
-@media (max-width:560px){
-  .wa-chips{grid-template-columns:1fr 1fr}
-  .wa-chips li{padding:12px;font-size:13px;gap:8px}
-  .wa-brand{margin-bottom:32px}
-  .wa-bubble{display:none}
-  .wa-left-in{padding-bottom:64px}
-}
-@media (prefers-reduced-motion:reduce){.wa-bubble{opacity:1;transform:none}}
-
-
-/* Myntra slide — styled after the Myntra Profit sign-in screen */
-.mp{--mp-bg:#0b0b12;--mp-pink:#f43f74;--mp-orange:#fb923c;--mp-card:#16161d;--mp-line:#2a2a33;
-  padding:0;min-height:100svh;display:flex;align-items:center;background:
-  radial-gradient(50% 45% at 80% 20%,rgba(244,63,116,.10),transparent 70%),
-  radial-gradient(40% 40% at 10% 90%,rgba(251,146,60,.07),transparent 70%),var(--mp-bg);color:#f3f3f7}
-.mp-grid{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(320px,400px);gap:clamp(40px,8vw,140px);align-items:center;width:100%;
-  padding-block:clamp(110px,13vh,150px) clamp(120px,14vh,160px)}
-.mp-logo{display:block;width:clamp(170px,15vw,228px);height:auto;margin:0 0 clamp(32px,6vh,64px);mix-blend-mode:lighten}
-.mp-title{font-family:var(--body);text-transform:none;font-weight:800;letter-spacing:-.03em;line-height:1.08;font-size:clamp(36px,3.9vw,60px);margin:0 0 20px;color:#fff;max-width:15ch}
-.mp-title span{display:block;background:linear-gradient(90deg,var(--mp-pink),var(--mp-orange));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent}
-.mp-lead{margin:0 0 26px;max-width:52ch;color:#a9a9b8;font-size:clamp(15px,1.15vw,17px);line-height:1.65}
-.mp-list{list-style:none;margin:0;padding:0;display:grid;gap:12px}
-.mp-list li{display:flex;gap:12px;align-items:flex-start;font-size:15px;line-height:1.5;color:#e6e6ee}
-.mp-list svg{flex:none;width:20px;height:20px;padding:3px;border-radius:6px;background:rgba(244,63,116,.14);color:var(--mp-pink);margin-top:1px}
-.mp-card{padding:clamp(26px,2.4vw,34px);border-radius:14px;background:var(--mp-card);border:1px solid var(--mp-line);box-shadow:0 30px 80px rgba(0,0,0,.45)}
-.mp-card h3{font-family:var(--body);text-transform:none;font-weight:800;font-size:clamp(22px,1.7vw,26px);letter-spacing:-.01em;margin:0 0 6px;color:#fff}
-.mp-card>p{margin:0 0 24px;color:#a9a9b8;font-size:14px;line-height:1.55}
-.mp-btn{display:flex;align-items:center;justify-content:center;height:46px;border-radius:8px;background:var(--mp-pink);color:#fff;text-decoration:none;
-  font:700 15px/1 var(--body);box-shadow:0 12px 30px rgba(244,63,116,.3);transition:background .2s,transform .2s,box-shadow .2s}
-.mp-btn:hover{background:#e62e64;transform:translateY(-2px);box-shadow:0 16px 36px rgba(244,63,116,.4)}
-.mp-btn:focus-visible{outline:3px solid var(--mp-orange);outline-offset:3px}
-.mp-small{margin:20px 0 0;text-align:center;font-size:14px;color:#a9a9b8}
-.mp-small a{color:var(--mp-pink);font-weight:700;text-decoration:none}
-.mp-small a:hover{text-decoration:underline}
-.mp .rv{transform:translateY(26px);transition:transform 1s cubic-bezier(.16,1,.3,1),opacity .9s ease}
-.mp .rv.in{transform:none}
-.mp .mp-title.rv{transition-delay:.1s}.mp .mp-lead.rv{transition-delay:.22s}
-.mp .mp-list li:nth-child(1){transition-delay:.32s}.mp .mp-list li:nth-child(2){transition-delay:.4s}
-.mp .mp-list li:nth-child(3){transition-delay:.48s}.mp .mp-list li:nth-child(4){transition-delay:.56s}
-.mp .mp-card.rv{transform:translateY(40px) scale(.97);transition-delay:.4s}
-.mp .mp-card.rv.in{transform:none}
-@media (max-width:960px){.mp-grid{grid-template-columns:1fr}.mp-card{max-width:440px}}
-
-
-/* Meesho slide — meesho Profit colours (violet → cyan), split with a hairline divider */
-.mp.ms{--mp-bg:#0a0d15;--mp-pink:#8b7cf6;--mp-orange:#38bdf8;--mp-card:#121521;--mp-line:#262a3a;position:relative;
-  background:radial-gradient(45% 45% at 85% 25%,rgba(139,124,246,.12),transparent 70%),radial-gradient(40% 40% at 10% 90%,rgba(56,189,248,.06),transparent 70%),var(--mp-bg)}
-.mp.ms::before{content:"";position:absolute;top:0;bottom:0;left:50%;width:1px;background:rgba(255,255,255,.06);pointer-events:none}
-.mp.ms .mp-title span{background:linear-gradient(90deg,#a78bfa,#8b7cf6 40%,#38bdf8)}
-.mp.ms .mp-title span{-webkit-background-clip:text;background-clip:text}
-.mp.ms .mp-btn{box-shadow:0 12px 30px rgba(139,124,246,.3)}
-.mp.ms .mp-btn:hover{background:#7c6cf0;box-shadow:0 16px 36px rgba(139,124,246,.42)}
-.mp.ms .mp-list svg{background:rgba(139,124,246,.16)}
-.mp.ms .mp-grid{grid-template-columns:minmax(0,1fr) minmax(320px,440px);gap:clamp(40px,12vw,200px)}
-@media (max-width:960px){.mp.ms::before{display:none}.mp.ms .mp-grid{grid-template-columns:1fr}}
-
-
 /* contact details */
 .contact h2{margin-bottom:14px;font-size:clamp(48px,7.4vw,118px)}
 html.deck .contact{padding-top:max(108px,9vw)}
@@ -371,7 +226,42 @@ a.ct-v:hover{text-decoration:underline}
 .ct-links a:hover{border-color:var(--ink)}
 @media (max-width:760px){.ct-grid{grid-template-columns:1fr}}
 
-.mp-one{font-size:clamp(18px,1.6vw,23px);color:#d6d6e2;margin:0;max-width:30ch}
+
+/* ===== One layout for every content slide: copy left, sign-up card right (orange theme) ===== */
+.signup-inner{grid-template-columns:minmax(0,1.2fr) minmax(300px,420px);gap:clamp(36px,6vw,110px);align-items:center}
+.os-title{max-width:12ch}
+.os-line{margin:clamp(20px,2.4vw,30px) 0 0;font-size:clamp(18px,1.7vw,24px);font-weight:600;line-height:1.45;color:#3a2416;max-width:32ch}
+.os-card{position:relative;z-index:2;padding:clamp(26px,2.6vw,36px);border-radius:24px;color:var(--su-ink,#1b120c);
+  background:linear-gradient(160deg,rgba(255,247,240,.94),rgba(255,234,216,.82));border:1px solid rgba(255,255,255,.8);
+  box-shadow:0 30px 70px rgba(120,40,0,.22),inset 0 1px 0 #fff;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);min-width:0}
+.os-card::before{content:"";position:absolute;left:clamp(26px,2.6vw,36px);top:0;width:56px;height:4px;border-radius:0 0 4px 4px;background:#f26a1b}
+.os-card h3{font-family:var(--body);text-transform:none;font-weight:800;font-size:clamp(24px,2vw,30px);letter-spacing:-.02em;margin:0 0 20px;line-height:1.1}
+.os-logo{display:inline-flex;align-items:center;height:64px;padding:8px 14px;margin-bottom:18px;border-radius:14px;background:#0c0c12}
+.os-logo img{height:44px;width:auto;display:block;mix-blend-mode:lighten}
+.os-btn{width:100%;justify-content:space-between}
+.os-small{margin:16px 0 0;font-size:14px;color:#5a4030;text-align:center}
+.os-small a{color:#c4400b;font-weight:800;text-decoration:none}
+.os-small a:hover{text-decoration:underline}
+.os-card.rv{transform:translateY(36px) scale(.97);transition:transform 1.1s cubic-bezier(.16,1,.3,1) .35s,opacity .9s ease .35s}
+.os-card.rv.in{transform:none}
+.os .os-line.rv{transition-delay:.15s}
+
+.os-card{--su-ink:#1b120c;--su-cream:#fff3e8;--su-ember:#f26a1b;justify-self:stretch}
+.os-title mark{display:inline;white-space:normal;background:var(--su-ink);color:var(--su-cream);padding:.02em .2em .08em;border-radius:.16em;
+  -webkit-box-decoration-break:clone;box-decoration-break:clone;line-height:1.35}
+.os-title mark::before{display:none}
+/* contact slide uses the same split */
+.ct-wrap{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(300px,420px);gap:clamp(36px,6vw,110px);align-items:center}
+.ct-main{min-width:0}
+.contact h2{font-size:clamp(44px,5.6vw,92px)!important}
+.ct-bottom{grid-column:1/-1}
+.ct-card{background:linear-gradient(160deg,rgba(255,247,240,.96),rgba(255,234,216,.88))}
+@media (max-width:960px){
+  .signup-inner,.ct-wrap{grid-template-columns:1fr}
+  .os-card{max-width:480px}
+  .os-title{max-width:16ch}
+}
+
 /* tablet & phone: copy first, portrait anchored to the bottom of the section */
 @media (max-width:960px){
   .signup{flex-direction:column;align-items:stretch;padding-block:120px 96px;min-height:auto}
@@ -595,70 +485,64 @@ html.deck .signup{padding-bottom:max(110px,10vw)}
     <div class="wrap signup-inner">
       <div class="su-copy">
       <h2 id="signupTitle" class="signup-title" data-split>We help Amazon sellers increase their sales and profit and manage ads using our proven <mark>Wolf hunt method.</mark></h2>
-      <div class="signup-cta"><a class="signup-btn" id="signupLink" href="#signup" data-magnetic><span class="lbl">Sign Up</span><span class="arr" aria-hidden="true">↗</span></a></div>
       </div>
+      <aside class="os-card rv">
+        <h3>Get started</h3>
+        <a class="signup-btn os-btn" href="#signup" id="signupLink" data-magnetic><span class="lbl">Sign Up</span><span class="arr" aria-hidden="true">↗</span></a>
+      </aside>
     </div>
   </section>
 
 
-  <!-- ======================= MEESHO (meesho Profit) ======================= -->
-  <section class="mp ms" id="meesho" aria-labelledby="meeshoTitle">
-    <div class="wrap mp-grid">
-      <div class="mp-copy">
-        <img class="mp-logo rv" src="assets/meesho-profit-logo.webp" alt="meesho Profit" width="236" height="116">
-        <h2 id="meeshoTitle" class="mp-title rv">Meesho <span>Reconciliation Software.</span></h2>
-        <p class="mp-lead mp-one rv">We help Meesho sellers find their actual profit.</p>
+  <!-- ======================= MEESHO ======================= -->
+  <section class="signup os" id="meesho" aria-labelledby="meeshoTitle">
+    <div class="su-grain" aria-hidden="true"></div>
+    <div class="su-word" aria-hidden="true">WOLF</div>
+    <div class="wrap signup-inner">
+      <div class="su-copy">
+        <h2 id="meeshoTitle" class="signup-title os-title rv">Meesho <mark>Reconciliation Software.</mark></h2>
+        <p class="os-line rv">We help Meesho sellers find their actual profit.</p>
       </div>
-      <div class="mp-card rv">
+      <aside class="os-card rv">
+        <span class="os-logo"><img src="assets/meesho-profit-logo.webp" alt="meesho Profit" height="44"></span>
         <h3>Get started</h3>
-        <p>Upload your inventory, orders and Meesho payment reports and see your true profit.</p>
-        <a class="mp-btn" href="https://meesho.esowolf.in/auth" target="_blank" rel="noopener">Sign up</a>
-        <p class="mp-small">Already a vendor? <a href="https://meesho.esowolf.in/auth" target="_blank" rel="noopener">Sign in</a></p>
-      </div>
+        <a class="signup-btn os-btn" href="https://meesho.esowolf.in/auth" target="_blank" rel="noopener"><span class="lbl">Sign Up</span><span class="arr" aria-hidden="true">↗</span></a>
+        <p class="os-small">Already have an account? <a href="https://meesho.esowolf.in/auth" target="_blank" rel="noopener">Sign in</a></p>
+      </aside>
     </div>
   </section>
-  <!-- ======================= MYNTRA (Myntra Profit) ======================= -->
-  <section class="mp" id="myntra" aria-labelledby="myntraTitle">
-    <div class="wrap mp-grid">
-      <div class="mp-copy">
-        <img class="mp-logo rv" src="assets/myntra-profit-logo.webp" alt="Myntra Profit" width="228" height="116">
-        <h2 id="myntraTitle" class="mp-title rv">Myntra <span>Reconciliation Software.</span></h2>
-        <p class="mp-lead mp-one rv">We help Myntra sellers find their actual profit.</p>
+  <!-- ======================= MYNTRA ======================= -->
+  <section class="signup os" id="myntra" aria-labelledby="myntraTitle">
+    <div class="su-grain" aria-hidden="true"></div>
+    <div class="su-word" aria-hidden="true">WOLF</div>
+    <div class="wrap signup-inner">
+      <div class="su-copy">
+        <h2 id="myntraTitle" class="signup-title os-title rv">Myntra <mark>Reconciliation Software.</mark></h2>
+        <p class="os-line rv">We help Myntra sellers find their actual profit.</p>
       </div>
-      <div class="mp-card rv">
+      <aside class="os-card rv">
+        <span class="os-logo"><img src="assets/myntra-profit-logo.webp" alt="Myntra Profit" height="44"></span>
         <h3>Get started</h3>
-        <p>Upload your Myntra inventory, orders and payment reports and see your true profit.</p>
-        <a class="mp-btn" href="https://myntra.esowolf.in/auth" target="_blank" rel="noopener">Sign up</a>
-        <p class="mp-small">Already a vendor? <a href="https://myntra.esowolf.in/auth" target="_blank" rel="noopener">Sign in</a></p>
-      </div>
+        <a class="signup-btn os-btn" href="https://myntra.esowolf.in/auth" target="_blank" rel="noopener"><span class="lbl">Sign Up</span><span class="arr" aria-hidden="true">↗</span></a>
+        <p class="os-small">Already have an account? <a href="https://myntra.esowolf.in/auth" target="_blank" rel="noopener">Sign in</a></p>
+      </aside>
     </div>
   </section>
-  <!-- ======================= WHATSAPP (WOO Chat) ======================= -->
-  <section class="wa" id="whatsapp" aria-labelledby="waTitle">
-    <div class="wa-left">
-      <div class="wa-left-in">
-        <div class="wa-brand rv"><span class="wa-logo"><img src="https://spx.aurotec.in/storage/v1/object/public/app-assets/logo/app-logo.png" alt="" width="46" height="23"></span>WOO Chat</div>
-        <h2 id="waTitle" class="wa-title rv">WhatsApp <em>Business</em> API</h2>
-        <p class="wa-lead rv">Reach customers on the app they already use. Send automated messages and updates from your own business number, at any scale.</p>
-        <ul class="wa-chips">
-          <li class="rv"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg>Automated Replies</li>
-          <li class="rv"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m22 2-7 20-4-9-9-4 20-7z"/><path d="M22 2 11 13"/></svg>Customer Notifications</li>
-          <li class="rv"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8 12 3 3 8v8l9 5 9-5z"/><path d="m3 8 9 5 9-5M12 13v8"/></svg>Order Updates</li>
-          <li class="rv"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>Shared Team Inbox</li>
-        </ul>
+  <!-- ======================= WHATSAPP ======================= -->
+  <section class="signup os" id="whatsapp" aria-labelledby="waTitle">
+    <div class="su-grain" aria-hidden="true"></div>
+    <div class="su-word" aria-hidden="true">WOLF</div>
+    <div class="wrap signup-inner">
+      <div class="su-copy">
+        <h2 id="waTitle" class="signup-title os-title rv">WhatsApp <mark>Business API.</mark></h2>
+        <p class="os-line rv">Send automatic replies and order updates to your customers on WhatsApp.</p>
       </div>
-      <div class="wa-bubble wa-b1" aria-hidden="true">Hello! 👋 How can I help you?<small>9:41 am ✓✓</small></div>
-      <div class="wa-bubble wa-b2" aria-hidden="true">Can I track my order? 🙂<small>9:42 am</small></div>
-      <div class="wa-bubble wa-b3" aria-hidden="true">Your order is out for delivery 🚚<small>9:42 am ✓✓</small></div>
-    </div>
-    <div class="wa-right">
-      <div class="wa-card rv">
-        <span class="wa-logo wa-logo-lg"><img src="https://spx.aurotec.in/storage/v1/object/public/app-assets/logo/app-logo.png" alt="WOO Chat logo" width="56" height="28"></span>
-        <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.5 2.5M15.5 15.5 18 18M6 18l2.5-2.5M15.5 8.5 18 6"/></svg>Get started with WOO Chat</h3>
-        <p>Automated replies, notifications and order updates for your business on WhatsApp.</p>
-        <a class="wa-btn" href="https://woochat.esowolf.in/login" target="_blank" rel="noopener">Sign Up <span aria-hidden="true">→</span></a>
-        <p class="wa-small">Already have an account? <a href="https://woochat.esowolf.in/login" target="_blank" rel="noopener">Sign In</a></p>
-      </div>
+      <aside class="os-card rv">
+        <span class="os-logo"><img src="https://spx.aurotec.in/storage/v1/object/public/app-assets/logo/app-logo.png" alt="WOO Chat" height="44"></span>
+        <h3>Get started</h3>
+        <a class="signup-btn os-btn" href="https://woochat.esowolf.in/login" target="_blank" rel="noopener"><span class="lbl">Sign Up</span><span class="arr" aria-hidden="true">↗</span></a>
+        <p class="os-small">Already have an account? <a href="https://woochat.esowolf.in/login" target="_blank" rel="noopener">Sign in</a></p>
+      </aside>
     </div>
   </section>
 
@@ -667,7 +551,8 @@ html.deck .signup{padding-bottom:max(110px,10vw)}
 
   <!-- ======================= CONTACT ======================= -->
   <footer class="contact" id="contact">
-    <div class="wrap">
+    <div class="wrap ct-wrap">
+      <div class="ct-main">
       <span class="greet" id="greet">Hello</span>
       <h2>Build your<br>dream now.</h2>
       <p class="ct-lead">Have a question or a project in mind? Reach out — we reply within 24 hours.</p>
@@ -675,9 +560,15 @@ html.deck .signup{padding-bottom:max(110px,10vw)}
         <div class="ct-item"><span class="ct-k">Email</span>
           <div class="mail"><code id="mailText">support@esowolf.in</code><button class="btn btn-dark" id="copyMail" type="button">Copy email</button></div></div>
         <div class="ct-item"><span class="ct-k">Phone</span><a class="ct-v" href="tel:+919751551117">+91 97515 51117</a><span class="ct-n">Mon–Sat, 9am to 6pm IST</span></div>
-        <div class="ct-item"><span class="ct-k">WhatsApp</span><a class="btn btn-dark ct-wa" href="https://wa.me/919751551117" target="_blank" rel="noopener">Chat on WhatsApp ↗</a><span class="ct-n">Fastest response channel</span></div>
         <div class="ct-item"><span class="ct-k">Office</span><address class="ct-v ct-addr">MV Inc<br>2/424-2, Sivan South Street, Maruthapattinam,<br>Thiruvarur — 610001, Tamil Nadu, India</address><span class="ct-n">GSTIN / UIN: 33ABPFM8566P1Z8</span></div>
       </div>
+      </div>
+      <aside class="os-card ct-card rv">
+        <h3>Talk to us</h3>
+        <a class="signup-btn os-btn" href="https://wa.me/919751551117" target="_blank" rel="noopener"><span class="lbl">Chat on WhatsApp</span><span class="arr" aria-hidden="true">↗</span></a>
+        <p class="os-small">or call <a href="tel:+919751551117">+91 97515 51117</a></p>
+      </aside>
+      <div class="ct-bottom">
       <nav class="ct-links" aria-label="Legal">
         <a href="http://project.esowolf.in/about-us.html" target="_blank" rel="noopener">About Us</a>
         <a href="http://project.esowolf.in/privacy-policy.html" target="_blank" rel="noopener">Privacy Policy</a>
@@ -688,6 +579,7 @@ html.deck .signup{padding-bottom:max(110px,10vw)}
       <div class="foot">
         <span>© 2026 ESOWOLF is a company of MV Inc. All rights reserved.</span>
         <span>Amazon · Meesho · Myntra · Shopify</span>
+      </div>
       </div>
     </div>
   </footer>
