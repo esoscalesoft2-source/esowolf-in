@@ -231,6 +231,17 @@ section{padding-block:clamp(72px,10vw,128px)}
 .meesho .me-list li:nth-child(3){transition-delay:.64s}.meesho .me-list li:nth-child(4){transition-delay:.76s}
 @media (max-width:960px){.me-grid{grid-template-columns:1fr}.meesho{align-items:flex-start}}
 
+/* Myntra: same design as Meesho, mirrored (title on the right) */
+.myntra{background:var(--ink-2)}
+.myntra .me-glow{inset:auto auto -30% -10%}
+.myntra .me-grid{grid-template-columns:minmax(0,1fr) minmax(0,1.05fr)}
+.myntra .me-title{grid-column:2;grid-row:1;text-align:right;justify-self:end}
+.myntra .me-body{grid-column:1;grid-row:1}
+.meesho.myntra .me-title.rv{transform:translateX(60px)}
+.meesho.myntra .rv:not(.me-title){transform:translateX(-50px)}
+.meesho.myntra .rv.in{transform:none}
+@media (max-width:960px){.myntra .me-grid{grid-template-columns:1fr}.myntra .me-title{grid-column:1;text-align:left;justify-self:start}.myntra .me-body{grid-column:1;grid-row:2}}
+
 /* tablet & phone: copy first, portrait anchored to the bottom of the section */
 @media (max-width:960px){
   .signup{flex-direction:column;align-items:stretch;padding-block:120px 96px;min-height:auto}
@@ -409,6 +420,7 @@ html.deck .signup{padding-bottom:max(110px,10vw)}
     <div class="clock">India time · <span id="clock">--:--</span></div>
     <ul>
       <li><a href="#meesho">Meesho</a></li>
+      <li><a href="#myntra">Myntra</a></li>
       <li><a href="#projects">Projects</a></li>
       <li><a href="#experience">Experience</a></li>
       <li><a href="#writing">Writing</a></li>
@@ -466,6 +478,22 @@ html.deck .signup{padding-bottom:max(110px,10vw)}
           <li class="rv"><span class="me-n">02</span>Flags missing payments, wrong deductions and penalties</li>
           <li class="rv"><span class="me-n">03</span>Tracks RTO and customer returns so no claim is missed</li>
           <li class="rv"><span class="me-n">04</span>Shows your real profit per order after fees and returns</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+  <!-- ======================= MYNTRA ======================= -->
+  <section class="meesho myntra" id="myntra" aria-labelledby="myntraTitle">
+    <div class="me-glow" aria-hidden="true"></div>
+    <div class="wrap me-grid">
+      <h2 id="myntraTitle" class="me-title rv">Myntra <span>Reconciliation</span> Software</h2>
+      <div class="me-body">
+        <p class="me-lead rv">Checks every Myntra order against what Myntra actually pays out, so commission, fee and return gaps never go unnoticed.</p>
+        <ul class="me-list">
+          <li class="rv"><span class="me-n">01</span>Matches each order with its settlement and payout</li>
+          <li class="rv"><span class="me-n">02</span>Catches short payments and commission or fee mismatches</li>
+          <li class="rv"><span class="me-n">03</span>Tracks RTO and customer returns until stock is back</li>
+          <li class="rv"><span class="me-n">04</span>Shows real profit per SKU after commission, shipping and returns</li>
         </ul>
       </div>
     </div>
@@ -847,7 +875,7 @@ const SIGNUP_URL = "";
    Wheel / trackpad, swipe, arrow keys, the arrow buttons, the dots and nav links all move one slide.
    A slide taller than the screen scrolls inside itself first; at its edge the next move changes slide. */
 window.deck=(function(){
-  const order=["top","signup","meesho","projects","experience","writing","contact"];
+  const order=["top","signup","meesho","myntra","projects","experience","writing","contact"];
   const els=order.map(id=>document.getElementById(id)).filter(Boolean);
   if(els.length<2) return null;
   const mq=document.querySelector(".marquee");
