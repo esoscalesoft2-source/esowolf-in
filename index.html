@@ -4,10 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#0d0a08">
-<meta property="og:title" content="ESOWOLF Portfolio">
+<meta property="og:title" content="ESOWOLF — Making Your Online Business Come True">
 <meta property="og:image" content="assets/poster.jpg">
-<title>ESOWOLF Portfolio</title>
-<meta name="description" content="Cinematic developer portfolio — full stack engineering, AI systems and interactive web experiences.">
+<title>ESOWOLF — Making Your Online Business Come True</title>
+<meta name="description" content="ESOWOLF helps sellers grow on Amazon, Meesho, Flipkart and Shopify with 10+ years of e-commerce expertise — plus Meesho and Myntra reconciliation software and WhatsApp Business API.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;800;900&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap">
@@ -352,6 +352,25 @@ section{padding-block:clamp(72px,10vw,128px)}
 .mp.ms .mp-grid{grid-template-columns:minmax(0,1fr) minmax(320px,440px);gap:clamp(40px,12vw,200px)}
 @media (max-width:960px){.mp.ms::before{display:none}.mp.ms .mp-grid{grid-template-columns:1fr}}
 
+
+/* contact details */
+.contact h2{margin-bottom:14px;font-size:clamp(48px,7.4vw,118px)}
+html.deck .contact{padding-top:max(108px,9vw)}
+.ct-lead{margin:0 0 36px;font-size:clamp(16px,1.4vw,20px);font-weight:600;max-width:48ch}
+.ct-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:28px 48px;margin-bottom:40px}
+.ct-item{display:grid;gap:8px;align-content:start;min-width:0}
+.ct-k{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;opacity:.75}
+.ct-v{font-size:clamp(18px,1.6vw,22px);font-weight:700;color:var(--ink);text-decoration:none;font-style:normal;line-height:1.4}
+a.ct-v:hover{text-decoration:underline}
+.ct-addr{font-size:16px;font-weight:600}
+.ct-n{font-size:13px;opacity:.75}
+.ct-wa{justify-self:start}
+.contact .mail{margin:0}
+.ct-links{display:flex;flex-wrap:wrap;gap:8px 22px;margin-bottom:28px}
+.ct-links a{color:var(--ink);font-weight:700;font-size:14px;text-decoration:none;border-bottom:1.5px solid rgba(13,10,8,.3)}
+.ct-links a:hover{border-color:var(--ink)}
+@media (max-width:760px){.ct-grid{grid-template-columns:1fr}}
+
 /* tablet & phone: copy first, portrait anchored to the bottom of the section */
 @media (max-width:960px){
   .signup{flex-direction:column;align-items:stretch;padding-block:120px 96px;min-height:auto}
@@ -550,9 +569,9 @@ html.deck .signup{padding-bottom:max(110px,10vw)}
 
   <div class="hero-copy">
     <div class="wrap">
-      <span class="eyebrow">Portfolio 2026 · Based in India</span>
+      <span class="eyebrow">10+ Years · E-commerce Experts · Tamil Nadu</span>
       <h1 class="hero-name"><span class="l1" style="display:block">ESO</span><span class="l2" style="display:block">WOLF</span></h1>
-      <p class="role">Full-Stack Engineer · AI Systems · Cinematic Web Experiences</p>
+      <p class="role">Making your online business come true on Amazon, Meesho, Flipkart &amp; Shopify</p>
     </div>
   </div>
 
@@ -654,21 +673,25 @@ html.deck .signup{padding-bottom:max(110px,10vw)}
   <footer class="contact" id="contact">
     <div class="wrap">
       <span class="greet" id="greet">Hello</span>
-      <h2>Let's build<br>something alive.</h2>
-      <div class="mail">
-        <code id="mailText">hello@esowolf.in</code>
-        <button class="btn btn-dark" id="copyMail" type="button">Copy email</button>
-        <a class="btn btn-line" href="mailto:hello@esowolf.in">Open mail app</a>
+      <h2>Build your<br>dream now.</h2>
+      <p class="ct-lead">Have a question or a project in mind? Reach out — we reply within 24 hours.</p>
+      <div class="ct-grid">
+        <div class="ct-item"><span class="ct-k">Email</span>
+          <div class="mail"><code id="mailText">support@esowolf.in</code><button class="btn btn-dark" id="copyMail" type="button">Copy email</button></div></div>
+        <div class="ct-item"><span class="ct-k">Phone</span><a class="ct-v" href="tel:+919751551117">+91 97515 51117</a><span class="ct-n">Mon–Sat, 9am to 6pm IST</span></div>
+        <div class="ct-item"><span class="ct-k">WhatsApp</span><a class="btn btn-dark ct-wa" href="https://wa.me/919751551117" target="_blank" rel="noopener">Chat on WhatsApp ↗</a><span class="ct-n">Fastest response channel</span></div>
+        <div class="ct-item"><span class="ct-k">Office</span><address class="ct-v ct-addr">MV Inc<br>2/424-2, Sivan South Street, Maruthapattinam,<br>Thiruvarur — 610001, Tamil Nadu, India</address><span class="ct-n">GSTIN / UIN: 33ABPFM8566P1Z8</span></div>
       </div>
-      <div class="socials" style="margin-bottom:56px">
-        <a class="btn btn-line" href="https://github.com/" target="_blank" rel="noopener">GitHub</a>
-        <a class="btn btn-line" href="https://www.linkedin.com/" target="_blank" rel="noopener">LinkedIn</a>
-        <a class="btn btn-line" href="https://www.instagram.com/" target="_blank" rel="noopener">Instagram</a>
-        <a class="btn btn-line" href="https://www.youtube.com/" target="_blank" rel="noopener">YouTube</a>
-      </div>
+      <nav class="ct-links" aria-label="Legal">
+        <a href="http://project.esowolf.in/about-us.html" target="_blank" rel="noopener">About Us</a>
+        <a href="http://project.esowolf.in/privacy-policy.html" target="_blank" rel="noopener">Privacy Policy</a>
+        <a href="http://project.esowolf.in/terms.html" target="_blank" rel="noopener">Terms &amp; Conditions</a>
+        <a href="http://project.esowolf.in/refund-policy.html" target="_blank" rel="noopener">Refund Policy</a>
+        <a href="http://project.esowolf.in/return-policy.html" target="_blank" rel="noopener">Return Policy</a>
+      </nav>
       <div class="foot">
-        <span>© 2026 ESOWOLF · esowolf.in</span>
-        <span>Designed &amp; developed with care ✺</span>
+        <span>© 2026 ESOWOLF is a company of MV Inc. All rights reserved.</span>
+        <span>Amazon · Meesho · Flipkart · Shopify</span>
       </div>
     </div>
   </footer>
