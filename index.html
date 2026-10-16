@@ -385,6 +385,20 @@ a.ct-v:hover{text-decoration:underline}
 #signup .os-card.rv.in{transform:none}
 @media (max-width:960px){#signup .signup-inner{grid-template-columns:1fr}#signup .os-card{max-width:480px}}
 
+
+/* Book-a-demo block inside the Meesho / Myntra cards (links to bookdemo.esowolf.in with the platform preselected) */
+.mp-demo{margin-top:22px}
+.mp-or{display:flex;align-items:center;gap:12px;color:#7d7d8c;font-size:12px;text-transform:uppercase;letter-spacing:.14em;margin-bottom:16px}
+.mp-or::before,.mp-or::after{content:"";flex:1;height:1px;background:var(--mp-line)}
+.mp-demo-btn{display:flex;align-items:center;justify-content:center;gap:8px;height:46px;border-radius:8px;border:1.5px solid var(--mp-pink);
+  color:#fff;text-decoration:none;font:700 15px/1 var(--body);transition:background .2s,transform .2s}
+.mp-demo-btn:hover{background:color-mix(in srgb,var(--mp-pink) 18%,transparent);transform:translateY(-2px)}
+.mp-demo-btn span{transition:transform .2s}.mp-demo-btn:hover span{transform:translateX(4px)}
+.mp-demo-note{margin:12px 0 10px;text-align:center;font-size:13px;color:#a9a9b8}
+.mp-demo-days{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.mp-demo-days li{display:grid;gap:2px;justify-items:center;padding:8px 4px;border-radius:8px;background:rgba(255,255,255,.04);border:1px solid var(--mp-line);font-size:12px;color:#a9a9b8}
+.mp-demo-days b{color:#fff;font-size:13px}
+
 /* tablet & phone: copy first, portrait anchored to the bottom of the section */
 @media (max-width:960px){
   .signup{flex-direction:column;align-items:stretch;padding-block:120px 96px;min-height:auto}
@@ -630,6 +644,12 @@ html.deck .signup{padding-bottom:max(110px,10vw)}
         <p>Upload your inventory, orders and Meesho payment reports and see your true profit.</p>
         <a class="mp-btn" href="https://meesho.esowolf.in/auth" target="_blank" rel="noopener">Sign up</a>
         <p class="mp-small">Already a vendor? <a href="https://meesho.esowolf.in/auth" target="_blank" rel="noopener">Sign in</a></p>
+        <div class="mp-demo">
+          <div class="mp-or"><span>or</span></div>
+          <a class="mp-demo-btn" href="https://bookdemo.esowolf.in/?platform=Meesho#book" target="_blank" rel="noopener">Book a free demo <span aria-hidden="true">→</span></a>
+          <p class="mp-demo-note">Free live demo · 30 min – 1 hr · 3:00 PM IST</p>
+          <ul class="mp-demo-days" aria-label="Weekly Meesho demo sessions"><li><b>Mon</b><span>Hindi</span></li><li><b>Tue</b><span>English</span></li><li><b>Fri</b><span>Tamil</span></li></ul>
+        </div>
       </div>
     </div>
   </section>
@@ -646,6 +666,12 @@ html.deck .signup{padding-bottom:max(110px,10vw)}
         <p>Upload your Myntra inventory, orders and payment reports and see your true profit.</p>
         <a class="mp-btn" href="https://myntra.esowolf.in/auth" target="_blank" rel="noopener">Sign up</a>
         <p class="mp-small">Already a vendor? <a href="https://myntra.esowolf.in/auth" target="_blank" rel="noopener">Sign in</a></p>
+        <div class="mp-demo">
+          <div class="mp-or"><span>or</span></div>
+          <a class="mp-demo-btn" href="https://bookdemo.esowolf.in/?platform=Myntra#book" target="_blank" rel="noopener">Book a free demo <span aria-hidden="true">→</span></a>
+          <p class="mp-demo-note">Free live demo · 30 min – 1 hr · 3:00 PM IST</p>
+          <ul class="mp-demo-days" aria-label="Weekly Myntra demo sessions"><li><b>Wed</b><span>English</span></li><li><b>Thu</b><span>Hindi</span></li><li><b>Sat</b><span>Tamil</span></li></ul>
+        </div>
       </div>
     </div>
   </section>
