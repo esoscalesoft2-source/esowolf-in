@@ -6,6 +6,8 @@
 <meta name="theme-color" content="#0d0a08">
 <meta property="og:title" content="ESOWOLF — Making Your Online Business Come True">
 <meta property="og:image" content="assets/poster.jpg">
+<link rel="icon" type="image/png" href="assets/favicon.png">
+<link rel="apple-touch-icon" href="assets/eso-icon.png">
 <title>ESOWOLF — Making Your Online Business Come True</title>
 <meta name="description" content="ESOWOLF helps sellers grow on Amazon, Meesho, Myntra and Shopify with 10+ years of e-commerce expertise — plus Meesho and Myntra reconciliation software and WhatsApp Business API.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -399,6 +401,12 @@ a.ct-v:hover{text-decoration:underline}
 .mp-demo-days li{display:grid;gap:2px;justify-items:center;padding:8px 4px;border-radius:8px;background:rgba(255,255,255,.04);border:1px solid var(--mp-line);font-size:12px;color:#a9a9b8}
 .mp-demo-days b{color:#fff;font-size:13px}
 
+
+/* ESO logos: light version on the dark nav, dark version on the orange contact slide */
+.brand{display:inline-flex;align-items:center;line-height:0}
+.brand-logo{height:clamp(34px,3.4vw,44px);width:auto;display:block}
+.ct-logo{display:block;height:clamp(64px,6.4vw,92px);width:auto;box-sizing:content-box;padding:12px 18px;border-radius:16px;background:#fff7f0;box-shadow:0 14px 34px rgba(110,35,0,.18);margin-bottom:clamp(18px,2.4vw,28px)}
+
 /* tablet & phone: copy first, portrait anchored to the bottom of the section */
 @media (max-width:960px){
   .signup{flex-direction:column;align-items:stretch;padding-block:120px 96px;min-height:auto}
@@ -580,7 +588,7 @@ html.deck .signup{padding-bottom:max(110px,10vw)}
 <!-- ======================= NAV ======================= -->
 <header class="nav" id="nav">
   <div class="wrap">
-    <a class="brand" href="#top">ESO<b>WOLF</b></a>
+    <a class="brand" href="#top" aria-label="ESO — Ezy Sell Online, home"><img class="brand-logo" src="assets/eso-logo-light.webp" alt="ESO — Ezy Sell Online" width="1000" height="479"></a>
     <div class="clock">India time · <span id="clock">--:--</span></div>
     <ul>
       <li><a href="#meesho">Meesho</a></li>
@@ -710,6 +718,7 @@ html.deck .signup{padding-bottom:max(110px,10vw)}
   <!-- ======================= CONTACT ======================= -->
   <footer class="contact" id="contact">
     <div class="wrap">
+      <img class="ct-logo" src="assets/eso-logo-dark.webp" alt="ESO — Ezy Sell Online" width="1000" height="479" loading="lazy">
       <span class="greet" id="greet">Hello</span>
       <h2>Build your<br>dream now.</h2>
       <p class="ct-lead">Have a question or a project in mind? Reach out — we reply within 24 hours.</p>
