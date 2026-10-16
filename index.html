@@ -149,25 +149,22 @@ section{padding-block:clamp(72px,10vw,128px)}
   color:transparent;-webkit-text-stroke:1.5px rgba(255,255,255,.35);opacity:0;transition:opacity 1.6s ease .2s}
 
 /* portrait + rings */
-/* media: the Pinterest wolf clip in a tilted cream frame, floating beside the headline */
-.su-media{--s:.86;position:relative;justify-self:end;width:calc(345px*var(--s));height:calc(714px*var(--s));will-change:transform}
-.su-media-in{position:absolute;inset:0;transform:translate3d(60px,40px,0) rotate(6deg) scale(.94);opacity:0;
-  transition:transform 1.4s cubic-bezier(.16,1,.3,1) .45s,opacity 1s ease .45s}
-.su-float{position:absolute;inset:0;animation:floaty 7s ease-in-out 2s infinite}
-@keyframes floaty{0%,100%{transform:translateY(0) rotate(-2.5deg)}50%{transform:translateY(-14px) rotate(-1deg)}}
-.su-frame{position:absolute;left:0;top:0;width:345px;height:714px;transform:scale(var(--s));transform-origin:0 0;
-  border-radius:calc(30px/var(--s));padding:0;background:var(--su-cream);overflow:hidden;
-  box-shadow:0 0 0 calc(10px/var(--s)) rgba(255,243,232,.92),0 40px 90px rgba(110,35,0,.38),0 10px 24px rgba(110,35,0,.22)}
-.su-frame iframe{display:block;width:345px;height:714px;border:0;background:var(--su-cream)}
-.su-badge{position:absolute;z-index:2;left:-18px;bottom:16%;width:64px;height:64px;border-radius:50%;display:grid;place-items:center;
+/* 3D stage: original low-poly wolf head rendered with Three.js */
+.su-media{position:relative;justify-self:end;width:min(40vw,560px);aspect-ratio:1/1.08;will-change:transform}
+.su-media-in{position:absolute;inset:0;transform:translate3d(0,40px,0) scale(.96);opacity:0;
+  transition:transform 1.4s cubic-bezier(.16,1,.3,1) .2s,opacity 1s ease .2s}
+.su-3d{position:absolute;inset:-6%;z-index:1}
+.su-3d canvas{display:block;width:100%!important;height:100%!important}
+.su-3d.no-gl{display:none}
+.su-badge{position:absolute;z-index:2;left:6%;bottom:10%;width:64px;height:64px;border-radius:50%;display:grid;place-items:center;
   background:var(--su-ink);color:var(--su-cream);box-shadow:0 14px 30px rgba(80,25,0,.35);animation:spin 18s linear infinite}
 .su-badge svg{width:100%;height:100%}
 .su-badge b{position:absolute;font:800 18px/1 var(--body);color:var(--su-ember);animation:spin 18s linear infinite reverse}
-.su-glow{position:absolute;left:-40%;top:8%;width:180%;aspect-ratio:1;border-radius:50%;z-index:-1;
+.su-glow{position:absolute;left:5%;top:4%;width:90%;aspect-ratio:1;border-radius:50%;z-index:-1;
   background:radial-gradient(circle,rgba(255,246,236,.85) 0%,rgba(255,220,190,.35) 40%,rgba(255,200,160,0) 70%);
   filter:blur(8px);animation:breathe 6s ease-in-out infinite}
 @keyframes breathe{50%{transform:scale(1.08);opacity:.85}}
-.su-orbit{position:absolute;left:-55%;top:50%;width:210%;aspect-ratio:1;translate:0 -50%;z-index:-1;overflow:visible}
+.su-orbit{position:absolute;left:-2%;top:50%;width:104%;aspect-ratio:1;translate:0 -50%;z-index:-1;overflow:visible}
 .su-orbit circle.ring{fill:none;stroke:rgba(255,255,255,.55);stroke-width:1;stroke-dasharray:1600;stroke-dashoffset:1600;
   transition:stroke-dashoffset 2.4s cubic-bezier(.65,0,.35,1)}
 .su-orbit circle.ring.r2{stroke:rgba(27,18,12,.18);stroke-dasharray:4 9}
@@ -225,7 +222,7 @@ section{padding-block:clamp(72px,10vw,128px)}
   .signup-title{max-width:16ch}
   .signup-inner{grid-template-columns:1fr;justify-items:center}
   .su-copy{justify-self:stretch}
-  .su-media{justify-self:center;margin-top:clamp(16px,4vw,32px)}
+  .su-media{justify-self:center;width:min(100%,460px);margin-top:clamp(8px,3vw,24px)}
   .su-word{top:auto;bottom:4%;transform:none;font-size:42vw}
 }
 @media (max-width:560px){
@@ -388,15 +385,11 @@ html:not(.js) .signup .signup-title mark::before{transform:none}
             <g class="spin"><circle class="dot" cx="200" cy="4" r="5"/><circle class="dot ink" cx="396" cy="200" r="3.5"/></g>
             <g class="spin rev"><circle class="dot" cx="50" cy="200" r="4"/></g>
           </svg>
-          <div class="su-float">
-            <div class="su-frame">
-              <iframe src="https://assets.pinterest.com/ext/embed.html?id=720294534193000914" title="Howling wolf clip on Pinterest" width="345" height="714" loading="lazy" scrolling="no" frameborder="0" referrerpolicy="no-referrer"></iframe>
-            </div>
-            <div class="su-badge" aria-hidden="true">
+          <div class="su-3d" id="su3d" role="img" aria-label="Animated low-poly wolf head with glowing eyes"></div>
+          <div class="su-badge" aria-hidden="true">
               <svg viewBox="0 0 100 100"><defs><path id="suCirc" d="M50,50 m-36,0 a36,36 0 1,1 72,0 a36,36 0 1,1 -72,0"/></defs><text font-size="11.5" font-weight="700" letter-spacing="3.2" fill="#fff3e8" font-family="Manrope, sans-serif"><textPath href="#suCirc">WOLF HUNT • WOLF HUNT •</textPath></text></svg>
               <b>↗</b>
             </div>
-          </div>
         </div>
       </div>
     </div>
@@ -777,13 +770,6 @@ const SIGNUP_URL = "";
     btn.addEventListener("pointerleave",()=>{ btn.style.transition="transform .6s cubic-bezier(.16,1,.3,1),box-shadow .3s"; btn.style.transform=""; setTimeout(()=>btn.style.transition="",600); });
   }
 
-  /* fit the 345×714 Pinterest frame to the screen without reflowing it */
-  const media=document.getElementById("suMedia");
-  function fit(){ if(!media) return; const narrow=innerWidth<=960;
-    const s=narrow ? Math.min(1,(Math.min(innerWidth,520)-56)/345,(innerHeight*.72)/714) : Math.min(1,(innerHeight*.74)/714, (innerWidth*.34)/345);
-    media.style.setProperty("--s",Math.max(.55,s).toFixed(3)); }
-  fit(); addEventListener("resize",fit);
-
   /* 4. rising ember sparks */
   const cv=document.getElementById("suSparks"), g=cv.getContext("2d"); let W,H,D,parts=[],on=false;
   function size(){ D=Math.min(devicePixelRatio||1,2); W=cv.width=cv.offsetWidth*D; H=cv.height=cv.offsetHeight*D;
@@ -801,6 +787,142 @@ const SIGNUP_URL = "";
     requestAnimationFrame(sparks);
   }
   if(!reduce) new IntersectionObserver(es=>{ const was=on; on=es[0].isIntersecting; if(on&&!was) requestAnimationFrame(sparks); }).observe(sec);
+})();
+
+/* ---------- 3D wolf head (Three.js r128) ----------
+   An original low-poly wolf head built from hand-placed facets. When the section enters,
+   the facets fly in from a scattered cloud and lock together; then the head idles,
+   follows the cursor, and its eyes glow. Rendering pauses while the section is off-screen. */
+(function(){
+  const host=document.getElementById("su3d"); if(!host) return;
+  const reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
+  let started=false;
+  const boot=()=>{ if(started) return; started=true;
+    const s=document.createElement("script");
+    s.src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js";
+    s.onload=init; s.onerror=()=>host.classList.add("no-gl"); document.head.appendChild(s); };
+  new IntersectionObserver((es,o)=>{ if(es[0].isIntersecting){ boot(); o.disconnect(); } },{rootMargin:"400px 0px"}).observe(host);
+
+  function init(){
+    const T=window.THREE; let renderer;
+    try{ renderer=new T.WebGLRenderer({antialias:true,alpha:true,powerPreference:"high-performance"}); }
+    catch(e){ host.classList.add("no-gl"); return; }
+    renderer.setPixelRatio(Math.min(devicePixelRatio||1,2));
+    renderer.outputEncoding=T.sRGBEncoding;
+    host.appendChild(renderer.domElement);
+    const scene=new T.Scene(), cam=new T.PerspectiveCamera(32,1,.1,50); cam.position.set(0,0,4.6);
+
+    /* --- facets: right half, mirrored --- */
+    const V={
+      tip:[.58,1.12,-.18], eOut:[.84,.4,-.22], eIn:[.24,.52,.02], inner:[.52,.7,-.04],
+      fore:[0,.48,.16], brow:[0,.2,.36], eye:[.28,.12,.32], cheek:[.8,-.02,-.08],
+      jawO:[.5,-.5,.08], sSide:[.17,-.3,.72], bridge:[0,-.14,.8], nose:[0,-.42,1.12],
+      jawI:[.2,-.66,.6], chin:[0,-.82,.66], ruff:[1.02,-.42,-.32], ruff2:[.7,-.9,-.16]
+    };
+    const F=[["tip","eOut","inner"],["tip","inner","eIn"],["eIn","inner","eye"],["inner","eOut","cheek"],["inner","cheek","eye"],
+      ["eIn","eye","brow"],["eIn","brow","fore"],["eye","cheek","sSide"],["eye","sSide","bridge"],["eye","bridge","brow"],
+      ["cheek","jawO","sSide"],["jawO","jawI","sSide"],["sSide","jawI","nose"],["bridge","sSide","nose"],["jawI","chin","nose"],
+      ["eOut","ruff","cheek"],["cheek","ruff","jawO"],["jawO","ruff","ruff2"],["jawO","ruff2","jawI"],["jawI","ruff2","chin"]];
+    const tris=[];
+    F.forEach(f=>{ const a=f.map(k=>V[k]); tris.push(a); tris.push(a.map(p=>[-p[0],p[1],p[2]]).reverse()); });
+    const N=tris.length;
+    const base=new Float32Array(N*9), pos=new Float32Array(N*9);
+    tris.forEach((t,i)=>t.forEach((p,j)=>{ base.set(p,i*9+j*3); }));
+    pos.set(base);
+    // per-facet scatter
+    const fx=tris.map((t,i)=>{
+      const c=[0,1,2].map(k=>(t[0][k]+t[1][k]+t[2][k])/3);
+      const d=new T.Vector3(c[0]+(Math.random()-.5)*.6,c[1]+(Math.random()-.5)*.6,c[2]+.4+Math.random()*.6).normalize().multiplyScalar(2.2+Math.random()*2.2);
+      return {c, off:d, axis:new T.Vector3(Math.random()-.5,Math.random()-.5,Math.random()-.5).normalize(), ang:(Math.random()-.5)*Math.PI*3, delay:Math.random()*.45};
+    });
+    const geo=new T.BufferGeometry(); geo.setAttribute("position",new T.BufferAttribute(pos,3)); geo.computeVertexNormals();
+    const mat=new T.MeshStandardMaterial({color:0x2a1d16,roughness:.42,metalness:.35,flatShading:true,side:T.DoubleSide,transparent:true,opacity:0});
+    const head=new T.Mesh(geo,mat);
+    // facet edges
+    const lpos=new Float32Array(N*18);
+    const lgeo=new T.BufferGeometry(); lgeo.setAttribute("position",new T.BufferAttribute(lpos,3));
+    const lmat=new T.LineBasicMaterial({color:0xffb27a,transparent:true,opacity:.0});
+    const edges=new T.LineSegments(lgeo,lmat);
+    // eyes
+    const eyeMat=new T.MeshBasicMaterial({color:0xff7a1a,transparent:true,opacity:0});
+    const eyeGeo=new T.SphereGeometry(.045,16,12);
+    const eyeL=new T.Mesh(eyeGeo,eyeMat), eyeR=new T.Mesh(eyeGeo,eyeMat);
+    eyeL.scale.set(1.6,.7,.6); eyeR.scale.set(1.6,.7,.6);
+    eyeR.position.set(.29,.14,.345); eyeL.position.set(-.29,.14,.345); eyeR.rotation.z=-.42; eyeL.rotation.z=.42;
+    const eyeLight=new T.PointLight(0xff6a1a,0,2.2); eyeLight.position.set(0,.14,.6);
+
+    const rig=new T.Group(); rig.add(head,edges,eyeL,eyeR,eyeLight); scene.add(rig);
+
+    // rings + embers
+    const ringMat=new T.MeshBasicMaterial({color:0xfff3e8,transparent:true,opacity:.0});
+    const ring1=new T.Mesh(new T.TorusGeometry(1.55,.006,8,180),ringMat);
+    const ring2=new T.Mesh(new T.TorusGeometry(1.85,.004,8,180),ringMat.clone());
+    ring1.rotation.set(1.25,0,.3); ring2.rotation.set(1.05,.4,-.4); scene.add(ring1,ring2);
+    const EN=reduce?0:360, ep=new Float32Array(EN*3), es=new Float32Array(EN);
+    for(let i=0;i<EN;i++){ const r=1.3+Math.random()*1.4, th=Math.random()*6.283, ph=Math.acos(2*Math.random()-1);
+      ep.set([r*Math.sin(ph)*Math.cos(th),r*Math.cos(ph)*.8,r*Math.sin(ph)*Math.sin(th)*.6],i*3); es[i]=Math.random(); }
+    const egeo=new T.BufferGeometry(); egeo.setAttribute("position",new T.BufferAttribute(ep,3));
+    const emat=new T.PointsMaterial({color:0xffd2a8,size:.028,transparent:true,opacity:0,depthWrite:false,blending:T.AdditiveBlending});
+    const embers=new T.Points(egeo,emat); scene.add(embers);
+
+    // lights: warm key, ember rim, cool-ish fill
+    scene.add(new T.HemisphereLight(0xffe6d2,0x3a1a08,.55));
+    const key=new T.DirectionalLight(0xfff1e4,1.15); key.position.set(-2.2,2.4,3); scene.add(key);
+    const rim=new T.PointLight(0xff5a0a,3.2,9); rim.position.set(2.4,.8,-1.6); scene.add(rim);
+    const rim2=new T.PointLight(0xffa060,1.6,9); rim2.position.set(-2.6,-1.2,-1); scene.add(rim2);
+
+    function size(){ const w=host.clientWidth,h=host.clientHeight; renderer.setSize(w,h,false); cam.aspect=w/h;
+      cam.position.z = w/h<.9 ? 5.4 : 4.6; cam.updateProjectionMatrix(); }
+    size(); new ResizeObserver(size).observe(host);
+
+    let tx=0,ty=0,mx=0,my=0;
+    if(matchMedia("(pointer: fine)").matches) addEventListener("pointermove",e=>{ tx=e.clientX/innerWidth-.5; ty=e.clientY/innerHeight-.5; },{passive:true});
+
+    const sec=document.getElementById("signup"); let t0=null, vis=true, raf=0;
+    new IntersectionObserver(es=>{ vis=es[0].isIntersecting; if(vis&&!raf) raf=requestAnimationFrame(frame); }).observe(host);
+    const ease=x=>1-Math.pow(1-x,4), clamp=x=>Math.max(0,Math.min(1,x));
+    const q=new T.Quaternion(), v=new T.Vector3();
+    const DUR=reduce?0.01:2.6;
+
+    function place(prog){
+      for(let i=0;i<N;i++){
+        const f=fx[i], e=ease(clamp((prog-f.delay)/(1-.45)));
+        q.setFromAxisAngle(f.axis,f.ang*(1-e));
+        for(let j=0;j<3;j++){
+          const o=i*9+j*3;
+          v.set(base[o]-f.c[0],base[o+1]-f.c[1],base[o+2]-f.c[2]).applyQuaternion(q);
+          pos[o]=v.x+f.c[0]+f.off.x*(1-e); pos[o+1]=v.y+f.c[1]+f.off.y*(1-e); pos[o+2]=v.z+f.c[2]+f.off.z*(1-e);
+        }
+        const L=i*18, p=i*9;
+        lpos.set([pos[p],pos[p+1],pos[p+2],pos[p+3],pos[p+4],pos[p+5], pos[p+3],pos[p+4],pos[p+5],pos[p+6],pos[p+7],pos[p+8], pos[p+6],pos[p+7],pos[p+8],pos[p],pos[p+1],pos[p+2]],L);
+      }
+      geo.attributes.position.needsUpdate=true; geo.computeVertexNormals(); lgeo.attributes.position.needsUpdate=true;
+    }
+    place(0);
+
+    function frame(now){
+      raf=0; if(!vis) return;
+      const go=sec.classList.contains("is-in");
+      if(go && t0===null) t0=now;
+      const tt=t0===null?0:(now-t0)/1000, prog=clamp(tt/DUR);
+      if(prog<1 || tt<DUR+.1) place(prog);
+      const after=clamp((tt-DUR*.7)/1.2);
+      mat.opacity=Math.min(1,prog*2.2); lmat.opacity=.55*clamp(prog*1.5)*(1-.55*after);
+      eyeMat.opacity=after; eyeLight.intensity=after*(1.6+Math.sin(now*.004)*.35+Math.sin(now*.017)*.15);
+      ringMat.opacity=.35*after; ring2.material.opacity=.22*after; emat.opacity=.85*clamp(prog*1.4);
+      mx+=(tx-mx)*.05; my+=(ty-my)*.05;
+      const s=now*.001;
+      rig.rotation.y=-.5+(reduce?0:Math.sin(s*.45)*.16)+mx*.6 + (1-ease(prog))*-1.2;
+      rig.rotation.x=(reduce?0:Math.sin(s*.33)*.05)+my*.35;
+      rig.position.y=reduce?0:Math.sin(s*.8)*.04;
+      ring1.rotation.z+=.0018; ring2.rotation.z-=.0012;
+      embers.rotation.y+=.0009; embers.rotation.x=Math.sin(s*.2)*.08;
+      renderer.render(scene,cam);
+      raf=requestAnimationFrame(frame);
+    }
+    raf=requestAnimationFrame(frame);
+    host.classList.add("gl-on");
+  }
 })();
 
 /* ---------- copy email ---------- */
