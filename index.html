@@ -249,18 +249,8 @@ section{padding-block:clamp(72px,10vw,128px)}
   <canvas id="bokeh" aria-hidden="true"></canvas>
   <div class="shade"></div>
   <div class="stage">
-    <video class="v-main" id="vMain" poster="assets/poster.jpg" muted loop playsinline autoplay preload="auto"></video>
-    <button class="sound-hint" id="hint" type="button"><span class="bars"><i></i><i></i><i></i><i></i></span>Tap for sound</button>
-    <div class="controls">
-      <button class="glass" id="btnPlay" type="button" aria-label="Pause video">
-        <svg id="icoPause" viewBox="0 0 24 24"><path d="M6 4h4v16H6zM14 4h4v16h-4z"/></svg>
-        <svg id="icoPlay" viewBox="0 0 24 24" hidden><path d="M7 4l13 8-13 8z"/></svg>
-      </button>
-      <button class="glass" id="btnMute" type="button" aria-label="Turn sound on">
-        <svg id="icoMuted" viewBox="0 0 24 24"><path d="M4 9h4l5-4v14l-5-4H4zM16 9l5 6M21 9l-5 6" stroke="currentColor" stroke-width="2" fill="currentColor"/></svg>
-        <svg id="icoSound" viewBox="0 0 24 24" hidden><path d="M4 9h4l5-4v14l-5-4H4z"/><path d="M16 8a5 5 0 010 8M18.5 5.5a8.5 8.5 0 010 13" stroke="currentColor" stroke-width="2" fill="none"/></svg>
-      </button>
-    </div>
+    <video class="v-main" id="vMain" poster="assets/poster.jpg" muted playsinline autoplay preload="auto"></video>
+    <button class="sound-hint gone" id="hint" type="button"><span class="bars"><i></i><i></i><i></i><i></i></span><span id="hintText">Tap for sound</span></button>
   </div>
 
   <div class="hero-copy">
@@ -475,8 +465,7 @@ let rt; addEventListener("resize",()=>{clearTimeout(rt);rt=setTimeout(()=>covers
 
 /* ---------- hero video ---------- */
 const vMain=document.getElementById("vMain"), vAmb=document.getElementById("vAmb");
-const hint=document.getElementById("hint"), btnPlay=document.getElementById("btnPlay"), btnMute=document.getElementById("btnMute");
-const show=(el,on)=>{el.hidden=!on};
+const hint=document.getElementById("hint"), hintText=document.getElementById("hintText");
 
 /* Pick the sharpest file the screen can actually show (never upscale, never waste data).
    Rendered width = the video box width × device pixel ratio; cover mode on landscape can enlarge it further. */
@@ -487,12 +476,12 @@ function neededWidth(){
   return boxW*dpr;
 }
 function pickSource(){ const n=neededWidth(); return (SOURCES.find(s=>s.w>=n)||SOURCES[SOURCES.length-1]).src; }
-let currentSrc="";
+let currentSrc="", switching=false;
 function loadSources(){
   const src=pickSource(); if(src===currentSrc) return;
   const t=vMain.currentTime||0, wasPlaying=currentSrc? !vMain.paused : true;
-  currentSrc=src; vMain.src=src;
-  vMain.addEventListener("loadedmetadata",()=>{ if(t) vMain.currentTime=t; if(wasPlaying) vMain.play().catch(()=>{}); },{once:true});
+  switching=true; currentSrc=src; vMain.src=src;
+  vMain.addEventListener("loadedmetadata",()=>{ if(t) vMain.currentTime=t; if(wasPlaying) vMain.play().catch(()=>{}); setTimeout(()=>switching=false,300); },{once:true});
   if(!vAmb.src) vAmb.src=SOURCES[0].src;   // the blurred layer never needs more than 720p
 }
 loadSources();
@@ -503,22 +492,75 @@ if(vMain.readyState>=2) vMain.classList.add("ready");
 setTimeout(()=>vMain.classList.add("ready"),2500);   // if autoplay is blocked (e.g. low-power mode), still show the poster frame
 setInterval(()=>{ if(Math.abs(vAmb.currentTime-vMain.currentTime)>0.25) vAmb.currentTime=vMain.currentTime; },2000);
 
-function setMuted(m){
-  vMain.muted=m;
-  show(document.getElementById("icoMuted"),m); show(document.getElementById("icoSound"),!m);
-  btnMute.setAttribute("aria-label", m?"Turn sound on":"Mute sound");
-  if(!m){ hint.classList.add("gone"); if(vMain.paused) setPlaying(true); }
+/* Intro playback:
+   1. Try to start with sound. Browsers only allow sound before the first tap/click/key on some visits,
+      so if that is refused we play muted and switch the sound on at the visitor's first interaction.
+   2. If the page is interrupted (incoming call, app switch, screen lock, OS audio interruption),
+      the intro stops at once and stays stopped until the visitor taps again.
+   3. When the spoken intro ends, the page scrolls to the next section once, then the video loops silently. */
+let speaking=false;        // intro is playing with sound
+let interrupted=false;     // stopped by a call / app switch; resume only on a new tap
+let introDone=false;       // spoken intro finished (or skipped by scrolling past it)
+let selfPause=false;       // pauses we make ourselves, so we can tell them from OS interruptions
+
+function both(fn){ [vMain,vAmb].forEach(v=>{ try{ fn(v); }catch(e){} }); }
+function showHint(text){ hintText.textContent=text; hint.classList.remove("gone"); }
+function hideHint(){ hint.classList.add("gone"); }
+
+function playWithSound(fromStart){
+  if(fromStart){ both(v=>v.currentTime=0); }
+  vMain.loop=false; vMain.muted=false;
+  vAmb.play().catch(()=>{});
+  return vMain.play().then(()=>{ speaking=true; interrupted=false; hideHint(); return true; })
+    .catch(()=>{ vMain.muted=true; speaking=false; vMain.play().catch(()=>{}); return false; });
 }
-function setPlaying(p){
-  if(p){ vMain.play().catch(()=>{}); vAmb.play().catch(()=>{}); } else { vMain.pause(); vAmb.pause(); }
-  show(document.getElementById("icoPause"),p); show(document.getElementById("icoPlay"),!p);
-  btnPlay.setAttribute("aria-label", p?"Pause video":"Play video");
+
+function startIntro(){
+  playWithSound(false).then(ok=>{ if(!ok) showHint("Tap for sound"); });
 }
-btnMute.onclick=()=>{ if(vMain.muted){ vMain.currentTime=0; vAmb.currentTime=0; } setMuted(!vMain.muted); };
-btnPlay.onclick=()=>setPlaying(vMain.paused);
-hint.onclick=()=>{ vMain.currentTime=0; vAmb.currentTime=0; setMuted(false); };
-setTimeout(()=>hint.classList.add("gone"),7000);
-vMain.play().catch(()=>{ show(document.getElementById("icoPause"),false); show(document.getElementById("icoPlay"),true); });
+
+/* First real interaction anywhere on the page turns the sound on (scrolling alone does not count in browsers). */
+function onGesture(){
+  if(introDone && !interrupted) return;
+  if(speaking) return;
+  playWithSound(!interrupted && !introDone && vMain.currentTime>1 ? true : false);
+}
+["pointerdown","touchend","keydown"].forEach(ev=>document.addEventListener(ev,onGesture,{capture:true,passive:true}));
+
+/* Stop immediately on a call or any interruption. */
+function stopForInterruption(){
+  if(!speaking && vMain.paused) return;
+  selfPause=true; both(v=>v.pause()); selfPause=false;
+  if(speaking){ interrupted=true; speaking=false; }
+}
+document.addEventListener("visibilitychange",()=>{
+  if(document.hidden){ stopForInterruption(); }
+  else if(interrupted){ vMain.muted=true; vMain.play().catch(()=>{}); vAmb.play().catch(()=>{}); showHint("Tap to continue"); }
+});
+addEventListener("pagehide",stopForInterruption);
+/* iOS/Android pause media themselves when a call rings while the page is still visible. */
+vMain.addEventListener("pause",()=>{
+  if(selfPause || switching || vMain.ended) return;
+  if(speaking){ interrupted=true; speaking=false; vAmb.pause(); showHint("Tap to continue"); }
+});
+if("mediaSession" in navigator){
+  try{ navigator.mediaSession.setActionHandler("pause",()=>stopForInterruption()); }catch(e){}
+}
+
+/* End of the spoken intro → scroll to the next section once, then keep the hero alive silently. */
+vMain.addEventListener("ended",()=>{
+  const heard=speaking;
+  speaking=false;
+  vMain.muted=true; vMain.loop=heard||introDone; vMain.currentTime=0; vMain.play().catch(()=>{});
+  if(heard && !introDone){
+    introDone=true; hideHint();
+    if(scrollY < innerHeight*0.5) document.getElementById("content").scrollIntoView({behavior:"smooth"});
+  }
+});
+/* If the visitor scrolls past the hero themselves, don't yank them back or speak over the page. */
+addEventListener("scroll",()=>{ if(!introDone && scrollY > innerHeight*0.9 && !speaking){ introDone=true; hideHint(); } },{passive:true});
+
+startIntro();
 
 document.getElementById("cue").onclick=()=>document.getElementById("content").scrollIntoView({behavior:"smooth"});
 
