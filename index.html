@@ -126,10 +126,10 @@ section{padding-block:clamp(72px,10vw,128px)}
 
 .chip{font-family:var(--mono);font-size:12px;padding:6px 12px;border:1px solid var(--line);border-radius:999px;color:var(--muted)}
 
-/* sign-up: warm peach → ember gradient (the intro video's wall colour), big headline left, form card right */
+/* sign-up: warm peach → ember gradient (the intro video's wall colour), big headline with one Sign Up button below */
 .signup{
   scroll-margin-top:0;
-  --su-ink:#1b120c; --su-card:rgba(255,243,232,.86); --su-line:#f1c6a3; --su-field:#fffaf5; --su-btn:#f26a1b;
+  --su-ink:#1b120c; --su-btn:#f26a1b;
   position:relative;overflow:hidden;border-radius:28px 28px 0 0;color:var(--su-ink);
   background:linear-gradient(180deg,#fcdcc2 0%,#f8b384 34%,#f2843e 70%,#e8590f 100%);
   min-height:100svh;display:flex;align-items:center;padding-block:clamp(96px,12vw,140px);
@@ -141,35 +141,20 @@ section{padding-block:clamp(72px,10vw,128px)}
     radial-gradient(circle at 42% 78%,rgba(255,255,255,.35) 0 2px,transparent 3px),
     radial-gradient(circle at 86% 64%,rgba(255,255,255,.4) 0 2px,transparent 3px),
     radial-gradient(circle at 8% 88%,rgba(255,255,255,.3) 0 2px,transparent 3px)}
-.signup-grid{position:relative;display:grid;grid-template-columns:minmax(0,1.45fr) minmax(320px,.85fr);gap:clamp(32px,6vw,96px);align-items:center;width:100%}
+.signup-inner{position:relative;display:grid;gap:clamp(32px,4vw,48px);justify-items:start;width:100%}
 .signup-title{font-family:var(--body);text-transform:none;font-weight:800;letter-spacing:-.03em;line-height:1.12;
-  font-size:clamp(34px,4.7vw,74px);color:var(--su-ink);max-width:16ch;text-wrap:balance;margin:0}
+  font-size:clamp(34px,5.4vw,84px);color:var(--su-ink);max-width:18ch;text-wrap:balance;margin:0}
 .signup-title mark{background:var(--su-ink);color:#fff3e8;padding:.02em .2em .06em;border-radius:.16em;line-height:1.3;
   -webkit-box-decoration-break:clone;box-decoration-break:clone}
-.signup-card{display:grid;gap:16px;padding:clamp(22px,2.4vw,32px);border-radius:22px;background:var(--su-card);
-  border:1px solid rgba(255,255,255,.7);box-shadow:0 24px 60px rgba(120,40,0,.18);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);min-width:0}
-.field{display:grid;gap:7px}
-.field label{font-size:13px;font-weight:700;color:var(--su-ink)}
-.field input{width:100%;height:52px;padding:0 16px;border-radius:14px;border:1.5px solid var(--su-line);background:var(--su-field);
-  font:500 16px/1 var(--body);color:var(--su-ink);transition:border-color .2s,box-shadow .2s}
-.field input:focus{outline:none;border-color:var(--su-btn);box-shadow:0 0 0 4px rgba(242,106,27,.18)}
-.field input[aria-invalid="true"]{border-color:#c4281c}
-.signup-btn{margin-top:6px;height:56px;border:0;border-radius:999px;background:var(--su-btn);color:#fff;
-  font:800 16px/1 var(--body);letter-spacing:.01em;cursor:pointer;transition:transform .2s,background .2s;display:inline-flex;align-items:center;justify-content:center;gap:10px}
-.signup-btn:hover{background:#e05a0e;transform:translateY(-1px)}
-.signup-btn:focus-visible{outline:3px solid var(--su-ink);outline-offset:3px}
-.signup-btn[disabled]{opacity:.65;cursor:wait;transform:none}
-.signup-msg:empty{display:none}
-.signup-msg{margin:0;font-size:14px;font-weight:600;color:var(--su-ink)}
-.signup-msg.err{color:#a3200f}
-@media (max-width:960px){
-  .signup-grid{grid-template-columns:1fr}
-  .signup-title{max-width:20ch}
-  .signup-card{max-width:560px}
-}
+.signup-btn{height:60px;padding:0 34px;border:0;border-radius:999px;background:var(--su-ink);color:#fff3e8;text-decoration:none;
+  font:800 17px/1 var(--body);letter-spacing:.01em;cursor:pointer;transition:transform .2s,background .2s,box-shadow .2s;
+  display:inline-flex;align-items:center;justify-content:center;gap:10px;box-shadow:0 14px 30px rgba(140,45,0,.22)}
+.signup-btn:hover{background:#3a2518;transform:translateY(-2px);box-shadow:0 18px 36px rgba(140,45,0,.28)}
+.signup-btn:focus-visible{outline:3px solid #fff3e8;outline-offset:3px}
 @media (max-width:560px){
-  .signup{min-height:auto;align-items:flex-start;padding-block:112px 64px}
+  .signup{min-height:auto;align-items:flex-start;padding-block:112px 72px}
   .signup-title{font-size:clamp(30px,8.6vw,40px)}
+  .signup-cta,.signup-btn{width:100%}
 }
 
 /* marquee */
@@ -298,24 +283,9 @@ section{padding-block:clamp(72px,10vw,128px)}
 <main id="content">
   <!-- ======================= SIGN-UP ======================= -->
   <section class="signup" id="signup" aria-labelledby="signupTitle">
-    <div class="wrap signup-grid">
+    <div class="wrap signup-inner">
       <h2 id="signupTitle" class="signup-title rv">We help Amazon sellers increase their sales and profit and manage ads using our proven <mark>Wolf&nbsp;hunt method.</mark></h2>
-      <form class="signup-card rv" id="signupForm" novalidate>
-        <div class="field">
-          <label for="suName">Full name</label>
-          <input id="suName" name="name" type="text" autocomplete="name" required>
-        </div>
-        <div class="field">
-          <label for="suEmail">Email</label>
-          <input id="suEmail" name="email" type="email" autocomplete="email" inputmode="email" required>
-        </div>
-        <div class="field">
-          <label for="suPhone">Phone / WhatsApp</label>
-          <input id="suPhone" name="phone" type="tel" autocomplete="tel" inputmode="tel" required>
-        </div>
-        <button class="signup-btn" type="submit">Sign up <span aria-hidden="true">↗</span></button>
-        <p class="signup-msg" id="signupMsg" role="status" aria-live="polite"></p>
-      </form>
+      <div class="signup-cta rv"><a class="signup-btn" id="signupLink" href="#signup">Sign Up <span aria-hidden="true">↗</span></a></div>
     </div>
   </section>
 
@@ -630,37 +600,13 @@ function tickClock(){
 }
 tickClock(); setInterval(tickClock,30000);
 
-/* ---------- sign-up form ----------
-   SIGNUP_ENDPOINT: where sign-ups are sent (JSON POST). Empty = not connected yet; the form says so instead of pretending. */
-const SIGNUP_ENDPOINT = "";
+/* ---------- sign-up button ----------
+   SIGNUP_URL: where "Sign Up" goes. Empty = the button stays put (no navigation) until a destination is set. */
+const SIGNUP_URL = "";
 (function(){
-  const form=document.getElementById("signupForm"), msg=document.getElementById("signupMsg");
-  const say=(t,err)=>{ msg.textContent=t; msg.classList.toggle("err",!!err); };
-  const checks={
-    name:v=>v.trim().length>=2 || "Enter your name.",
-    email:v=>/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v.trim()) || "Enter a valid email address.",
-    phone:v=>v.replace(/[^\d]/g,"").length>=10 || "Enter a phone number with at least 10 digits."
-  };
-  form.addEventListener("submit",async e=>{
-    e.preventDefault();
-    let first=null, error="";
-    for(const [k,fn] of Object.entries(checks)){
-      const el=form.elements[k], r=fn(el.value);
-      el.setAttribute("aria-invalid", r===true ? "false" : "true");
-      if(r!==true && !first){ first=el; error=r; }
-    }
-    if(first){ say(error,true); first.focus(); return; }
-    if(!SIGNUP_ENDPOINT){ say("Sign-ups aren't connected yet. Please try again soon.",true); return; }
-    const btn=form.querySelector("button"); btn.disabled=true; say("Sending…");
-    try{
-      const data=Object.fromEntries(new FormData(form)); data.page=location.href; data.at=new Date().toISOString();
-      const r=await fetch(SIGNUP_ENDPOINT,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(data)});
-      if(!r.ok) throw new Error(r.status);
-      form.reset(); say("Thanks! We'll contact you shortly.");
-    }catch(err){ say("Couldn't send right now. Please try again.",true); }
-    finally{ btn.disabled=false; }
-  });
-  form.addEventListener("input",e=>{ if(e.target.getAttribute("aria-invalid")==="true"){ const r=checks[e.target.name](e.target.value); if(r===true){ e.target.setAttribute("aria-invalid","false"); say(""); } } });
+  const a=document.getElementById("signupLink");
+  if(SIGNUP_URL){ a.href=SIGNUP_URL; a.target="_blank"; a.rel="noopener"; }
+  else a.addEventListener("click",e=>e.preventDefault());
 })();
 
 /* ---------- copy email ---------- */
