@@ -56,6 +56,7 @@ h1,h2,h3{font-family:var(--display);text-wrap:balance;line-height:.92;margin:0;t
 .btn-ember:hover{background:#ff8340;transform:translateY(-1px)}
 .btn-ghost{border-color:var(--line);color:var(--paper);background:transparent}
 .btn-ghost:hover{border-color:var(--ember)}
+@media (max-width:1180px){.clock{display:none}}
 @media (max-width:860px){.nav ul,.clock{display:none}.nav .btn{margin-left:auto}}
 
 /* ---------- HERO ---------- */
@@ -421,6 +422,7 @@ html.deck .signup{padding-bottom:max(110px,10vw)}
     <ul>
       <li><a href="#meesho">Meesho</a></li>
       <li><a href="#myntra">Myntra</a></li>
+      <li><a href="#whatsapp">WhatsApp</a></li>
       <li><a href="#projects">Projects</a></li>
       <li><a href="#experience">Experience</a></li>
       <li><a href="#writing">Writing</a></li>
@@ -494,6 +496,22 @@ html.deck .signup{padding-bottom:max(110px,10vw)}
           <li class="rv"><span class="me-n">02</span>Catches short payments and commission or fee mismatches</li>
           <li class="rv"><span class="me-n">03</span>Tracks RTO and customer returns until stock is back</li>
           <li class="rv"><span class="me-n">04</span>Shows real profit per SKU after commission, shipping and returns</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+  <!-- ======================= WHATSAPP ======================= -->
+  <section class="meesho whatsapp" id="whatsapp" aria-labelledby="waTitle">
+    <div class="me-glow" aria-hidden="true"></div>
+    <div class="wrap me-grid">
+      <h2 id="waTitle" class="me-title rv">WhatsApp <span>Business</span> API</h2>
+      <div class="me-body">
+        <p class="me-lead rv">Reach customers on the app they already use. Send automated messages and updates from your own business number, at any scale.</p>
+        <ul class="me-list">
+          <li class="rv"><span class="me-n">01</span>Automated replies, welcome messages and FAQs, 24×7</li>
+          <li class="rv"><span class="me-n">02</span>Customer notifications for offers, payment reminders and COD confirmation</li>
+          <li class="rv"><span class="me-n">03</span>Order confirmation, shipping and delivery updates sent automatically</li>
+          <li class="rv"><span class="me-n">04</span>One shared inbox so your team can chat with every customer</li>
         </ul>
       </div>
     </div>
@@ -875,7 +893,7 @@ const SIGNUP_URL = "";
    Wheel / trackpad, swipe, arrow keys, the arrow buttons, the dots and nav links all move one slide.
    A slide taller than the screen scrolls inside itself first; at its edge the next move changes slide. */
 window.deck=(function(){
-  const order=["top","signup","meesho","myntra","projects","experience","writing","contact"];
+  const order=["top","signup","meesho","myntra","whatsapp","projects","experience","writing","contact"];
   const els=order.map(id=>document.getElementById(id)).filter(Boolean);
   if(els.length<2) return null;
   const mq=document.querySelector(".marquee");
