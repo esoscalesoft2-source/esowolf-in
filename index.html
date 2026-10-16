@@ -149,17 +149,6 @@ section{padding-block:clamp(72px,10vw,128px)}
   color:transparent;-webkit-text-stroke:1.5px rgba(255,255,255,.35);opacity:0;transition:opacity 1.6s ease .2s}
 
 /* portrait + rings */
-/* 3D stage: original low-poly wolf head rendered with Three.js */
-.su-media{position:relative;justify-self:end;width:min(40vw,560px);aspect-ratio:1/1.08;will-change:transform}
-.su-media-in{position:absolute;inset:0;transform:translate3d(0,40px,0) scale(.96);opacity:0;
-  transition:transform 1.4s cubic-bezier(.16,1,.3,1) .2s,opacity 1s ease .2s}
-.su-3d{position:absolute;inset:-6%;z-index:1}
-.su-3d canvas{display:block;width:100%!important;height:100%!important}
-.su-3d.no-gl{display:none}
-.su-badge{position:absolute;z-index:2;right:4%;bottom:8%;width:64px;height:64px;border-radius:50%;display:grid;place-items:center;
-  background:var(--su-ink);color:var(--su-cream);box-shadow:0 14px 30px rgba(80,25,0,.35);animation:spin 18s linear infinite}
-.su-badge svg{width:100%;height:100%}
-.su-badge b{position:absolute;font:800 18px/1 var(--body);color:var(--su-ember);animation:spin 18s linear infinite reverse}
 .su-glow{position:absolute;left:5%;top:4%;width:90%;aspect-ratio:1;border-radius:50%;z-index:-1;
   background:radial-gradient(circle,rgba(255,246,236,.85) 0%,rgba(255,220,190,.35) 40%,rgba(255,200,160,0) 70%);
   filter:blur(8px);animation:breathe 6s ease-in-out infinite}
@@ -175,7 +164,7 @@ section{padding-block:clamp(72px,10vw,128px)}
 @keyframes spin{to{transform:rotate(360deg)}}
 
 /* copy */
-.signup-inner{position:relative;z-index:2;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:clamp(32px,5vw,80px);align-items:center;width:100%}
+.signup-inner{position:relative;z-index:2;display:grid;grid-template-columns:minmax(0,1fr);gap:clamp(32px,5vw,80px);align-items:center;width:100%}
 .su-copy{display:grid;gap:clamp(36px,4vw,52px);justify-items:start;min-width:0}
 .signup-title{font-family:var(--body);text-transform:none;font-weight:800;letter-spacing:-.035em;line-height:1.08;
   font-size:clamp(34px,4.8vw,78px);color:var(--su-ink);max-width:14.5ch;margin:0}
@@ -222,7 +211,6 @@ section{padding-block:clamp(72px,10vw,128px)}
   .signup-title{max-width:16ch}
   .signup-inner{grid-template-columns:1fr;justify-items:center}
   .su-copy{justify-self:stretch}
-  .su-media{justify-self:center;width:min(100%,460px);margin-top:clamp(8px,3vw,24px)}
   .su-word{top:auto;bottom:4%;transform:none;font-size:42vw}
 }
 @media (max-width:560px){
@@ -230,7 +218,6 @@ section{padding-block:clamp(72px,10vw,128px)}
   .signup-title{font-size:clamp(31px,8.8vw,42px);max-width:none}
   .signup-btn{height:62px;font-size:17px;padding-left:28px}
   .signup-btn .arr{width:44px;height:44px}
-  .su-badge{right:2%;width:54px;height:54px}
 }
 
 /* no-JS & reduced motion: show everything at rest */
@@ -315,6 +302,67 @@ html:not(.js) .signup .signup-title mark::before{transform:none}
 .contact .btn-line:hover{border-color:var(--ink)}
 .foot{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px;border-top:1px solid rgba(13,10,8,.25);padding-top:22px;font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase}
 
+
+/* ===== Slide deck: every section is a full-screen slide that moves sideways =====
+   Active only with JS (html.deck). Without JS the page stays a normal vertical scroll. */
+html.deck,html.deck body{height:100%;overflow:hidden;overscroll-behavior:none}
+.deck-viewport{position:fixed;inset:0;overflow:hidden;background:var(--ink);z-index:1}
+.deck-track{display:flex;height:100%;will-change:transform;
+  transition:transform 1.15s cubic-bezier(.77,0,.18,1)}
+.deck-slide{position:relative;flex:0 0 100vw;width:100vw;height:100%;overflow:hidden;background:var(--ink)}
+.deck-scroll{position:absolute;inset:0;overflow-y:auto;overflow-x:hidden;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;
+  scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.18) transparent}
+.deck-inner{min-height:100%;display:flex;flex-direction:column;justify-content:center;
+  transition:transform 1.15s cubic-bezier(.77,0,.18,1),opacity .9s ease,filter .9s ease;transform-origin:50% 50%}
+/* outgoing slides sink back, incoming slides glide in with a parallax lag */
+.deck-slide.is-before .deck-inner{transform:translateX(38vw) scale(.92);opacity:.35;filter:brightness(.6)}
+.deck-slide.is-after .deck-inner{transform:translateX(-38vw) scale(.92);opacity:.35;filter:brightness(.6)}
+.deck-slide.is-active .deck-inner{transform:none;opacity:1;filter:none}
+/* a thin ember edge sweeps across with each move */
+.deck-wipe{position:fixed;top:0;bottom:0;width:6px;left:0;z-index:40;pointer-events:none;opacity:0;
+  background:linear-gradient(180deg,transparent,var(--ember) 30%,#ffd0a8 50%,var(--ember) 70%,transparent);
+  box-shadow:0 0 40px 8px rgba(255,106,26,.45)}
+.deck-wipe.go-next{animation:wipeNext 1.15s cubic-bezier(.77,0,.18,1)}
+.deck-wipe.go-prev{animation:wipePrev 1.15s cubic-bezier(.77,0,.18,1)}
+@keyframes wipeNext{0%{left:100%;opacity:1}100%{left:-2%;opacity:.0}}
+@keyframes wipePrev{0%{left:-2%;opacity:1}100%{left:100%;opacity:0}}
+
+/* sections inside slides */
+html.deck .hero{position:relative;height:100%;min-height:0}
+html.deck main{display:contents}
+html.deck .signup{border-radius:0;min-height:100%}
+html.deck .deck-slide>.deck-scroll>.deck-inner>section,html.deck .deck-slide>.deck-scroll>.deck-inner>footer{flex:1 0 auto}
+html.deck .contact{border-radius:0;display:flex;flex-direction:column;justify-content:center;padding-bottom:110px}
+html.deck .about,html.deck .projects,html.deck #experience,html.deck #writing{padding-bottom:max(128px,10vw)}
+html.deck .signup{padding-bottom:max(110px,10vw)}
+
+/* controls: counter + progress, arrows, dots */
+.deck-ui{position:fixed;z-index:45;left:0;right:0;bottom:calc(env(safe-area-inset-bottom,0px) + 18px);display:flex;align-items:center;justify-content:space-between;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));pointer-events:none}
+.deck-count{font-family:var(--mono);font-size:12px;letter-spacing:.14em;color:var(--paper);mix-blend-mode:difference;pointer-events:none;display:flex;align-items:center;gap:12px}
+.deck-count b{font-weight:500;font-size:15px}
+.deck-bar{width:min(160px,22vw);height:2px;background:rgba(255,255,255,.25);overflow:hidden;border-radius:2px}
+.deck-bar i{display:block;height:100%;background:#fff;transform-origin:0 50%;transition:transform 1.15s cubic-bezier(.77,0,.18,1)}
+.deck-arrows{display:flex;gap:10px;pointer-events:auto}
+.deck-arrows button{width:48px;height:48px;border-radius:50%;border:1px solid rgba(255,255,255,.28);background:rgba(20,14,10,.42);
+  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);color:#fff;font-size:18px;cursor:pointer;display:grid;place-items:center;
+  transition:transform .25s,background .25s,border-color .25s,opacity .25s}
+.deck-arrows button:hover{transform:scale(1.08);background:var(--ember);border-color:var(--ember)}
+.deck-arrows button[disabled]{opacity:.25;pointer-events:none}
+.deck-dots{position:fixed;z-index:45;right:max(14px,env(safe-area-inset-right,0px));top:50%;transform:translateY(-50%);display:grid;gap:12px}
+.deck-dots button{width:10px;height:10px;padding:0;border-radius:50%;border:1.5px solid rgba(255,255,255,.75);background:transparent;cursor:pointer;
+  mix-blend-mode:difference;transition:transform .3s,background .3s}
+.deck-dots button[aria-current="true"]{background:#fff;transform:scale(1.35)}
+.deck-dots button:focus-visible,.deck-arrows button:focus-visible{outline:2px solid var(--ember);outline-offset:3px}
+@media (max-width:760px){
+  .deck-dots{display:none}
+  .deck-arrows button{width:42px;height:42px}
+}
+@media (prefers-reduced-motion:reduce){
+  .deck-track,.deck-inner{transition-duration:.01s!important}
+  .deck-wipe{display:none}
+}
+
 /* reveal */
 .rv{transform:translateY(24px);opacity:.001;transition:transform .9s cubic-bezier(.2,.7,.2,1),opacity .9s}
 .rv.in{transform:none;opacity:1}
@@ -375,22 +423,6 @@ html:not(.js) .signup .signup-title mark::before{transform:none}
       <div class="su-copy">
       <h2 id="signupTitle" class="signup-title" data-split>We help Amazon sellers increase their sales and profit and manage ads using our proven <mark>Wolf hunt method.</mark></h2>
       <div class="signup-cta"><a class="signup-btn" id="signupLink" href="#signup" data-magnetic><span class="lbl">Sign Up</span><span class="arr" aria-hidden="true">↗</span></a></div>
-      </div>
-      <div class="su-media" id="suMedia">
-        <div class="su-media-in">
-          <div class="su-glow" aria-hidden="true"></div>
-          <svg class="su-orbit" viewBox="0 0 400 400" aria-hidden="true">
-            <circle class="ring" cx="200" cy="200" r="196"/>
-            <circle class="ring r2" cx="200" cy="200" r="150"/>
-            <g class="spin"><circle class="dot" cx="200" cy="4" r="5"/><circle class="dot ink" cx="396" cy="200" r="3.5"/></g>
-            <g class="spin rev"><circle class="dot" cx="50" cy="200" r="4"/></g>
-          </svg>
-          <div class="su-3d" id="su3d" role="img" aria-label="Animated low-poly wolf head with glowing eyes"></div>
-          <div class="su-badge" aria-hidden="true">
-              <svg viewBox="0 0 100 100"><defs><path id="suCirc" d="M50,50 m-36,0 a36,36 0 1,1 72,0 a36,36 0 1,1 -72,0"/></defs><text font-size="11.5" font-weight="700" letter-spacing="3.2" fill="#fff3e8" font-family="Manrope, sans-serif"><textPath href="#suCirc">WOLF HUNT • WOLF HUNT •</textPath></text></svg>
-              <b>↗</b>
-            </div>
-        </div>
       </div>
     </div>
   </section>
@@ -654,15 +686,17 @@ vMain.addEventListener("ended",()=>{
   vMain.muted=true; vMain.loop=heard||introDone; vMain.currentTime=0; vMain.play().catch(()=>{});
   if(heard && !introDone){
     introDone=true; hideHint();
-    if(scrollY < innerHeight*0.5) document.getElementById("content").scrollIntoView({behavior:"smooth"});
+    if(window.deck){ if(deck.index===0) deck.go(1); }
+    else if(scrollY < innerHeight*0.5) document.getElementById("content").scrollIntoView({behavior:"smooth"});
   }
 });
 /* If the visitor scrolls past the hero themselves, don't yank them back or speak over the page. */
 addEventListener("scroll",()=>{ if(!introDone && scrollY > innerHeight*0.9 && !speaking){ introDone=true; hideHint(); } },{passive:true});
+setTimeout(()=>{ if(window.deck) deck.onChange(i=>{ if(i>0 && !introDone && !speaking){ introDone=true; hideHint(); } }); },0);
 
 startIntro();
 
-document.getElementById("cue").onclick=()=>document.getElementById("content").scrollIntoView({behavior:"smooth"});
+document.getElementById("cue").onclick=()=>{ if(window.deck) deck.go(1); else document.getElementById("content").scrollIntoView({behavior:"smooth"}); };
 
 /* ---------- bokeh particle layer ---------- */
 (function(){
@@ -697,7 +731,7 @@ document.getElementById("cue").onclick=()=>document.getElementById("content").sc
 
 /* ---------- nav, clock, greeting ---------- */
 const nav=document.getElementById("nav");
-addEventListener("scroll",()=>nav.classList.toggle("solid",scrollY>innerHeight*.6),{passive:true});
+addEventListener("scroll",()=>{ if(!window.deck) nav.classList.toggle("solid",scrollY>innerHeight*.6); },{passive:true});
 function istParts(){ const p=new Intl.DateTimeFormat("en-IN",{timeZone:"Asia/Kolkata",hour:"2-digit",minute:"2-digit",hour12:true}).format(new Date()); return p; }
 function tickClock(){
   document.getElementById("clock").textContent=istParts().toUpperCase();
@@ -749,7 +783,7 @@ const SIGNUP_URL = "";
   }
 
   /* 3. cursor + scroll parallax on the portrait, magnetic CTA */
-  const por=document.getElementById("suMedia"), word=sec.querySelector(".su-word");
+  const por=null, word=sec.querySelector(".su-word");
   let mx=0,my=0,tx=0,ty=0,sy=0,raf=0,vis=false;
   new IntersectionObserver(es=>{ vis=es[0].isIntersecting; if(vis&&!raf) raf=requestAnimationFrame(loop); }).observe(sec);
   if(fine && !reduce) sec.addEventListener("pointermove",e=>{ const r=sec.getBoundingClientRect(); tx=(e.clientX-r.left)/r.width-.5; ty=(e.clientY-r.top)/r.height-.5; });
@@ -789,140 +823,124 @@ const SIGNUP_URL = "";
   if(!reduce) new IntersectionObserver(es=>{ const was=on; on=es[0].isIntersecting; if(on&&!was) requestAnimationFrame(sparks); }).observe(sec);
 })();
 
-/* ---------- 3D wolf head (Three.js r128) ----------
-   An original low-poly wolf head built from hand-placed facets. When the section enters,
-   the facets fly in from a scattered cloud and lock together; then the head idles,
-   follows the cursor, and its eyes glow. Rendering pauses while the section is off-screen. */
-(function(){
-  const host=document.getElementById("su3d"); if(!host) return;
-  const reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
-  let started=false;
-  const boot=()=>{ if(started) return; started=true;
-    const s=document.createElement("script");
-    s.src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js";
-    s.onload=init; s.onerror=()=>host.classList.add("no-gl"); document.head.appendChild(s); };
-  new IntersectionObserver((es,o)=>{ if(es[0].isIntersecting){ boot(); o.disconnect(); } },{rootMargin:"400px 0px"}).observe(host);
+/* ---------- slide deck: sections move sideways like full-screen slides ----------
+   Wheel / trackpad, swipe, arrow keys, the arrow buttons, the dots and nav links all move one slide.
+   A slide taller than the screen scrolls inside itself first; at its edge the next move changes slide. */
+window.deck=(function(){
+  const order=["top","signup","about","projects","experience","writing","contact"];
+  const els=order.map(id=>document.getElementById(id)).filter(Boolean);
+  if(els.length<2) return null;
+  const mq=document.querySelector(".marquee");
+  document.documentElement.classList.add("deck");
 
-  function init(){
-    const T=window.THREE; let renderer;
-    try{ renderer=new T.WebGLRenderer({antialias:true,alpha:true,powerPreference:"high-performance"}); }
-    catch(e){ host.classList.add("no-gl"); return; }
-    renderer.setPixelRatio(Math.min(devicePixelRatio||1,2));
-    renderer.outputEncoding=T.sRGBEncoding;
-    host.appendChild(renderer.domElement);
-    const scene=new T.Scene(), cam=new T.PerspectiveCamera(32,1,.1,50); cam.position.set(0,0,4.6);
+  const vp=document.createElement("div"); vp.className="deck-viewport";
+  const track=document.createElement("div"); track.className="deck-track"; vp.appendChild(track);
+  const slides=els.map((el,i)=>{
+    const s=document.createElement("div"); s.className="deck-slide"; s.dataset.i=i;
+    s.setAttribute("role","group"); s.setAttribute("aria-roledescription","slide"); s.setAttribute("aria-label",`${i+1} of ${els.length}`);
+    const sc=document.createElement("div"); sc.className="deck-scroll";
+    const inner=document.createElement("div"); inner.className="deck-inner";
+    inner.appendChild(el);
+    if(el.id==="about" && mq) inner.appendChild(mq); sc.appendChild(inner); s.appendChild(sc); track.appendChild(s);
+    return s;
+  });
+  const nav=document.getElementById("nav");
+  nav.after(vp);
+  const wipe=document.createElement("div"); wipe.className="deck-wipe"; document.body.appendChild(wipe);
 
-    /* --- facets: right half, mirrored --- */
-    const V={
-      tip:[.58,1.12,-.18], eOut:[.84,.4,-.22], eIn:[.24,.52,.02], inner:[.52,.7,-.04],
-      fore:[0,.48,.16], brow:[0,.2,.36], eye:[.28,.12,.32], cheek:[.8,-.02,-.08],
-      jawO:[.5,-.5,.08], sSide:[.17,-.3,.72], bridge:[0,-.14,.8], nose:[0,-.42,1.12],
-      jawI:[.2,-.66,.6], chin:[0,-.82,.66], ruff:[1.02,-.42,-.32], ruff2:[.7,-.9,-.16]
-    };
-    const F=[["tip","eOut","inner"],["tip","inner","eIn"],["eIn","inner","eye"],["inner","eOut","cheek"],["inner","cheek","eye"],
-      ["eIn","eye","brow"],["eIn","brow","fore"],["eye","cheek","sSide"],["eye","sSide","bridge"],["eye","bridge","brow"],
-      ["cheek","jawO","sSide"],["jawO","jawI","sSide"],["sSide","jawI","nose"],["bridge","sSide","nose"],["jawI","chin","nose"],
-      ["eOut","ruff","cheek"],["cheek","ruff","jawO"],["jawO","ruff","ruff2"],["jawO","ruff2","jawI"],["jawI","ruff2","chin"]];
-    const tris=[];
-    F.forEach(f=>{ const a=f.map(k=>V[k]); tris.push(a); tris.push(a.map(p=>[-p[0],p[1],p[2]]).reverse()); });
-    const N=tris.length;
-    const base=new Float32Array(N*9), pos=new Float32Array(N*9);
-    tris.forEach((t,i)=>t.forEach((p,j)=>{ base.set(p,i*9+j*3); }));
-    pos.set(base);
-    // per-facet scatter
-    const fx=tris.map((t,i)=>{
-      const c=[0,1,2].map(k=>(t[0][k]+t[1][k]+t[2][k])/3);
-      const d=new T.Vector3(c[0]+(Math.random()-.5)*.6,c[1]+(Math.random()-.5)*.6,c[2]+.4+Math.random()*.6).normalize().multiplyScalar(2.2+Math.random()*2.2);
-      return {c, off:d, axis:new T.Vector3(Math.random()-.5,Math.random()-.5,Math.random()-.5).normalize(), ang:(Math.random()-.5)*Math.PI*3, delay:Math.random()*.45};
-    });
-    const geo=new T.BufferGeometry(); geo.setAttribute("position",new T.BufferAttribute(pos,3)); geo.computeVertexNormals();
-    const mat=new T.MeshStandardMaterial({color:0x2a1d16,roughness:.42,metalness:.35,flatShading:true,side:T.DoubleSide,transparent:true,opacity:0});
-    const head=new T.Mesh(geo,mat);
-    // facet edges
-    const lpos=new Float32Array(N*18);
-    const lgeo=new T.BufferGeometry(); lgeo.setAttribute("position",new T.BufferAttribute(lpos,3));
-    const lmat=new T.LineBasicMaterial({color:0xffb27a,transparent:true,opacity:.0});
-    const edges=new T.LineSegments(lgeo,lmat);
-    // eyes
-    const eyeMat=new T.MeshBasicMaterial({color:0xff7a1a,transparent:true,opacity:0});
-    const eyeGeo=new T.SphereGeometry(.045,16,12);
-    const eyeL=new T.Mesh(eyeGeo,eyeMat), eyeR=new T.Mesh(eyeGeo,eyeMat);
-    eyeL.scale.set(1.6,.7,.6); eyeR.scale.set(1.6,.7,.6);
-    eyeR.position.set(.29,.14,.345); eyeL.position.set(-.29,.14,.345); eyeR.rotation.z=-.42; eyeL.rotation.z=.42;
-    const eyeLight=new T.PointLight(0xff6a1a,0,2.2); eyeLight.position.set(0,.14,.6);
+  // UI
+  const ui=document.createElement("div"); ui.className="deck-ui";
+  ui.innerHTML=`<div class="deck-count"><b id="dkNow">01</b><span class="deck-bar"><i id="dkBar"></i></span><span>${String(els.length).padStart(2,"0")}</span></div>
+    <div class="deck-arrows"><button type="button" id="dkPrev" aria-label="Previous slide">←</button><button type="button" id="dkNext" aria-label="Next slide">→</button></div>`;
+  document.body.appendChild(ui);
+  const dots=document.createElement("nav"); dots.className="deck-dots"; dots.setAttribute("aria-label","Slides");
+  els.forEach((el,i)=>{ const b=document.createElement("button"); b.type="button"; b.setAttribute("aria-label",`Go to slide ${i+1}`); b.onclick=()=>go(i); dots.appendChild(b); });
+  document.body.appendChild(dots);
+  const now=document.getElementById("dkNow"), bar=document.getElementById("dkBar"), prevB=document.getElementById("dkPrev"), nextB=document.getElementById("dkNext");
+  prevB.onclick=()=>go(index-1); nextB.onclick=()=>go(index+1);
 
-    const rig=new T.Group(); rig.add(head,edges,eyeL,eyeR,eyeLight); scene.add(rig);
-
-    // rings + embers
-    const ringMat=new T.MeshBasicMaterial({color:0xfff3e8,transparent:true,opacity:.0});
-    const ring1=new T.Mesh(new T.TorusGeometry(1.55,.006,8,180),ringMat);
-    const ring2=new T.Mesh(new T.TorusGeometry(1.85,.004,8,180),ringMat.clone());
-    ring1.rotation.set(1.25,0,.3); ring2.rotation.set(1.05,.4,-.4); scene.add(ring1,ring2);
-    const EN=reduce?0:360, ep=new Float32Array(EN*3), es=new Float32Array(EN);
-    for(let i=0;i<EN;i++){ const r=1.3+Math.random()*1.4, th=Math.random()*6.283, ph=Math.acos(2*Math.random()-1);
-      ep.set([r*Math.sin(ph)*Math.cos(th),r*Math.cos(ph)*.8,r*Math.sin(ph)*Math.sin(th)*.6],i*3); es[i]=Math.random(); }
-    const egeo=new T.BufferGeometry(); egeo.setAttribute("position",new T.BufferAttribute(ep,3));
-    const emat=new T.PointsMaterial({color:0xffd2a8,size:.028,transparent:true,opacity:0,depthWrite:false,blending:T.AdditiveBlending});
-    const embers=new T.Points(egeo,emat); scene.add(embers);
-
-    // lights: warm key, ember rim, cool-ish fill
-    scene.add(new T.HemisphereLight(0xffe6d2,0x3a1a08,.55));
-    const key=new T.DirectionalLight(0xfff1e4,1.15); key.position.set(-2.2,2.4,3); scene.add(key);
-    const rim=new T.PointLight(0xff5a0a,3.2,9); rim.position.set(2.4,.8,-1.6); scene.add(rim);
-    const rim2=new T.PointLight(0xffa060,1.6,9); rim2.position.set(-2.6,-1.2,-1); scene.add(rim2);
-
-    function size(){ const w=host.clientWidth,h=host.clientHeight; renderer.setSize(w,h,false); cam.aspect=w/h;
-      cam.position.z = w/h<.9 ? 5.4 : 4.6; cam.updateProjectionMatrix(); }
-    size(); new ResizeObserver(size).observe(host);
-
-    let tx=0,ty=0,mx=0,my=0;
-    if(matchMedia("(pointer: fine)").matches) addEventListener("pointermove",e=>{ tx=e.clientX/innerWidth-.5; ty=e.clientY/innerHeight-.5; },{passive:true});
-
-    const sec=document.getElementById("signup"); let t0=null, vis=true, raf=0;
-    new IntersectionObserver(es=>{ vis=es[0].isIntersecting; if(vis&&!raf) raf=requestAnimationFrame(frame); }).observe(host);
-    const ease=x=>1-Math.pow(1-x,4), clamp=x=>Math.max(0,Math.min(1,x));
-    const q=new T.Quaternion(), v=new T.Vector3();
-    const DUR=reduce?0.01:2.6;
-
-    function place(prog){
-      for(let i=0;i<N;i++){
-        const f=fx[i], e=ease(clamp((prog-f.delay)/(1-.45)));
-        q.setFromAxisAngle(f.axis,f.ang*(1-e));
-        for(let j=0;j<3;j++){
-          const o=i*9+j*3;
-          v.set(base[o]-f.c[0],base[o+1]-f.c[1],base[o+2]-f.c[2]).applyQuaternion(q);
-          pos[o]=v.x+f.c[0]+f.off.x*(1-e); pos[o+1]=v.y+f.c[1]+f.off.y*(1-e); pos[o+2]=v.z+f.c[2]+f.off.z*(1-e);
-        }
-        const L=i*18, p=i*9;
-        lpos.set([pos[p],pos[p+1],pos[p+2],pos[p+3],pos[p+4],pos[p+5], pos[p+3],pos[p+4],pos[p+5],pos[p+6],pos[p+7],pos[p+8], pos[p+6],pos[p+7],pos[p+8],pos[p],pos[p+1],pos[p+2]],L);
-      }
-      geo.attributes.position.needsUpdate=true; geo.computeVertexNormals(); lgeo.attributes.position.needsUpdate=true;
-    }
-    place(0);
-
-    function frame(now){
-      raf=0; if(!vis) return;
-      const go=sec.classList.contains("is-in");
-      if(go && t0===null) t0=now;
-      const tt=t0===null?0:(now-t0)/1000, prog=clamp(tt/DUR);
-      if(prog<1 || tt<DUR+.1) place(prog);
-      const after=clamp((tt-DUR*.7)/1.2);
-      mat.opacity=Math.min(1,prog*2.2); lmat.opacity=.55*clamp(prog*1.5)*(1-.55*after);
-      eyeMat.opacity=after; eyeLight.intensity=after*(1.6+Math.sin(now*.004)*.35+Math.sin(now*.017)*.15);
-      ringMat.opacity=.35*after; ring2.material.opacity=.22*after; emat.opacity=.85*clamp(prog*1.4);
-      mx+=(tx-mx)*.05; my+=(ty-my)*.05;
-      const s=now*.001;
-      rig.rotation.y=-.5+(reduce?0:Math.sin(s*.45)*.16)+mx*.6 + (1-ease(prog))*-1.2;
-      rig.rotation.x=(reduce?0:Math.sin(s*.33)*.05)+my*.35;
-      rig.position.y=reduce?0:Math.sin(s*.8)*.04;
-      ring1.rotation.z+=.0018; ring2.rotation.z-=.0012;
-      embers.rotation.y+=.0009; embers.rotation.x=Math.sin(s*.2)*.08;
-      renderer.render(scene,cam);
-      raf=requestAnimationFrame(frame);
-    }
-    raf=requestAnimationFrame(frame);
-    host.classList.add("gl-on");
+  let index=0, locked=false; const listeners=[];
+  function paint(instant){
+    if(instant){ track.style.transition="none"; slides.forEach(s=>s.querySelector(".deck-inner").style.transition="none"); }
+    track.style.transform=`translate3d(${-index*100}vw,0,0)`;
+    slides.forEach((s,i)=>{ s.classList.toggle("is-active",i===index); s.classList.toggle("is-before",i<index); s.classList.toggle("is-after",i>index);
+      s.inert = i!==index; });
+    if(instant){ track.offsetWidth; track.style.transition=""; slides.forEach(s=>s.querySelector(".deck-inner").style.transition=""); }
+    now.textContent=String(index+1).padStart(2,"0");
+    bar.style.transform=`scaleX(${(index+1)/els.length})`;
+    [...dots.children].forEach((d,i)=>d.setAttribute("aria-current",i===index?"true":"false"));
+    prevB.disabled=index===0; nextB.disabled=index===els.length-1;
+    nav.classList.toggle("solid",index>0);
   }
+  function go(i,instant){
+    i=Math.max(0,Math.min(els.length-1,i));
+    if(i===index || (locked && !instant)) return;
+    const dir=i>index?"next":"prev";
+    index=i; paint(instant);
+    if(!instant){
+      locked=true; setTimeout(()=>locked=false,1250);
+      wipe.className="deck-wipe"; void wipe.offsetWidth; wipe.classList.add(dir==="next"?"go-next":"go-prev");
+    }
+    const sc=slides[index].querySelector(".deck-scroll"); sc.scrollTop= dir==="prev" && !instant ? sc.scrollHeight : 0;
+    listeners.forEach(fn=>fn(index));
+    try{ history.replaceState(null,"",index? "#"+els[index].id : location.pathname+location.search); }catch(e){}
+  }
+  const atTop=sc=>sc.scrollTop<=2, atBottom=sc=>sc.scrollTop+sc.clientHeight>=sc.scrollHeight-2;
+
+  // wheel / trackpad
+  let acc=0, lastWheel=0, gesture=0, spentGesture=-1;
+  vp.addEventListener("wheel",e=>{
+    const t=performance.now();
+    if(t-lastWheel>200){ gesture++; acc=0; }          // a pause starts a new gesture
+    lastWheel=t;
+    const sc=slides[index].querySelector(".deck-scroll");
+    const d=Math.abs(e.deltaY)>=Math.abs(e.deltaX)?e.deltaY:e.deltaX;
+    const horizontal=Math.abs(e.deltaX)>Math.abs(e.deltaY);
+    if(!horizontal && ((d>0 && !atBottom(sc)) || (d<0 && !atTop(sc)))){ spentGesture=gesture; return; }  // slide scrolls itself
+    e.preventDefault();
+    if(locked || spentGesture===gesture) return;
+    acc+=d;
+    if(Math.abs(acc)>50){ spentGesture=gesture; acc=0; go(index+(d>0?1:-1)); }
+  },{passive:false});
+
+  // touch
+  let sx=0, sy=0, st=0, startTop=true, startBottom=true;
+  vp.addEventListener("touchstart",e=>{ const t=e.touches[0]; sx=t.clientX; sy=t.clientY; st=performance.now();
+    const sc=slides[index].querySelector(".deck-scroll"); startTop=atTop(sc); startBottom=atBottom(sc); },{passive:true});
+  vp.addEventListener("touchend",e=>{
+    const t=e.changedTouches[0], dx=t.clientX-sx, dy=t.clientY-sy;
+    if(Math.abs(dx)>60 && Math.abs(dx)>Math.abs(dy)*1.2){ go(index+(dx<0?1:-1)); return; }
+    if(Math.abs(dy)>90 && Math.abs(dy)>Math.abs(dx)*1.5){
+      if(dy<0 && startBottom) go(index+1);
+      else if(dy>0 && startTop) go(index-1);
+    }
+  },{passive:true});
+
+  // keys
+  addEventListener("keydown",e=>{
+    if(e.target.closest && e.target.closest("input,textarea,select,[contenteditable]")) return;
+    const sc=slides[index].querySelector(".deck-scroll");
+    if(["ArrowRight","PageDown"].includes(e.key) || (e.key===" " && !e.shiftKey && atBottom(sc)) || (e.key==="ArrowDown" && atBottom(sc))){ e.preventDefault(); go(index+1); }
+    else if(["ArrowLeft","PageUp"].includes(e.key) || (e.key===" " && e.shiftKey && atTop(sc)) || (e.key==="ArrowUp" && atTop(sc))){ e.preventDefault(); go(index-1); }
+    else if(e.key==="Home"){ go(0); } else if(e.key==="End"){ go(els.length-1); }
+  });
+
+  // in-page links (nav, buttons) jump to the slide that holds the target
+  document.addEventListener("click",e=>{
+    const a=e.target.closest && e.target.closest('a[href^="#"]'); if(!a) return;
+    const id=a.getAttribute("href").slice(1); if(!id) return;
+    const tgt=document.getElementById(id); if(!tgt) return;
+    const s=tgt.closest(".deck-slide"); if(!s) return;
+    e.preventDefault(); go(+s.dataset.i);
+  });
+  addEventListener("resize",()=>paint(true));
+
+  // start on the slide named in the link, if any
+  const start=location.hash? document.getElementById(location.hash.slice(1)) : null;
+  const ss=start && start.closest(".deck-slide");
+  paint(true); if(ss) go(+ss.dataset.i,true);
+
+  return { go, next:()=>go(index+1), get index(){ return index; }, onChange:fn=>listeners.push(fn) };
 })();
 
 /* ---------- copy email ---------- */
