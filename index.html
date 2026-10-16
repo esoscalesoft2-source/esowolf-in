@@ -695,6 +695,7 @@ function startIntro(){
 
 /* First real interaction anywhere on the page turns the sound on (scrolling alone does not count in browsers). */
 function onGesture(){
+  if(window.deck && deck.index!==0) return;
   if(introDone && !interrupted) return;
   if(speaking) return;
   playWithSound(!interrupted && !introDone && vMain.currentTime>1 ? true : false);
@@ -709,7 +710,7 @@ function stopForInterruption(){
 }
 document.addEventListener("visibilitychange",()=>{
   if(document.hidden){ stopForInterruption(); }
-  else if(interrupted){ vMain.muted=true; vMain.play().catch(()=>{}); vAmb.play().catch(()=>{}); showHint("Tap to continue"); }
+  else if(interrupted && (!window.deck || deck.index===0)){ vMain.muted=true; vMain.play().catch(()=>{}); vAmb.play().catch(()=>{}); showHint("Tap to continue"); }
 });
 addEventListener("pagehide",stopForInterruption);
 /* iOS/Android pause media themselves when a call rings while the page is still visible. */
@@ -734,7 +735,20 @@ vMain.addEventListener("ended",()=>{
 });
 /* If the visitor scrolls past the hero themselves, don't yank them back or speak over the page. */
 addEventListener("scroll",()=>{ if(!introDone && scrollY > innerHeight*0.9 && !speaking){ introDone=true; hideHint(); } },{passive:true});
-setTimeout(()=>{ if(window.deck) deck.onChange(i=>{ if(i>0 && !introDone && !speaking){ introDone=true; hideHint(); } }); },0);
+/* Slide changes drive the intro:
+   leaving slide 1 → stop video + audio; coming back → restart from the beginning with sound. */
+setTimeout(()=>{ if(!window.deck) return;
+  deck.onChange(i=>{
+    if(i!==0){
+      selfPause=true; both(v=>v.pause()); selfPause=false;
+      speaking=false; interrupted=false; hideHint();
+    } else {
+      introDone=false; interrupted=false;
+      both(v=>{ v.currentTime=0; });
+      playWithSound(false).then(ok=>{ if(!ok) showHint("Tap for sound"); });
+    }
+  });
+},0);
 
 startIntro();
 
