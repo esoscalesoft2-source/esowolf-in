@@ -243,6 +243,78 @@ section{padding-block:clamp(72px,10vw,128px)}
 .meesho.myntra .rv.in{transform:none}
 @media (max-width:960px){.myntra .me-grid{grid-template-columns:1fr}.myntra .me-title{grid-column:1;text-align:left;justify-self:start}.myntra .me-body{grid-column:1;grid-row:2}}
 
+
+/* WhatsApp Business API slide — styled after the WOO Chat sign-in screen */
+.wa{--wa-g:#10b981;--wa-g2:#4ade80;--wa-ink:#0a1310;padding:0;display:grid;grid-template-columns:1fr 1fr;min-height:100svh;background:var(--wa-ink);color:#eafff5;position:relative;overflow:hidden}
+.wa-left{position:relative;overflow:hidden;display:flex;align-items:center;
+  background:radial-gradient(120% 90% at 30% 40%,#1f7a58 0%,#145d43 38%,#0d3a2b 75%,#0b2e23 100%)}
+.wa-left-in{position:relative;z-index:2;width:100%;padding:clamp(110px,14vh,150px) clamp(24px,5vw,72px) clamp(140px,19vh,190px)}
+.wa-brand{display:flex;align-items:center;gap:14px;font:800 clamp(20px,1.7vw,26px)/1 var(--body);letter-spacing:-.01em;margin-bottom:clamp(40px,7vh,90px)}
+.wa-logo{display:grid;place-items:center;width:50px;height:50px;border-radius:14px;background:rgba(10,19,16,.55);border:1px solid rgba(255,255,255,.12);overflow:hidden}
+.wa-logo img{width:86%;height:auto;object-fit:contain}
+.wa-logo-lg{width:58px;height:58px;border-radius:16px;margin:0 auto 18px;background:#0e1814}
+.wa-title{font-family:var(--body);text-transform:none;font-weight:800;letter-spacing:-.03em;line-height:1.04;font-size:clamp(40px,4.6vw,72px);margin:0 0 20px;color:#f1fff8}
+.wa-title em{font-style:normal;color:var(--wa-g2)}
+.wa-lead{margin:0 0 30px;max-width:44ch;font-size:clamp(16px,1.3vw,19px);line-height:1.55;color:rgba(234,255,245,.78)}
+.wa-chips{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,250px));gap:12px}
+.wa-chips li{display:flex;align-items:center;gap:12px;padding:14px 16px;border-radius:12px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);
+  font-weight:700;font-size:15px;color:#f1fff8;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);transition:background .25s,transform .25s}
+.wa-chips li:hover{background:rgba(255,255,255,.12);transform:translateY(-2px)}
+.wa-chips svg{width:18px;height:18px;flex:none;color:var(--wa-g2)}
+.wa-bubble{position:absolute;z-index:1;padding:12px 16px 8px;border-radius:14px;font-weight:600;font-size:15px;box-shadow:0 18px 40px rgba(0,0,0,.25);
+  opacity:0;transform:translateY(20px) scale(.9);transition:opacity .6s ease,transform .8s cubic-bezier(.16,1,.3,1)}
+.wa-bubble small{display:block;text-align:right;font-size:11px;font-weight:500;opacity:.7;margin-top:4px}
+.wa-b1{right:6%;top:15%;background:#0f6b4f;color:#eafff5;border-bottom-right-radius:4px;transition-delay:1.1s}
+.wa-b2{left:6%;bottom:11%;background:#fff;color:#1b2a24;border-bottom-left-radius:4px;transition-delay:1.6s}
+.wa-b3{right:8%;bottom:16%;background:#0f6b4f;color:#eafff5;border-bottom-right-radius:4px;transition-delay:2.2s}
+.wa.is-in .wa-bubble{opacity:1;transform:none;animation:waFloat 6s ease-in-out 3s infinite}
+.wa.is-in .wa-b2{animation-delay:3.6s}.wa.is-in .wa-b3{animation-delay:4.2s}
+@keyframes waFloat{50%{transform:translateY(-8px)}}
+.wa-right{position:relative;display:grid;place-items:center;padding:clamp(110px,12vh,150px) clamp(20px,4vw,60px) clamp(110px,12vh,150px);
+  background:
+    radial-gradient(60% 50% at 85% 10%,rgba(16,185,129,.22),transparent 70%),
+    radial-gradient(50% 40% at 20% 100%,rgba(16,185,129,.12),transparent 70%),
+    linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px) 0 0/44px 44px,
+    linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px) 0 0/44px 44px,
+    var(--wa-ink)}
+.wa-card{width:min(100%,440px);padding:clamp(28px,3vw,40px);border-radius:18px;text-align:center;
+  background:rgba(17,26,22,.92);border:1px solid rgba(255,255,255,.08);box-shadow:0 40px 90px rgba(0,0,0,.45)}
+.wa-card h3{display:block;font-family:var(--body);text-transform:none;font-weight:800;
+  font-size:clamp(22px,1.8vw,27px);letter-spacing:-.01em;margin:0 0 10px;color:#f1fff8}
+.wa-card h3 svg{display:inline-block;width:22px;height:22px;vertical-align:-3px;margin-right:8px;color:var(--wa-g2)}
+.wa-card>p{margin:0 0 26px;color:rgba(234,255,245,.6);font-size:15px;line-height:1.5}
+.wa-btn{display:flex;align-items:center;justify-content:center;gap:10px;height:54px;border-radius:12px;background:var(--wa-g);color:#fff;
+  font:700 16px/1 var(--body);text-decoration:none;box-shadow:0 14px 34px rgba(16,185,129,.35);transition:transform .2s,background .2s,box-shadow .2s}
+.wa-btn span{transition:transform .25s}
+.wa-btn:hover{background:#0ea371;transform:translateY(-2px);box-shadow:0 18px 40px rgba(16,185,129,.45)}
+.wa-btn:hover span{transform:translateX(4px)}
+.wa-btn:focus-visible{outline:3px solid var(--wa-g2);outline-offset:3px}
+.wa-small{margin:18px 0 0;font-size:14px;color:rgba(234,255,245,.6)}
+.wa-small a{color:var(--wa-g);font-weight:700;text-decoration:none}
+.wa-small a:hover{text-decoration:underline}
+/* entrance */
+.wa .rv{transform:translateY(26px);transition:transform 1s cubic-bezier(.16,1,.3,1),opacity .9s ease}
+.wa .rv.in{transform:none}
+.wa .wa-title.rv{transition-delay:.1s}.wa .wa-lead.rv{transition-delay:.22s}
+.wa .wa-chips li:nth-child(1){transition-delay:.34s}.wa .wa-chips li:nth-child(2){transition-delay:.42s}
+.wa .wa-chips li:nth-child(3){transition-delay:.5s}.wa .wa-chips li:nth-child(4){transition-delay:.58s}
+.wa .wa-card.rv{transform:translateY(40px) scale(.96);transition-delay:.45s}
+.wa .wa-card.rv.in{transform:none}
+@media (max-width:960px){
+  .wa{grid-template-columns:1fr}
+  .wa-left-in{padding-bottom:180px}
+  .wa-right{padding-top:56px}
+  .wa-b3{display:none}
+}
+@media (max-width:560px){
+  .wa-chips{grid-template-columns:1fr 1fr}
+  .wa-chips li{padding:12px;font-size:13px;gap:8px}
+  .wa-brand{margin-bottom:32px}
+  .wa-bubble{display:none}
+  .wa-left-in{padding-bottom:64px}
+}
+@media (prefers-reduced-motion:reduce){.wa-bubble{opacity:1;transform:none}}
+
 /* tablet & phone: copy first, portrait anchored to the bottom of the section */
 @media (max-width:960px){
   .signup{flex-direction:column;align-items:stretch;padding-block:120px 96px;min-height:auto}
@@ -497,19 +569,31 @@ html.deck .signup{padding-bottom:max(110px,10vw)}
       </div>
     </div>
   </section>
-  <!-- ======================= WHATSAPP ======================= -->
-  <section class="meesho whatsapp" id="whatsapp" aria-labelledby="waTitle">
-    <div class="me-glow" aria-hidden="true"></div>
-    <div class="wrap me-grid">
-      <h2 id="waTitle" class="me-title rv">WhatsApp <span>Business</span> API</h2>
-      <div class="me-body">
-        <p class="me-lead rv">Reach customers on the app they already use. Send automated messages and updates from your own business number, at any scale.</p>
-        <ul class="me-list">
-          <li class="rv"><span class="me-n">01</span>Automated replies, welcome messages and FAQs, 24×7</li>
-          <li class="rv"><span class="me-n">02</span>Customer notifications for offers, payment reminders and COD confirmation</li>
-          <li class="rv"><span class="me-n">03</span>Order confirmation, shipping and delivery updates sent automatically</li>
-          <li class="rv"><span class="me-n">04</span>One shared inbox so your team can chat with every customer</li>
+  <!-- ======================= WHATSAPP (WOO Chat) ======================= -->
+  <section class="wa" id="whatsapp" aria-labelledby="waTitle">
+    <div class="wa-left">
+      <div class="wa-left-in">
+        <div class="wa-brand rv"><span class="wa-logo"><img src="https://spx.aurotec.in/storage/v1/object/public/app-assets/logo/app-logo.png" alt="" width="46" height="23"></span>WOO Chat</div>
+        <h2 id="waTitle" class="wa-title rv">WhatsApp <em>Business</em> API</h2>
+        <p class="wa-lead rv">Reach customers on the app they already use. Send automated messages and updates from your own business number, at any scale.</p>
+        <ul class="wa-chips">
+          <li class="rv"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg>Automated Replies</li>
+          <li class="rv"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m22 2-7 20-4-9-9-4 20-7z"/><path d="M22 2 11 13"/></svg>Customer Notifications</li>
+          <li class="rv"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8 12 3 3 8v8l9 5 9-5z"/><path d="m3 8 9 5 9-5M12 13v8"/></svg>Order Updates</li>
+          <li class="rv"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>Shared Team Inbox</li>
         </ul>
+      </div>
+      <div class="wa-bubble wa-b1" aria-hidden="true">Hello! 👋 How can I help you?<small>9:41 am ✓✓</small></div>
+      <div class="wa-bubble wa-b2" aria-hidden="true">Can I track my order? 🙂<small>9:42 am</small></div>
+      <div class="wa-bubble wa-b3" aria-hidden="true">Your order is out for delivery 🚚<small>9:42 am ✓✓</small></div>
+    </div>
+    <div class="wa-right">
+      <div class="wa-card rv">
+        <span class="wa-logo wa-logo-lg"><img src="https://spx.aurotec.in/storage/v1/object/public/app-assets/logo/app-logo.png" alt="WOO Chat logo" width="56" height="28"></span>
+        <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.5 2.5M15.5 15.5 18 18M6 18l2.5-2.5M15.5 8.5 18 6"/></svg>Get started with WOO Chat</h3>
+        <p>Automated replies, notifications and order updates for your business on WhatsApp.</p>
+        <a class="wa-btn" href="https://woochat.esowolf.in/login" target="_blank" rel="noopener">Sign Up <span aria-hidden="true">→</span></a>
+        <p class="wa-small">Already have an account? <a href="https://woochat.esowolf.in/login" target="_blank" rel="noopener">Sign In</a></p>
       </div>
     </div>
   </section>
