@@ -211,7 +211,7 @@ section{padding-block:clamp(72px,10vw,128px)}
 
 /* tablet & phone: copy first, portrait anchored to the bottom of the section */
 @media (max-width:960px){
-  .signup{flex-direction:column;align-items:stretch;padding-block:120px 0;min-height:auto}
+  .signup{flex-direction:column;align-items:stretch;padding-block:120px 96px;min-height:auto}
   .signup-title{max-width:16ch}
   .su-portrait{position:relative;right:auto;bottom:auto;width:min(112%,760px);margin:clamp(24px,6vw,48px) -6% 0 auto;align-self:flex-end}
   .su-word{top:auto;bottom:4%;transform:none;font-size:42vw}
@@ -366,18 +366,6 @@ html:not(.js) .signup .signup-title mark::before{transform:none}
       <h2 id="signupTitle" class="signup-title" data-split>We help Amazon sellers increase their sales and profit and manage ads using our proven <mark>Wolf hunt method.</mark></h2>
       <div class="signup-cta"><a class="signup-btn" id="signupLink" href="#signup" data-magnetic><span class="lbl">Sign Up</span><span class="arr" aria-hidden="true">↗</span></a></div>
     </div>
-    <figure class="su-portrait" id="suPortrait">
-      <div class="su-portrait-in">
-        <div class="su-glow" aria-hidden="true"></div>
-        <svg class="su-orbit" viewBox="0 0 400 400" aria-hidden="true">
-          <circle class="ring" cx="200" cy="200" r="196"/>
-          <circle class="ring r2" cx="200" cy="200" r="150"/>
-          <g class="spin"><circle class="dot" cx="200" cy="4" r="5"/><circle class="dot ink" cx="396" cy="200" r="3.5"/></g>
-          <g class="spin rev"><circle class="dot" cx="50" cy="200" r="4"/></g>
-        </svg>
-        <img src="assets/portrait.webp" alt="ESOWOLF founder smiling at his desk" width="1300" height="842" loading="lazy" decoding="async">
-      </div>
-    </figure>
   </section>
 
   <div class="marquee" aria-hidden="true"><div class="track" id="mq"></div></div>
@@ -743,7 +731,7 @@ const SIGNUP_URL = "";
     mx+=(tx-mx)*.06; my+=(ty-my)*.06;
     const r=sec.getBoundingClientRect(); sy=Math.max(-1,Math.min(1,r.top/innerHeight));
     if(!reduce){
-      por.style.transform=`translate3d(${-mx*26}px,${-my*18+sy*60}px,0)`;
+      if(por) por.style.transform=`translate3d(${-mx*26}px,${-my*18+sy*60}px,0)`;
       word.style.translate=`${mx*40}px ${sy*-80}px`;
     }
     raf=requestAnimationFrame(loop);
