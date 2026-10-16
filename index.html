@@ -345,25 +345,25 @@ html:not(.js) .signup .signup-title mark::before{transform:none}
    Active only with JS (html.deck). Without JS the page stays a normal vertical scroll. */
 html.deck,html.deck body{height:100%;overflow:hidden;overscroll-behavior:none}
 .deck-viewport{position:fixed;inset:0;overflow:hidden;background:var(--ink);z-index:1}
-.deck-track{display:flex;height:100%;will-change:transform;
+.deck-track{display:flex;flex-direction:column;height:100%;will-change:transform;
   transition:transform 1.15s cubic-bezier(.77,0,.18,1)}
-.deck-slide{position:relative;flex:0 0 100vw;width:100vw;height:100%;overflow:hidden;background:var(--ink)}
+.deck-slide{position:relative;flex:0 0 100%;width:100%;height:100%;overflow:hidden;background:var(--ink)}
 .deck-scroll{position:absolute;inset:0;overflow-y:auto;overflow-x:hidden;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;
   scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.18) transparent}
 .deck-inner{min-height:100%;display:flex;flex-direction:column;justify-content:center;
   transition:transform 1.15s cubic-bezier(.77,0,.18,1),opacity .9s ease,filter .9s ease;transform-origin:50% 50%}
 /* outgoing slides sink back, incoming slides glide in with a parallax lag */
-.deck-slide.is-before .deck-inner{transform:translateX(38vw) scale(.92);opacity:.35;filter:brightness(.6)}
-.deck-slide.is-after .deck-inner{transform:translateX(-38vw) scale(.92);opacity:.35;filter:brightness(.6)}
+.deck-slide.is-before .deck-inner{transform:translateY(34vh) scale(.92);opacity:.35;filter:brightness(.6)}
+.deck-slide.is-after .deck-inner{transform:translateY(-34vh) scale(.92);opacity:.35;filter:brightness(.6)}
 .deck-slide.is-active .deck-inner{transform:none;opacity:1;filter:none}
 /* a thin ember edge sweeps across with each move */
-.deck-wipe{position:fixed;top:0;bottom:0;width:6px;left:0;z-index:40;pointer-events:none;opacity:0;
-  background:linear-gradient(180deg,transparent,var(--ember) 30%,#ffd0a8 50%,var(--ember) 70%,transparent);
+.deck-wipe{position:fixed;left:0;right:0;height:6px;top:0;z-index:40;pointer-events:none;opacity:0;
+  background:linear-gradient(90deg,transparent,var(--ember) 30%,#ffd0a8 50%,var(--ember) 70%,transparent);
   box-shadow:0 0 40px 8px rgba(255,106,26,.45)}
 .deck-wipe.go-next{animation:wipeNext 1.15s cubic-bezier(.77,0,.18,1)}
 .deck-wipe.go-prev{animation:wipePrev 1.15s cubic-bezier(.77,0,.18,1)}
-@keyframes wipeNext{0%{left:100%;opacity:1}100%{left:-2%;opacity:.0}}
-@keyframes wipePrev{0%{left:-2%;opacity:1}100%{left:100%;opacity:0}}
+@keyframes wipeNext{0%{top:100%;opacity:1}100%{top:-2%;opacity:0}}
+@keyframes wipePrev{0%{top:-2%;opacity:1}100%{top:100%;opacity:0}}
 
 /* sections inside slides */
 html.deck .hero{position:relative;height:100%;min-height:0}
@@ -907,7 +907,7 @@ window.deck=(function(){
   // UI
   const ui=document.createElement("div"); ui.className="deck-ui";
   ui.innerHTML=`<div class="deck-count"><b id="dkNow">01</b><span class="deck-bar"><i id="dkBar"></i></span><span>${String(els.length).padStart(2,"0")}</span></div>
-    <div class="deck-arrows"><button type="button" id="dkPrev" aria-label="Previous slide">←</button><button type="button" id="dkNext" aria-label="Next slide">→</button></div>`;
+    <div class="deck-arrows"><button type="button" id="dkPrev" aria-label="Previous slide">↑</button><button type="button" id="dkNext" aria-label="Next slide">↓</button></div>`;
   document.body.appendChild(ui);
   const dots=document.createElement("nav"); dots.className="deck-dots"; dots.setAttribute("aria-label","Slides");
   els.forEach((el,i)=>{ const b=document.createElement("button"); b.type="button"; b.setAttribute("aria-label",`Go to slide ${i+1}`); b.onclick=()=>go(i); dots.appendChild(b); });
@@ -918,7 +918,7 @@ window.deck=(function(){
   let index=0, locked=false; const listeners=[];
   function paint(instant){
     if(instant){ track.style.transition="none"; slides.forEach(s=>s.querySelector(".deck-inner").style.transition="none"); }
-    track.style.transform=`translate3d(${-index*100}vw,0,0)`;
+    track.style.transform=`translate3d(0,${-index*100}%,0)`;
     slides.forEach((s,i)=>{ s.classList.toggle("is-active",i===index); s.classList.toggle("is-before",i<index); s.classList.toggle("is-after",i>index);
       s.inert = i!==index; });
     if(instant){ track.offsetWidth; track.style.transition=""; slides.forEach(s=>s.querySelector(".deck-inner").style.transition=""); }
@@ -967,8 +967,8 @@ window.deck=(function(){
     const sc=slides[index].querySelector(".deck-scroll"); startTop=atTop(sc); startBottom=atBottom(sc); },{passive:true});
   vp.addEventListener("touchend",e=>{
     const t=e.changedTouches[0], dx=t.clientX-sx, dy=t.clientY-sy;
-    if(Math.abs(dx)>60 && Math.abs(dx)>Math.abs(dy)*1.2){ go(index+(dx<0?1:-1)); return; }
-    if(Math.abs(dy)>90 && Math.abs(dy)>Math.abs(dx)*1.5){
+    if(Math.abs(dx)>80 && Math.abs(dx)>Math.abs(dy)*1.5){ go(index+(dx<0?1:-1)); return; }
+    if(Math.abs(dy)>50 && Math.abs(dy)>Math.abs(dx)){
       if(dy<0 && startBottom) go(index+1);
       else if(dy>0 && startTop) go(index-1);
     }
