@@ -592,12 +592,12 @@ html.deck .signup{padding-bottom:max(110px,10vw)}
 .hunt{position:relative;min-height:100svh;display:flex;align-items:center;color:#f2f2f2;overflow:hidden;background:
   radial-gradient(38% 55% at 100% 0%,rgba(255,110,10,.28),transparent 70%),
   radial-gradient(32% 45% at 0% 100%,rgba(255,110,10,.16),transparent 70%),#0e0e0e}
-.hunt-in{display:flex;flex-direction:column;align-items:center;text-align:center;width:100%;padding-block:clamp(100px,12vh,140px) clamp(90px,11vh,130px)}
-.hunt-logo{width:clamp(130px,10vw,160px);height:auto;margin-bottom:clamp(22px,3.4vh,34px)}
+.hunt-in{display:flex;flex-direction:column;align-items:center;text-align:center;width:100%;padding-block:clamp(84px,11vh,120px) clamp(36px,6vh,80px)}
+.hunt-logo{width:clamp(110px,min(10vw,17vh),160px);height:auto;margin-bottom:clamp(14px,2.6vh,30px)}
 .hunt-title{font-family:var(--body);text-transform:none;font-weight:700;letter-spacing:-.02em;line-height:1.2;
-  font-size:clamp(28px,3vw,46px);max-width:22ch;margin:0 0 clamp(26px,4vh,40px);color:#f5f5f5}
+  font-size:clamp(26px,min(3vw,5.2vh),46px);max-width:22ch;margin:0 0 clamp(18px,3vh,36px);color:#f5f5f5}
 .hunt-title span{color:#ff7a12}
-.hunt-card{position:relative;overflow:hidden;width:min(100%,384px);padding:30px 24px 24px;border-radius:12px;text-align:center;
+.hunt-card{position:relative;overflow:hidden;width:min(100%,384px);padding:clamp(20px,3vh,30px) 24px clamp(18px,2.6vh,24px);border-radius:12px;text-align:center;
   background:#1b1b1b;border:1px solid rgba(255,122,18,.22);
   box-shadow:0 0 0 1px rgba(0,0,0,.4),0 0 46px rgba(255,110,10,.14),0 24px 60px rgba(0,0,0,.5)}
 .hunt-card::before{content:"";position:absolute;inset:0;pointer-events:none;
@@ -610,6 +610,18 @@ html.deck .signup{padding-bottom:max(110px,10vw)}
   font:700 15px/1 var(--body);background:linear-gradient(90deg,#ff6a00,#ff8c1a);box-shadow:0 0 22px rgba(255,110,10,.28);transition:transform .2s,box-shadow .2s,filter .2s}
 .hunt-btn:hover{transform:translateY(-2px);filter:brightness(1.06);box-shadow:0 10px 30px rgba(255,110,10,.42)}
 .hunt-btn:focus-visible{outline:3px solid #ffb054;outline-offset:3px}
+.hunt-card .hunt-sub{margin:0 0 clamp(14px,2.2vh,22px)}
+.hunt-field{display:block;text-align:left;margin:0 0 clamp(10px,1.6vh,16px)}
+.hunt-lbl{display:block;font:700 14px/1.2 var(--body);color:#f2f2f2;margin:0 0 8px}
+.hunt-in-wrap{position:relative;display:block}
+.hunt-in-wrap svg{position:absolute;left:12px;top:50%;width:16px;height:16px;translate:0 -50%;color:#9a9a9a;pointer-events:none}
+.hunt-in-wrap input{width:100%;height:40px;padding:0 12px 0 38px;border-radius:6px;border:1px solid #2c2c2c;background:#101010;color:#f2f2f2;
+  font:400 15px/1 var(--body);outline:none;transition:border-color .2s,box-shadow .2s}
+.hunt-in-wrap input::placeholder{color:#8a8a8a}
+.hunt-in-wrap input:focus{border-color:#ff7a12;box-shadow:0 0 0 3px rgba(255,122,18,.18)}
+.hunt-card .hunt-err{margin:-4px 0 12px;text-align:left;font-size:13px;color:#ff8a5c}
+button.hunt-btn{width:100%;border:0;cursor:pointer;margin-top:4px}
+html.deck #signup.hunt,#signup.hunt{padding:0}
 .hunt .rv{transform:translateY(24px);transition:transform 1s cubic-bezier(.16,1,.3,1),opacity .9s ease}
 .hunt .rv.in{transform:none}
 .hunt .hunt-title.rv{transition-delay:.12s}
@@ -662,11 +674,18 @@ html.deck .signup{padding-bottom:max(110px,10vw)}
     <div class="wrap hunt-in">
       <img class="hunt-logo rv" src="assets/eso-hunt-logo.webp" alt="ESO Hunt Engine" width="1000" height="479">
       <h2 id="signupTitle" class="hunt-title rv">We help Amazon sellers increase <span>sales and profit.</span></h2>
-      <div class="hunt-card rv">
-        <h3>Get started</h3>
-        <p>Book a free Amazon growth call with our team.</p>
-        <a class="hunt-btn" href="https://booking.closer.esowolf.in/book" target="_blank" rel="noopener" id="signupLink">Sign Up</a>
-      </div>
+      <form class="hunt-card rv" id="signupForm" novalidate>
+        <h3>Sign up</h3>
+        <p class="hunt-sub">Book a free Amazon growth call with our team.</p>
+        <label class="hunt-field"><span class="hunt-lbl">Full name</span>
+          <span class="hunt-in-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg><input type="text" name="name" autocomplete="name" placeholder="Your name" required></span></label>
+        <label class="hunt-field"><span class="hunt-lbl">Email</span>
+          <span class="hunt-in-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg><input type="email" name="email" autocomplete="email" placeholder="you@example.com" required></span></label>
+        <label class="hunt-field"><span class="hunt-lbl">Phone</span>
+          <span class="hunt-in-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg><input type="tel" name="phone" autocomplete="tel" inputmode="tel" placeholder="+91 98765 43210" required pattern="[0-9+ ()-]{10,16}"></span></label>
+        <p class="hunt-err" id="signupErr" role="alert" hidden></p>
+        <button class="hunt-btn" type="submit" id="signupLink">Sign Up</button>
+      </form>
     </div>
   </section>
 
@@ -938,13 +957,27 @@ function tickClock(){
 }
 tickClock(); setInterval(tickClock,30000);
 
-/* ---------- sign-up button ----------
-   SIGNUP_URL: where "Sign Up" goes. Empty = the button stays put (no navigation) until a destination is set. */
+/* ---------- slide 2 sign-up form ----------
+   SIGNUP_ENDPOINT: where the form details are sent (POST, JSON: name, email, phone). Empty = not sent anywhere yet.
+   SIGNUP_URL: page opened after a valid sign-up (the booking page). */
+const SIGNUP_ENDPOINT = "";
 const SIGNUP_URL = "https://booking.closer.esowolf.in/book";
 (function(){
-  const a=document.getElementById("signupLink");
-  if(SIGNUP_URL){ a.href=SIGNUP_URL; a.target="_blank"; a.rel="noopener"; }
-  else a.addEventListener("click",e=>e.preventDefault());
+  const f=document.getElementById("signupForm"); if(!f) return;
+  const err=document.getElementById("signupErr");
+  f.addEventListener("submit",e=>{
+    e.preventDefault();
+    const bad=[...f.elements].find(el=>el.willValidate && !el.checkValidity());
+    if(bad){ err.textContent = bad.name==="email" ? "Please enter a valid email address." : bad.name==="phone" ? "Please enter a valid phone number." : "Please enter your name."; err.hidden=false; bad.focus(); return; }
+    err.hidden=true;
+    const win = SIGNUP_URL ? window.open(SIGNUP_URL,"_blank","noopener") : null;
+    if(SIGNUP_ENDPOINT){
+      const data=Object.fromEntries(new FormData(f));
+      fetch(SIGNUP_ENDPOINT,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(data)}).catch(()=>{});
+    }
+    if(!win && SIGNUP_URL) location.href=SIGNUP_URL;
+  });
+  f.addEventListener("input",()=>{ err.hidden=true; });
 })();
 
 /* ---------- sign-up section motion ---------- */
