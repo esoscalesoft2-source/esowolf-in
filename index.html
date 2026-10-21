@@ -588,46 +588,26 @@ html.deck .signup{padding-bottom:max(110px,10vw)}
 .wa-trial{display:inline-block;margin:0 0 16px;padding:5px 12px;border-radius:999px;background:rgba(16,185,129,.16);color:#34d399;font-size:13px;font-weight:700}
 @media (max-aspect-ratio:5/6){.eb-loc{display:none}
   .hero .shade{background:linear-gradient(180deg,rgba(13,10,8,.55) 0%,rgba(13,10,8,0) 18%,rgba(13,10,8,0) 34%,rgba(13,10,8,.78) 54%,rgba(13,10,8,.98) 100%)!important}}
-/* Slide 2 (Amazon): styled after the ESO Hunt Engine sign-in screen — centred logo, dark card with an orange edge */
-.hunt{position:relative;min-height:100svh;display:flex;align-items:center;color:#f2f2f2;overflow:hidden;background:
-  radial-gradient(38% 55% at 100% 0%,rgba(255,110,10,.28),transparent 70%),
-  radial-gradient(32% 45% at 0% 100%,rgba(255,110,10,.16),transparent 70%),#0e0e0e}
-.hunt-in{display:flex;flex-direction:column;align-items:center;text-align:center;width:100%;padding-block:clamp(84px,11vh,120px) clamp(36px,6vh,80px)}
-.hunt-logo{width:clamp(110px,min(10vw,17vh),160px);height:auto;margin-bottom:clamp(14px,2.6vh,30px)}
-.hunt-title{font-family:var(--body);text-transform:none;font-weight:700;letter-spacing:-.02em;line-height:1.2;
-  font-size:clamp(26px,min(3vw,5.2vh),46px);max-width:22ch;margin:0 0 clamp(18px,3vh,36px);color:#f5f5f5}
-.hunt-title span{color:#ff7a12}
-.hunt-card{position:relative;overflow:hidden;width:min(100%,384px);padding:clamp(20px,3vh,30px) 24px clamp(18px,2.6vh,24px);border-radius:12px;text-align:center;
-  background:#1b1b1b;border:1px solid rgba(255,122,18,.22);
-  box-shadow:0 0 0 1px rgba(0,0,0,.4),0 0 46px rgba(255,110,10,.14),0 24px 60px rgba(0,0,0,.5)}
-.hunt-card::before{content:"";position:absolute;inset:0;pointer-events:none;
-  background:linear-gradient(112deg,transparent 0 66%,rgba(120,62,18,.42) 66% 100%);
-  -webkit-mask:linear-gradient(180deg,#000,rgba(0,0,0,.55));mask:linear-gradient(180deg,#000,rgba(0,0,0,.55))}
-.hunt-card>*{position:relative}
-.hunt-card h3{font-family:var(--body);text-transform:none;font-weight:700;font-size:20px;letter-spacing:-.01em;margin:0 0 10px;color:#fff}
-.hunt-card p{margin:0 0 26px;color:#b5b5b5;font-size:15px;line-height:1.5}
-.hunt-btn{display:flex;align-items:center;justify-content:center;height:42px;border-radius:7px;color:#fff;text-decoration:none;
-  font:700 15px/1 var(--body);background:linear-gradient(90deg,#ff6a00,#ff8c1a);box-shadow:0 0 22px rgba(255,110,10,.28);transition:transform .2s,box-shadow .2s,filter .2s}
-.hunt-btn:hover{transform:translateY(-2px);filter:brightness(1.06);box-shadow:0 10px 30px rgba(255,110,10,.42)}
-.hunt-btn:focus-visible{outline:3px solid #ffb054;outline-offset:3px}
-.hunt-card .hunt-sub{margin:0 0 clamp(14px,2.2vh,22px)}
+/* Slide 2 (Amazon / ESO Hunt Engine): same layout as the Meesho slide, in the site's orange */
+.mp.amz{--mp-bg:#0e0e0e;--mp-pink:#ff6f0f;--mp-orange:#ffa040;--mp-card:#171717;--mp-line:#2c2c2c;position:relative;background:
+  radial-gradient(50% 45% at 85% 15%,rgba(255,110,10,.14),transparent 70%),
+  radial-gradient(40% 40% at 5% 95%,rgba(255,110,10,.08),transparent 70%),var(--mp-bg)}
+.mp.amz::before{content:"";position:absolute;top:0;bottom:0;left:50%;width:1px;background:rgba(255,255,255,.06);pointer-events:none}
+.mp.amz .mp-grid{grid-template-columns:minmax(0,1fr) minmax(320px,440px);gap:clamp(40px,12vw,200px)}
+.mp.amz .amz-logo{mix-blend-mode:normal;width:clamp(150px,13vw,200px)}
+.mp.amz .mp-btn{width:100%;border:0;cursor:pointer;font-family:var(--body);box-shadow:0 12px 30px rgba(255,110,10,.28);background:linear-gradient(90deg,#ff6a00,#ff8c1a)}
+.mp.amz .mp-btn:hover{box-shadow:0 16px 36px rgba(255,110,10,.42);filter:brightness(1.06)}
+.mp.amz .mp-card h3{margin-bottom:18px}
 .hunt-field{display:block;text-align:left;margin:0 0 clamp(10px,1.6vh,16px)}
 .hunt-lbl{display:block;font:700 14px/1.2 var(--body);color:#f2f2f2;margin:0 0 8px}
 .hunt-in-wrap{position:relative;display:block}
 .hunt-in-wrap svg{position:absolute;left:12px;top:50%;width:16px;height:16px;translate:0 -50%;color:#9a9a9a;pointer-events:none}
-.hunt-in-wrap input{width:100%;height:40px;padding:0 12px 0 38px;border-radius:6px;border:1px solid #2c2c2c;background:#101010;color:#f2f2f2;
+.hunt-in-wrap input{width:100%;height:42px;padding:0 12px 0 38px;border-radius:8px;border:1px solid #2c2c2c;background:#0f0f0f;color:#f2f2f2;
   font:400 15px/1 var(--body);outline:none;transition:border-color .2s,box-shadow .2s}
 .hunt-in-wrap input::placeholder{color:#8a8a8a}
 .hunt-in-wrap input:focus{border-color:#ff7a12;box-shadow:0 0 0 3px rgba(255,122,18,.18)}
-.hunt-card .hunt-err{margin:-4px 0 12px;text-align:left;font-size:13px;color:#ff8a5c}
-button.hunt-btn{width:100%;border:0;cursor:pointer;margin-top:4px}
-html.deck #signup.hunt,#signup.hunt{padding:0}
-.hunt .rv{transform:translateY(24px);transition:transform 1s cubic-bezier(.16,1,.3,1),opacity .9s ease}
-.hunt .rv.in{transform:none}
-.hunt .hunt-title.rv{transition-delay:.12s}
-.hunt .hunt-card.rv{transform:translateY(36px) scale(.97);transition-delay:.26s}
-.hunt .hunt-card.rv.in{transform:none}
-@media (max-width:560px){.hunt-title{font-size:clamp(26px,7.4vw,32px)}.hunt-card{padding:26px 20px 22px}}
+.mp-card .hunt-err{margin:-4px 0 12px;text-align:left;font-size:13px;color:#ff8a5c}
+@media (max-width:960px){.mp.amz::before{display:none}.mp.amz .mp-grid{grid-template-columns:1fr}}
 </style>
 <style>body{margin:0}img,video{max-width:100%}</style>
 </head>
@@ -670,22 +650,30 @@ html.deck #signup.hunt,#signup.hunt{padding:0}
 
 <main id="content">
   <!-- ======================= SIGN-UP ======================= -->
-  <section class="hunt" id="signup" aria-labelledby="signupTitle">
-    <div class="wrap hunt-in">
-      <img class="hunt-logo rv" src="assets/eso-hunt-logo.webp" alt="ESO Hunt Engine" width="1000" height="479">
-      <h2 id="signupTitle" class="hunt-title rv">We help Amazon sellers increase <span>sales and profit.</span></h2>
-      <form class="hunt-card rv" id="signupForm" novalidate>
-        <h3>Sign up</h3>
-        <p class="hunt-sub">Book a free Amazon growth call with our team.</p>
+  <section class="mp amz" id="signup" aria-labelledby="signupTitle">
+    <div class="wrap mp-grid">
+      <div class="mp-copy">
+        <img class="mp-logo amz-logo rv" src="assets/eso-hunt-logo.webp" alt="ESO Hunt Engine" width="1000" height="478">
+        <h2 id="signupTitle" class="mp-title rv">ESO <span>Hunt Engine.</span></h2>
+        <p class="mp-lead mp-one rv">We help Amazon sellers increase sales and profit.</p>
+      </div>
+      <div class="mp-card rv">
+        <form id="signupForm" novalidate>
+          <h3>Get started</h3>
         <label class="hunt-field"><span class="hunt-lbl">Full name</span>
           <span class="hunt-in-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg><input type="text" name="name" autocomplete="name" placeholder="Your name" required></span></label>
         <label class="hunt-field"><span class="hunt-lbl">Email</span>
           <span class="hunt-in-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg><input type="email" name="email" autocomplete="email" placeholder="you@example.com" required></span></label>
         <label class="hunt-field"><span class="hunt-lbl">Phone</span>
           <span class="hunt-in-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg><input type="tel" name="phone" autocomplete="tel" inputmode="tel" placeholder="+91 98765 43210" required pattern="[0-9+ ()-]{10,16}"></span></label>
-        <p class="hunt-err" id="signupErr" role="alert" hidden></p>
-        <button class="hunt-btn" type="submit" id="signupLink">Sign Up</button>
-      </form>
+          <p class="hunt-err" id="signupErr" role="alert" hidden></p>
+          <button class="mp-btn" type="submit" id="signupLink">Sign Up</button>
+        </form>
+        <div class="mp-demo">
+          <div class="mp-or"><span>or</span></div>
+          <a class="mp-demo-btn" href="https://booking.closer.esowolf.in/book" target="_blank" rel="noopener">Book Demo <span aria-hidden="true">→</span></a>
+        </div>
+      </div>
     </div>
   </section>
 
