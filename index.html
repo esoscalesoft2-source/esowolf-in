@@ -588,15 +588,34 @@ html.deck .signup{padding-bottom:max(110px,10vw)}
 .wa-trial{display:inline-block;margin:0 0 16px;padding:5px 12px;border-radius:999px;background:rgba(16,185,129,.16);color:#34d399;font-size:13px;font-weight:700}
 @media (max-aspect-ratio:5/6){.eb-loc{display:none}
   .hero .shade{background:linear-gradient(180deg,rgba(13,10,8,.55) 0%,rgba(13,10,8,0) 18%,rgba(13,10,8,0) 34%,rgba(13,10,8,.78) 54%,rgba(13,10,8,.98) 100%)!important}}
-/* Slide 2 (Amazon): same layout as the Meesho / Myntra slides, in the site's orange */
-.mp.amz{--mp-bg:#0d0a08;--mp-pink:#f26a1b;--mp-orange:#ffb054;--mp-card:#1a1410;--mp-line:#33281f;background:
-  radial-gradient(50% 45% at 80% 20%,rgba(242,106,27,.14),transparent 70%),
-  radial-gradient(40% 40% at 10% 90%,rgba(255,176,84,.07),transparent 70%),var(--mp-bg)}
-.mp.amz .mp-title.amz-title{max-width:20ch;font-size:clamp(32px,3.4vw,54px)}
-.mp.amz .mp-title span{display:inline}
-.mp.amz .mp-btn{box-shadow:0 12px 30px rgba(242,106,27,.3)}
-.mp.amz .mp-btn:hover{background:#ff7a2a;box-shadow:0 16px 36px rgba(242,106,27,.42)}
-@media (max-width:560px){.mp.amz .mp-title.amz-title{font-size:clamp(28px,8vw,38px)}}
+/* Slide 2 (Amazon): styled after the ESO Hunt Engine sign-in screen — centred logo, dark card with an orange edge */
+.hunt{position:relative;min-height:100svh;display:flex;align-items:center;color:#f2f2f2;overflow:hidden;background:
+  radial-gradient(38% 55% at 100% 0%,rgba(255,110,10,.28),transparent 70%),
+  radial-gradient(32% 45% at 0% 100%,rgba(255,110,10,.16),transparent 70%),#0e0e0e}
+.hunt-in{display:flex;flex-direction:column;align-items:center;text-align:center;width:100%;padding-block:clamp(100px,12vh,140px) clamp(90px,11vh,130px)}
+.hunt-logo{width:clamp(110px,9vw,140px);height:auto;margin-bottom:clamp(22px,3.4vh,34px)}
+.hunt-title{font-family:var(--body);text-transform:none;font-weight:700;letter-spacing:-.02em;line-height:1.2;
+  font-size:clamp(24px,2.4vw,36px);max-width:28ch;margin:0 0 clamp(26px,4vh,40px);color:#f5f5f5}
+.hunt-title span{color:#ff7a12}
+.hunt-card{position:relative;overflow:hidden;width:min(100%,384px);padding:30px 24px 24px;border-radius:12px;text-align:center;
+  background:#1b1b1b;border:1px solid rgba(255,122,18,.22);
+  box-shadow:0 0 0 1px rgba(0,0,0,.4),0 0 46px rgba(255,110,10,.14),0 24px 60px rgba(0,0,0,.5)}
+.hunt-card::before{content:"";position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(112deg,transparent 0 66%,rgba(120,62,18,.42) 66% 100%);
+  -webkit-mask:linear-gradient(180deg,#000,rgba(0,0,0,.55));mask:linear-gradient(180deg,#000,rgba(0,0,0,.55))}
+.hunt-card>*{position:relative}
+.hunt-card h3{font-family:var(--body);text-transform:none;font-weight:700;font-size:20px;letter-spacing:-.01em;margin:0 0 10px;color:#fff}
+.hunt-card p{margin:0 0 26px;color:#b5b5b5;font-size:15px;line-height:1.5}
+.hunt-btn{display:flex;align-items:center;justify-content:center;height:42px;border-radius:7px;color:#fff;text-decoration:none;
+  font:700 15px/1 var(--body);background:linear-gradient(90deg,#ff6a00,#ff8c1a);box-shadow:0 0 22px rgba(255,110,10,.28);transition:transform .2s,box-shadow .2s,filter .2s}
+.hunt-btn:hover{transform:translateY(-2px);filter:brightness(1.06);box-shadow:0 10px 30px rgba(255,110,10,.42)}
+.hunt-btn:focus-visible{outline:3px solid #ffb054;outline-offset:3px}
+.hunt .rv{transform:translateY(24px);transition:transform 1s cubic-bezier(.16,1,.3,1),opacity .9s ease}
+.hunt .rv.in{transform:none}
+.hunt .hunt-title.rv{transition-delay:.12s}
+.hunt .hunt-card.rv{transform:translateY(36px) scale(.97);transition-delay:.26s}
+.hunt .hunt-card.rv.in{transform:none}
+@media (max-width:560px){.hunt-title{font-size:clamp(22px,6.4vw,28px)}.hunt-card{padding:26px 20px 22px}}
 </style>
 <style>body{margin:0}img,video{max-width:100%}</style>
 </head>
@@ -639,15 +658,14 @@ html.deck .signup{padding-bottom:max(110px,10vw)}
 
 <main id="content">
   <!-- ======================= SIGN-UP ======================= -->
-  <section class="mp amz" id="signup" aria-labelledby="signupTitle">
-    <div class="wrap mp-grid">
-      <div class="mp-copy">
-        <h2 id="signupTitle" class="mp-title amz-title rv">We help Amazon sellers increase their sales and profit and manage ads using our proven <span>Wolf hunt method.</span></h2>
-      </div>
-      <div class="mp-card rv">
+  <section class="hunt" id="signup" aria-labelledby="signupTitle">
+    <div class="wrap hunt-in">
+      <img class="hunt-logo rv" src="assets/eso-hunt-logo.webp" alt="ESO Hunt Engine" width="1000" height="479">
+      <h2 id="signupTitle" class="hunt-title rv">We help Amazon sellers increase their sales and profit and manage ads using our proven <span>Wolf hunt method.</span></h2>
+      <div class="hunt-card rv">
         <h3>Get started</h3>
         <p>Book a free Amazon growth call with our team.</p>
-        <a class="mp-btn" href="https://booking.closer.esowolf.in/book" target="_blank" rel="noopener" id="signupLink">Sign Up</a>
+        <a class="hunt-btn" href="https://booking.closer.esowolf.in/book" target="_blank" rel="noopener" id="signupLink">Sign Up</a>
       </div>
     </div>
   </section>
