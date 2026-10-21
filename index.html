@@ -601,6 +601,38 @@ html.deck .signup{padding-bottom:max(110px,10vw)}
 @media (max-width:960px){.mp.amz::before{display:none}.mp.amz .mp-grid{grid-template-columns:1fr}}
 .wa .wa-sub{margin:0;font-size:clamp(20px,1.8vw,28px);font-weight:600;color:rgba(234,255,245,.86)}
 .wa .wa-main-logo{display:block;width:clamp(170px,14vw,240px);height:auto;margin:0 0 clamp(24px,5vh,56px)}
+/* Slide 5: WhatsApp phone mockup (same as woochatofficial.esowolf.in) + Live Demo button */
+.wc-stage{display:flex;flex-direction:column;align-items:center;gap:clamp(18px,3vh,28px);width:100%}
+.wa .phone{width:min(320px,84vw);background:#0b141a;border:11px solid #05080b;border-radius:48px;overflow:hidden;position:relative;font-family:Inter,system-ui,sans-serif;
+  box-shadow:0 50px 90px -28px rgba(0,0,0,.85),0 0 0 1px rgba(252,135,6,.12)}
+.wa .wa-status{background:#1f2c34;display:flex;align-items:center;justify-content:space-between;padding:11px 24px 7px;position:relative}
+.wa .wa-time{color:#e9edef;font-size:.74rem;font-weight:600}
+.wa .wa-sys{color:#e9edef;font-size:.72rem;letter-spacing:1px}
+.wa .wa-island{position:absolute;left:50%;top:8px;transform:translateX(-50%);width:86px;height:20px;background:#05080b;border-radius:999px}
+.wa .wa-head{background:#1f2c34;padding:8px 18px 14px;display:flex;align-items:center;gap:12px}
+.wa .wa-avatar{width:42px;height:42px;border-radius:50%;background:#11161b;border:1px solid #2a2f38;overflow:hidden;flex:none}
+.wa .wa-avatar img{width:100%;height:100%;object-fit:cover;display:block}
+.wa .wa-name{color:#e9edef;font-weight:600;font-size:1.02rem;line-height:1.2}
+.wa .wa-name small{display:block;font-weight:400;font-size:.74rem;color:#8696a0}
+.wa .wa-body{background:#0b141a;padding:18px 14px;display:flex;flex-direction:column;justify-content:flex-end;gap:9px;height:clamp(250px,calc(100svh - 500px),470px);overflow:hidden;transition:opacity .35s}
+.wa .wa-foot{background:#1f2c34;padding:11px 14px;display:flex;align-items:center;gap:10px}
+.wa .wa-input{flex:1;background:#2a3942;color:#8696a0;font-size:.82rem;padding:.6rem .95rem;border-radius:999px}
+.wa .wa-send{width:38px;height:38px;border-radius:50%;background:#fc8706;color:#160b00;display:grid;place-items:center;font-size:1.05rem;flex-shrink:0}
+.wa .bub{max-width:82%;padding:10px 13px;border-radius:13px;font-size:.9rem;line-height:1.38;animation:wcPop .32s ease both}
+.wa .bub.in{background:#202c33;color:#e9edef;border-top-left-radius:4px;align-self:flex-start}
+.wa .bub.out{background:#005c4b;color:#e9edef;border-top-right-radius:4px;align-self:flex-end}
+.wa .bub small{display:block;text-align:right;font-size:.66rem;color:rgba(233,237,239,.5);margin-top:2px}
+.wa .bub.typing{display:flex;gap:5px;padding:13px 14px;width:auto}
+.wa .bub.typing span{width:7px;height:7px;border-radius:50%;background:rgba(233,237,239,.6);animation:wcTdot 1s ease-in-out infinite}
+.wa .bub.typing span:nth-child(2){animation-delay:.15s}.wa .bub.typing span:nth-child(3){animation-delay:.3s}
+.wa .auto-pill{align-self:center;background:rgba(252,135,6,.13);color:#fc8706;font-size:.68rem;font-weight:600;padding:.3rem .75rem;border-radius:999px;border:1px solid rgba(252,135,6,.25);animation:wcPop .32s ease both}
+.wa .day-divider{align-self:center;background:#1a2730;color:#8696a0;font-size:.66rem;font-weight:600;letter-spacing:.04em;padding:.28rem .8rem;border-radius:999px;animation:wcPop .32s ease both}
+@keyframes wcPop{0%{opacity:0;transform:translateY(8px) scale(.96)}100%{opacity:1;transform:none}}
+@keyframes wcTdot{0%,60%,100%{transform:translateY(0);opacity:.5}30%{transform:translateY(-4px);opacity:1}}
+.wa .wc-demo{width:min(320px,84vw);position:relative;z-index:2}
+.wa .wc-stage.rv{transform:translateY(40px) scale(.97);transition-delay:.35s}
+.wa .wc-stage.rv.in{transform:none}
+@media (max-width:960px){.wa .wa-body{height:360px}}
 </style>
 <style>body{margin:0}img,video{max-width:100%}</style>
 </head>
@@ -716,8 +748,14 @@ html.deck .signup{padding-bottom:max(110px,10vw)}
       </div>
     </div>
     <div class="wa-right">
-      <div class="wa-card rv">
-        <a class="wa-btn" href="https://woochatofficial.esowolf.in/login" target="_blank" rel="noopener">Live Demo <span aria-hidden="true">→</span></a>
+      <div class="wc-stage rv">
+        <div class="phone" aria-hidden="true">
+          <div class="wa-status"><span class="wa-time" id="waTime">9:41</span><span class="wa-island"></span><span class="wa-sys">📶 🔋</span></div>
+          <div class="wa-head"><div class="wa-avatar"><img src="assets/woochat-avatar.webp" alt="" width="42" height="42"></div><div class="wa-name">WOO Chat<small>online</small></div></div>
+          <div class="wa-body" id="chatBody"></div>
+          <div class="wa-foot"><div class="wa-input">Type a message…</div><div class="wa-send">➤</div></div>
+        </div>
+        <a class="wa-btn wc-demo" href="https://woochatofficial.esowolf.in/live-demo" target="_blank" rel="noopener">Live Demo <span aria-hidden="true">→</span></a>
       </div>
     </div>
   </section>
@@ -1135,6 +1173,53 @@ if("IntersectionObserver" in window){
   rvs.forEach(el=>io.observe(el));
   setTimeout(()=>rvs.forEach(el=>el.classList.add("in")),4000);
 } else rvs.forEach(el=>el.classList.add("in"));
+
+/* ---------- slide 5: animated WhatsApp chat in the phone mockup (same script as woochatofficial.esowolf.in) ---------- */
+(function(){
+  var body=document.getElementById('chatBody'); if(!body) return;
+  var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion:reduce)').matches;
+  function wait(ms){return new Promise(function(r){setTimeout(r,ms);});}
+  function el(html){var d=document.createElement('div');d.innerHTML=html.trim();return d.firstChild;}
+  function add(n){body.appendChild(n);body.scrollTop=body.scrollHeight;return n;}
+  async function typing(side,ms){var t=add(el('<div class="bub '+side+' typing"><span></span><span></span><span></span></div>'));await wait(ms);t.remove();}
+  function msg(side,html,time){add(el('<div class="bub '+side+'">'+html+(time?'<small>'+time+'</small>':'')+'</div>'));}
+  function pill(cls,txt){add(el('<div class="'+cls+'">'+txt+'</div>'));}
+  var steps=[
+    {t:'msg',s:'in',m:'Hi! Do you ship to Chennai? \u{1F4E6}'},
+    {t:'wait',ms:500},
+    {t:'type',s:'out',ms:900},
+    {t:'msg',s:'out',m:'Yes! We deliver across Tamil Nadu in 2\u20133 days. Want to order?',time:'09:41 \u2713\u2713'},
+    {t:'type',s:'in',ms:700},
+    {t:'msg',s:'in',m:'Yes please \u{1F64C}'},
+    {t:'type',s:'out',ms:800},
+    {t:'msg',s:'out',m:'Great \u2014 here\u2019s our catalog \u{1F447}',time:'09:41 \u2713\u2713'},
+    {t:'msg',s:'out',m:'\u{1F4D1} Product catalog.pdf',time:'09:41 \u2713\u2713'},
+    {t:'wait',ms:1600},
+    {t:'divider',m:'\u23F1 24 hours later'},
+    {t:'wait',ms:500},
+    {t:'pill',m:'\u26A1 Automated template sent'},
+    {t:'type',s:'out',ms:900},
+    {t:'msg',s:'out',m:'Hi Karthik \u{1F44B} Still thinking about your order? Reply YES and we\u2019ll ship today with 10% off \u{1F69A}',time:'09:42 \u2713\u2713'},
+    {t:'wait',ms:3200}
+  ];
+  async function run(){
+    for(var i=0;i<steps.length;i++){
+      var st=steps[i];
+      if(st.t==='msg') msg(st.s,st.m,st.time);
+      else if(st.t==='pill') pill('auto-pill',st.m);
+      else if(st.t==='divider') pill('day-divider',st.m);
+      else if(st.t==='type') await typing(st.s,st.ms);
+      else if(st.t==='wait') await wait(st.ms);
+      if(st.t==='msg'||st.t==='pill'||st.t==='divider') await wait(650);
+    }
+  }
+  async function loop(){ while(true){ body.style.opacity='1'; await run(); body.style.opacity='0'; await wait(450); body.innerHTML=''; } }
+  if(reduce){ steps.forEach(function(st){ if(st.t==='msg') msg(st.s,st.m,st.time); else if(st.t==='pill') pill('auto-pill',st.m); else if(st.t==='divider') pill('day-divider',st.m); }); }
+  else loop();
+  var tm=document.getElementById('waTime');
+  function clk(){ try{ tm.textContent=new Intl.DateTimeFormat('en-IN',{timeZone:'Asia/Kolkata',hour:'numeric',minute:'2-digit',hour12:true}).format(new Date()).replace(/\s?[ap]m/i,''); }catch(e){} }
+  clk(); setInterval(clk,30000);
+})();
 </script>
 </body>
 </html>
