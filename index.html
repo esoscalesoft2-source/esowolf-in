@@ -68,7 +68,8 @@ h1,h2,h3{font-family:var(--display);text-wrap:balance;line-height:.92;margin:0;t
    Landscape (laptop/desktop/TV): full-bleed cover, anchored on the face so wide screens trim the desk, not the head.
    Near-square (tablet portrait-ish): cover, anchored on the person so the sides trim evenly.
    Portrait phones: the whole 16:9 frame, never cropped, with the blurred copy filling the space and text below. */
-.hero{position:sticky;top:0;height:100svh;min-height:520px;overflow:hidden;background:var(--ink);z-index:0}
+.hero{position:sticky;top:0;height:100svh;min-height:520px;overflow:hidden;background:var(--ink);z-index:0;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.hero:focus{outline:none}.hero:focus-visible{outline:2px solid var(--ember);outline-offset:-4px}
 .hero .v-ambient{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:blur(48px) saturate(1.3) brightness(.65);transform:scale(1.25)}
 .stage{position:absolute;inset:0;overflow:hidden}
 .stage video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:60% 28%;opacity:0;transition:opacity 1.4s ease}
@@ -88,8 +89,6 @@ h1,h2,h3{font-family:var(--display);text-wrap:balance;line-height:.92;margin:0;t
 .glass{width:48px;height:48px;border-radius:50%;display:grid;place-items:center;background:var(--glass);border:1px solid rgba(255,255,255,.18);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);color:var(--paper);cursor:pointer;transition:transform .2s,border-color .2s}
 .glass:hover{transform:scale(1.06);border-color:var(--ember)}
 .glass svg{width:18px;height:18px;fill:currentColor}
-.sound-hint{position:absolute;z-index:4;top:calc(env(safe-area-inset-top,0px) + 86px);left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:10px;padding:9px 16px 9px 12px;border-radius:999px;background:var(--glass);border:1px solid rgba(255,255,255,.18);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;color:var(--paper);transition:opacity .6s}
-.sound-hint.gone{opacity:0;pointer-events:none}
 .bars{display:flex;gap:2px;align-items:flex-end;height:12px}
 .bars i{width:2px;background:var(--ember);animation:eq 1s ease-in-out infinite}
 .bars i:nth-child(2){animation-delay:.2s}.bars i:nth-child(3){animation-delay:.4s}.bars i:nth-child(4){animation-delay:.1s}
@@ -114,8 +113,7 @@ h1,h2,h3{font-family:var(--display);text-wrap:balance;line-height:.92;margin:0;t
   .glass{width:42px;height:42px}
   .glass svg{width:15px;height:15px}
   .scroll-cue{bottom:calc(env(safe-area-inset-bottom,0px) + 16px)}
-  .sound-hint{top:calc(env(safe-area-inset-top,0px) + 76px);font-size:11px;padding:7px 13px 7px 10px}
-}
+  }
 @media (max-aspect-ratio:5/6) and (max-height:640px){.hero h1{font-size:clamp(48px,15vw,84px)}.hero .role{display:none}}
 /* Short landscape phones: keep the copy compact so it does not cover the face */
 @media (min-aspect-ratio:5/6) and (max-height:520px){
@@ -123,8 +121,7 @@ h1,h2,h3{font-family:var(--display);text-wrap:balance;line-height:.92;margin:0;t
   .hero h1{font-size:clamp(44px,9vw,72px)}
   .hero .role{display:none}
   .hero-copy,.controls{bottom:52px}
-  .sound-hint{top:calc(env(safe-area-inset-top,0px) + 64px)}
-}
+  }
 
 /* ---------- SHEET (content over hero) ---------- */
 main{position:relative;z-index:5;background:var(--ink);border-radius:28px 28px 0 0;box-shadow:0 -30px 80px rgba(0,0,0,.6)}
@@ -653,13 +650,12 @@ html.deck .signup{padding-bottom:max(110px,10vw)}
 </header>
 
 <!-- ======================= HERO ======================= -->
-<section class="hero" id="top" aria-label="Intro video">
+<section class="hero" id="top" aria-label="Intro video — click to turn sound on or off" role="button" tabindex="0" aria-pressed="false">
   <video class="v-ambient" id="vAmb" muted loop playsinline autoplay preload="auto" aria-hidden="true" tabindex="-1"></video>
   <canvas id="bokeh" aria-hidden="true"></canvas>
   <div class="shade"></div>
   <div class="stage">
     <video class="v-main" id="vMain" poster="assets/poster.jpg" muted playsinline autoplay preload="auto"></video>
-    <button class="sound-hint gone" id="hint" type="button"><span class="bars"><i></i><i></i><i></i><i></i></span><span id="hintText">Tap for sound</span></button>
   </div>
 
   <div class="hero-copy">
@@ -795,7 +791,6 @@ html.deck .signup{padding-bottom:max(110px,10vw)}
 <script>
 /* ---------- hero video ---------- */
 const vMain=document.getElementById("vMain"), vAmb=document.getElementById("vAmb");
-const hint=document.getElementById("hint"), hintText=document.getElementById("hintText");
 
 /* Pick the sharpest file the screen can actually show (never upscale, never waste data).
    Rendered width = the video box width × device pixel ratio; cover mode on landscape can enlarge it further. */
@@ -837,8 +832,8 @@ let introDone=false;       // spoken intro finished (or skipped by scrolling pas
 let selfPause=false;       // pauses we make ourselves, so we can tell them from OS interruptions
 
 function both(fn){ [vMain,vAmb].forEach(v=>{ try{ fn(v); }catch(e){} }); }
-function showHint(text){ hintText.textContent=text; hint.classList.remove("gone"); }
-function hideHint(){ hint.classList.add("gone"); }
+function showHint(){}   // the on-screen sound pill was removed; the whole hero is now the sound toggle
+function hideHint(){}
 
 function playWithSound(fromStart){
   if(fromStart){ both(v=>v.currentTime=0); }
@@ -852,14 +847,25 @@ function startIntro(){
   playWithSound(false).then(ok=>{ if(!ok) showHint("Tap for sound"); });
 }
 
-/* First real interaction anywhere on the page turns the sound on (scrolling alone does not count in browsers). */
-function onGesture(){
-  if(window.deck && deck.index!==0) return;
-  if(introDone && !interrupted) return;
-  if(speaking) return;
-  playWithSound(!interrupted && !introDone && vMain.currentTime>1 ? true : false);
+/* The whole hero is the sound toggle: click/tap anywhere on it → sound on; click again → sound off.
+   (Links and buttons inside it, like "Scroll", keep their own action.) */
+const hero=document.getElementById("top");
+let everHeard=false;
+function soundIsOn(){ return !vMain.muted && !vMain.paused; }
+function syncPressed(){ hero.setAttribute("aria-pressed", soundIsOn() ? "true" : "false"); }
+function toggleSound(){
+  if(soundIsOn()){
+    vMain.muted=true; speaking=false;
+  } else {
+    const restart = !everHeard && !introDone && vMain.currentTime>1;   // first time on: hear the intro from the start
+    playWithSound(restart).then(ok=>{ if(ok) everHeard=true; syncPressed(); });
+  }
+  syncPressed();
 }
-["pointerdown","touchend","keydown"].forEach(ev=>document.addEventListener(ev,onGesture,{capture:true,passive:true}));
+hero.addEventListener("click",e=>{ if(e.target.closest("a,button")) return; toggleSound(); });
+hero.addEventListener("keydown",e=>{ if(e.target!==hero) return; if(e.key==="Enter"||e.key===" "){ e.preventDefault(); e.stopPropagation(); toggleSound(); } });
+["volumechange","play","pause"].forEach(ev=>vMain.addEventListener(ev,syncPressed));
+vMain.addEventListener("playing",()=>{ if(!vMain.muted) everHeard=true; });
 
 /* Stop immediately on a call or any interruption. */
 function stopForInterruption(){
