@@ -829,6 +829,7 @@ setInterval(()=>{ if(Math.abs(vAmb.currentTime-vMain.currentTime)>0.25) vAmb.cur
 let speaking=false;        // intro is playing with sound
 let interrupted=false;     // stopped by a call / app switch; resume only on a new tap
 let introDone=false;       // spoken intro finished (or skipped by scrolling past it)
+let everHeard=false;       // the intro has been heard with sound at least once
 let selfPause=false;       // pauses we make ourselves, so we can tell them from OS interruptions
 
 function both(fn){ [vMain,vAmb].forEach(v=>{ try{ fn(v); }catch(e){} }); }
@@ -839,7 +840,7 @@ function playWithSound(fromStart){
   if(fromStart){ both(v=>v.currentTime=0); }
   vMain.loop=false; vMain.muted=false;
   vAmb.play().catch(()=>{});
-  return vMain.play().then(()=>{ speaking=true; interrupted=false; hideHint(); return true; })
+  return vMain.play().then(()=>{ speaking=true; everHeard=true; interrupted=false; hideHint(); return true; })
     .catch(()=>{ vMain.muted=true; speaking=false; vMain.play().catch(()=>{}); return false; });
 }
 
@@ -850,7 +851,6 @@ function startIntro(){
 /* The whole hero is the sound toggle: click/tap anywhere on it → sound on; click again → sound off.
    (Links and buttons inside it, like "Scroll", keep their own action.) */
 const hero=document.getElementById("top");
-let everHeard=false;
 function soundIsOn(){ return !vMain.muted && !vMain.paused; }
 function syncPressed(){ hero.setAttribute("aria-pressed", soundIsOn() ? "true" : "false"); }
 function toggleSound(){
@@ -858,14 +858,13 @@ function toggleSound(){
     vMain.muted=true; speaking=false;
   } else {
     const restart = !everHeard && !introDone && vMain.currentTime>1;   // first time on: hear the intro from the start
-    playWithSound(restart).then(ok=>{ if(ok) everHeard=true; syncPressed(); });
+    playWithSound(restart).then(()=>syncPressed());
   }
   syncPressed();
 }
 hero.addEventListener("click",e=>{ if(e.target.closest("a,button")) return; toggleSound(); });
 hero.addEventListener("keydown",e=>{ if(e.target!==hero) return; if(e.key==="Enter"||e.key===" "){ e.preventDefault(); e.stopPropagation(); toggleSound(); } });
 ["volumechange","play","pause"].forEach(ev=>vMain.addEventListener(ev,syncPressed));
-vMain.addEventListener("playing",()=>{ if(!vMain.muted) everHeard=true; });
 
 /* Stop immediately on a call or any interruption. */
 function stopForInterruption(){
