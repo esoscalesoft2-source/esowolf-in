@@ -14,7 +14,7 @@ Static site — no build step. Hosted on Cloudflare Pages (project `esowolf-in`)
 
 ## Common edits
 - **Amazon "Sign Up" link** — `SIGNUP_URL` in the script of `index.html`.
-- **Book Meeting (top menu + Amazon slide)** — `https://booking.closer.esowolf.in/book`.
+- **Book Meeting (top menu + Amazon slide)** — `https://booking.closer.esowolf.in/book/amazon-increase-sales`.
 - **Meesho / Myntra demo** — `https://bookdemo.esowolf.in/?platform=Meesho#book` / `?platform=Myntra#book`.
 - **WOO Chat** — Sign Up / Sign In go to `https://woochatofficial.esowolf.in/login`.
 
