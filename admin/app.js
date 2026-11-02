@@ -1,5 +1,5 @@
 /* ESOWOLF team blog admin — single-page app. Loaded only on /admin/. */
-import { slugify, isValidSlug, parseChatGPT, seoScore, buildPrompt, preprocessMarkdown, escapeHtml as e, istInputToISO, isoToISTInput, formatIST } from "./shared.mjs?v=1";
+import { slugify, isValidSlug, parseChatGPT, seoScore, buildPrompt, preprocessMarkdown, escapeHtml as e, istInputToISO, isoToISTInput, formatIST } from "./shared.mjs?v=3";
 
 const $ = (s, el = document) => el.querySelector(s);
 const $$ = (s, el = document) => [...el.querySelectorAll(s)];
@@ -27,13 +27,18 @@ function imgFallback(img, cover, size) { img.onerror = () => { img.onerror = nul
 
 /* ---------- boot ---------- */
 (async function boot() {
-  cfg = await fetch("/admin/blog-config.json?v=" + Date.now()).then(r => r.json());
-  calendar = await fetch("/admin/calendar.json?v=" + Date.now()).then(r => r.ok ? r.json() : []).catch(() => []);
+  // load settings, calendar and login state at the same time (not one after another)
+  const stateP = api("state").catch(err => ({ error: err }));
+  [cfg, calendar] = await Promise.all([
+    fetch("/admin/blog-config.json?v=" + Date.now()).then(r => r.json()),
+    fetch("/admin/calendar.json?v=" + Date.now()).then(r => r.ok ? r.json() : []).catch(() => [])
+  ]);
   $("#logout").onclick = async () => { try { await api("logout", { body: {} }); } catch {} me = null; render(); };
   $$("#tabs button").forEach(b => b.onclick = () => go(b.dataset.tab));
   addEventListener("hashchange", route);
   try {
-    const s = await api("state");
+    const s = await stateP;
+    if (s.error) throw s.error;
     me = s.user;
     if (!me && s.needsSetup) return setupView(s);
   } catch (err) { app.innerHTML = `<div class="auth card"><h2>Admin is not ready yet</h2><p class="err">${e(err.message)}</p></div>`; return; }
@@ -86,12 +91,13 @@ function loginView() {
 }
 
 /* ---------- posts list ---------- */
-async function loadPosts() { const r = await api("posts"); posts = r.posts; livePosts = r.live; return r; }
+async function loadPosts(fresh) { const r = await api("posts" + (fresh ? "?fresh=1" : "")); posts = r.posts; livePosts = r.live; return r; }
 async function postsView() {
-  app.innerHTML = `<div class="row"><div class="grow"><h1>Posts</h1><p class="muted small">Live posts are on <a href="/blog/" target="_blank">esowolf.in/blog/</a>. New posts go live about 2 minutes after publishing.</p></div><button class="btn" id="new">+ New post</button></div>
+  app.innerHTML = `<div class="row"><div class="grow"><h1>Posts</h1><p class="muted small">Live posts are on <a href="/blog/" target="_blank">esowolf.in/blog/</a>. New posts go live about 2 minutes after publishing.</p></div><button class="btn ghost" id="refresh" title="Re-read posts from GitHub (only needed if someone edited files on GitHub directly)">↻ Refresh</button><button class="btn" id="new">+ New post</button></div>
   <div class="toolbar"><input type="search" id="q" placeholder="Search posts…"><select id="st" style="max-width:180px"><option value="">All</option><option value="live">Live</option><option value="scheduled">Scheduled</option><option value="draft">Draft</option></select></div>
   <div class="plist" id="list"><p class="muted">Loading posts…</p></div>`;
   $("#new").onclick = () => go("edit", "new");
+  $("#refresh").onclick = async () => { $("#refresh").disabled = true; try { await loadPosts(true); draw(); toast("Posts refreshed from GitHub.", "good"); } catch (err) { toast(err.message, "bad"); } $("#refresh").disabled = false; };
   try { await loadPosts(); } catch (err) { $("#list").innerHTML = `<p class="err">${e(err.message)}</p>`; return; }
   const draw = () => {
     const q = $("#q").value.toLowerCase().trim(), st = $("#st").value;
@@ -116,8 +122,10 @@ async function editView(slug) {
   let post = { title: "", slug: "", description: "", summary: "", topic: "", keyword: "", keywords: [], short: "", cover: "", coverAlt: "", faqs: [], body: "" };
   let meta = { inRepo: false, repoStatus: null, hasDraft: false };
   try {
-    if (!livePosts.length && !posts.length) await loadPosts().catch(() => {});
-    if (!isNew) { const r = await api("posts/" + encodeURIComponent(slug)); post = { ...post, ...r.post }; meta = r; }
+    if (!isNew) {   // one request gives the post and the list of other posts
+      const r = await api("posts/" + encodeURIComponent(slug)); post = { ...post, ...r.post }; meta = r;
+      if (!posts.length) { livePosts = r.live || []; posts = (r.all || []).map(x => ({ ...x, title: "", status: "" })); }
+    } else if (!livePosts.length && !posts.length) await loadPosts().catch(() => {});
   } catch (err) { app.innerHTML = `<p class="err">${e(err.message)}</p><button class="btn ghost" onclick="location.hash='posts'">Back</button>`; return; }
   const origSlug = isNew ? "" : slug;
   let slugTouched = !isNew;

@@ -8,9 +8,13 @@
 <meta name="description" content="About ESOWOLF (Ezy Sell Online), a company of MV Inc, and our Privacy Policy, Terms & Conditions, Refund Policy and Return Policy.">
 <link rel="icon" type="image/png" href="assets/favicon.png">
 <link rel="apple-touch-icon" href="assets/eso-icon.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@800;900&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="preload" href="/assets/fonts/big-shoulders-display.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/manrope.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+@font-face{font-family:"Big Shoulders Display";src:url(/assets/fonts/big-shoulders-display.woff2) format("woff2");font-weight:100 900;font-style:normal;font-display:swap}
+@font-face{font-family:"Manrope";src:url(/assets/fonts/manrope.woff2) format("woff2");font-weight:200 800;font-style:normal;font-display:swap}
+@font-face{font-family:"JetBrains Mono";src:url(/assets/fonts/jetbrains-mono.woff2) format("woff2");font-weight:100 800;font-style:normal;font-display:swap}
+</style>
 <style>
 :root{--ink:#0d0a08;--ink-2:#17120e;--line:#2c241d;--paper:#f5ede4;--muted:#b3a495;--ember:#ff6a1a;
   --display:"Big Shoulders Display","Impact",sans-serif;--body:"Manrope","Segoe UI",system-ui,sans-serif;--mono:"JetBrains Mono",ui-monospace,monospace;color-scheme:dark}
@@ -60,7 +64,7 @@ footer a{color:#1b120c;font-weight:800}
 <body>
 <header class="top">
   <div class="bar">
-    <a href="/" aria-label="ESO home"><img src="assets/eso-logo-light.webp" alt="ESO — Ezy Sell Online" width="1000" height="479"></a>
+    <a href="/" aria-label="ESO home"><img src="assets/eso-logo-light-300.webp" alt="ESO — Ezy Sell Online" width="300" height="144"></a>
     <a class="home" href="/">← Back to home</a>
   </div>
   <nav class="tabs" aria-label="On this page">
@@ -270,7 +274,7 @@ footer a{color:#1b120c;font-weight:800}
 
 <footer>
   <div class="wrap">
-    <img src="assets/eso-logo-dark.webp" alt="ESO — Ezy Sell Online" width="1000" height="479" loading="lazy">
+    <img src="assets/eso-logo-dark-640.webp" alt="ESO — Ezy Sell Online" width="640" height="307" loading="lazy">
     <p>ESOWOLF is a company of MV Inc · 2/424-2, Sivan South Street, Maruthapattinam, Thiruvarur — 610001, Tamil Nadu, India</p>
     <p>GSTIN / UIN: 33ABPFM8566P1Z8</p>
     <p>© 2026 ESOWOLF is a company of MV Inc. All rights reserved. · <a href="/">Back to home</a></p>

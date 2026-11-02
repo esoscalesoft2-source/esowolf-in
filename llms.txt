@@ -23,7 +23,8 @@ Contact: support@esowolf.in · +91 97515 51117 (phone/WhatsApp) · Mon–Sat 9am
 
 ## Main pages
 - [ESOWOLF home](https://esowolf.in/)
-- [ESO Hunt Engine for Amazon sellers](https://esowolf.in/#signup)
+- [ESO Hunt Engine for Amazon sellers](https://esowolf.in/#amazon)
+- [ESO Hunt Engine (old link — same page)](https://esowolf.in/#signup)
 - [Meesho Profit — Meesho reconciliation software](https://esowolf.in/#meesho)
 - [Myntra Profit — Myntra reconciliation software](https://esowolf.in/#myntra)
 - [WOO Chat — WhatsApp automation](https://esowolf.in/#whatsapp)

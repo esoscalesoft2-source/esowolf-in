@@ -42,7 +42,8 @@ async function init(db) {
     db.prepare("CREATE TABLE IF NOT EXISTS attempts (k TEXT PRIMARY KEY, n INTEGER NOT NULL, first INTEGER NOT NULL, locked_until INTEGER NOT NULL DEFAULT 0)"),
     db.prepare("CREATE TABLE IF NOT EXISTS meta (k TEXT PRIMARY KEY, v TEXT)"),
     db.prepare("CREATE TABLE IF NOT EXISTS drafts (slug TEXT PRIMARY KEY, data TEXT NOT NULL, updated TEXT NOT NULL, author TEXT)"),
-    db.prepare("CREATE TABLE IF NOT EXISTS cache (sha TEXT PRIMARY KEY, data TEXT NOT NULL)")
+    db.prepare("CREATE TABLE IF NOT EXISTS cache (sha TEXT PRIMARY KEY, data TEXT NOT NULL)"),
+    db.prepare("CREATE TABLE IF NOT EXISTS posts_index (slug TEXT PRIMARY KEY, data TEXT NOT NULL)")
   ]);
   ready = true;
 }
@@ -84,8 +85,28 @@ function gh(env) {
 }
 class HttpError extends Error { constructor(status, msg) { super(msg); this.status = status; } }
 
-/* posts that live in the repo (published or scheduled) */
-async function repoPosts(env) {
+/* posts that live in the repo (published or scheduled).
+   Fast path: a copy kept in D1 (posts_index), updated by every publish/delete from the admin.
+   Slow path (first run or "Refresh"): read the repo from GitHub and rebuild that copy. */
+async function repoPosts(env, fresh = false) {
+  if (!fresh) {
+    const [built, rows] = await env.DB.batch([
+      env.DB.prepare("SELECT v FROM meta WHERE k='index_built'"),
+      env.DB.prepare("SELECT data FROM posts_index")
+    ]);
+    if (built.results.length) return rows.results.map(r => JSON.parse(r.data));
+  }
+  const posts = await repoPostsFromGitHub(env);
+  await env.DB.batch([
+    env.DB.prepare("DELETE FROM posts_index"),
+    ...posts.map(p => env.DB.prepare("INSERT OR REPLACE INTO posts_index (slug, data) VALUES (?, ?)").bind(p.slug, JSON.stringify(p))),
+    env.DB.prepare("INSERT OR REPLACE INTO meta (k, v) VALUES ('index_built', ?)").bind(new Date().toISOString())
+  ]);
+  return posts;
+}
+const indexPut = (env, p) => env.DB.prepare("INSERT OR REPLACE INTO posts_index (slug, data) VALUES (?, ?)").bind(p.slug, JSON.stringify(p));
+const indexDel = (env, slug) => env.DB.prepare("DELETE FROM posts_index WHERE slug=?").bind(slug);
+async function repoPostsFromGitHub(env) {
   const g = gh(env);
   const tree = await g.tree();
   const prefix = cfg.postsDir.replace(/\/$/, "") + "/";
@@ -152,10 +173,16 @@ function cleanPost(p) {
 
 /* ---------- routes ---------- */
 export async function onRequest(ctx) {
+  if (!ctx.env.DB) return fail(500, "The D1 database (binding name DB) is not connected yet.");
+  try { return await handle(ctx); }
+  catch (e) {   // tables are created only when missing (first run / new version), not on every request
+    if (/no such table/i.test(String(e && e.message))) { await init(ctx.env.DB); return handle(ctx); }
+    return fail(500, "Server error: " + (e && e.message || e));
+  }
+}
+async function handle(ctx) {
   const { request: req, env, params } = ctx;
   try {
-    if (!env.DB) return fail(500, "The D1 database (binding name DB) is not connected yet.");
-    await init(env.DB);
     const parts = (params.path || []).map(decodeURIComponent);
     const route = parts.join("/"), method = req.method;
     if (method !== "GET" && method !== "HEAD") {
@@ -167,8 +194,8 @@ export async function onRequest(ctx) {
 
     /* public: state, setup, login */
     if (route === "state" && method === "GET") {
-      const n = (await env.DB.prepare("SELECT COUNT(*) AS n FROM users").first()).n;
-      const used = await env.DB.prepare("SELECT v FROM meta WHERE k='setup_used'").first();
+      const [c, u] = await env.DB.batch([env.DB.prepare("SELECT COUNT(*) AS n FROM users"), env.DB.prepare("SELECT v FROM meta WHERE k='setup_used'")]);
+      const n = c.results[0].n, used = u.results[0];
       return json({ needsSetup: n === 0 && !used, setupCodeSet: !!env.SETUP_CODE, user: await currentUser(req, env), minSeoScore: cfg.minSeoScore });
     }
     if (route === "setup" && method === "POST") {
@@ -271,8 +298,7 @@ export async function onRequest(ctx) {
 
     /* posts */
     if (route === "posts" && method === "GET") {
-      const repo = await repoPosts(env);
-      const drafts = (await env.DB.prepare("SELECT slug, data, updated, author FROM drafts").all()).results;
+      const [repo, drafts] = await Promise.all([repoPosts(env, new URL(req.url).searchParams.get("fresh") === "1"), env.DB.prepare("SELECT slug, data, updated, author FROM drafts").all().then(r => r.results)]);
       const bySlug = new Map(repo.map(p => [p.slug, p]));
       const list = repo.map(summaryOf);
       for (const d of drafts) {
@@ -285,12 +311,12 @@ export async function onRequest(ctx) {
     }
     if (parts[0] === "posts" && parts.length === 2 && method === "GET") {
       const slug = parts[1];
-      const d = await env.DB.prepare("SELECT data, updated FROM drafts WHERE slug=?").bind(slug).first();
-      const repo = await repoPosts(env);
+      const [d, repo] = await Promise.all([env.DB.prepare("SELECT data, updated FROM drafts WHERE slug=?").bind(slug).first(), repoPosts(env)]);
       const live = repo.find(p => p.slug === slug);
       if (!d && !live) return fail(404, "Post not found.");
       const post = d ? { ...JSON.parse(d.data), slug } : live;
-      return json({ post, inRepo: !!live, repoStatus: live ? statusOf(live) : null, hasDraft: !!d, draftUpdated: d ? d.updated : null });
+      return json({ post, inRepo: !!live, repoStatus: live ? statusOf(live) : null, hasDraft: !!d, draftUpdated: d ? d.updated : null,
+        all: repo.map(x => ({ slug: x.slug, short: x.short || "" })), live: repo.filter(x => statusOf(x) === "live").map(x => ({ slug: x.slug, title: x.title, keyword: x.keyword })) });
     }
     if (route === "drafts" && method === "POST") {
       const p = cleanPost(body.post || {});
@@ -347,7 +373,9 @@ export async function onRequest(ctx) {
       if (existing && oldSlug !== p.slug) files.push({ path: existing._path, delete: true });
       const verb = body.mode === "schedule" ? `schedule for ${p.date}` : (existing ? "update" : "publish");
       await gh(env).commit(`Blog: ${verb} "${p.title.replace(/"/g, "'")}" (by ${me.username} via team admin)`, files);
-      await env.DB.batch([env.DB.prepare("DELETE FROM drafts WHERE slug=?").bind(p.slug), env.DB.prepare("DELETE FROM drafts WHERE slug=?").bind(oldSlug)]);
+      const saved = { ...p, slug: p.slug, _path: `${dir}/${p.slug}.md` }; delete saved.body; saved.body = p.body;
+      await env.DB.batch([env.DB.prepare("DELETE FROM drafts WHERE slug=?").bind(p.slug), env.DB.prepare("DELETE FROM drafts WHERE slug=?").bind(oldSlug),
+        ...(oldSlug !== p.slug ? [indexDel(env, oldSlug)] : []), indexPut(env, saved)]);
       return json({ ok: true, slug: p.slug, date: p.date, score, status: new Date(p.date) > now ? "scheduled" : "live", url: `${cfg.site}/blog/${p.slug}/` });
     }
     if (parts[0] === "posts" && parts.length === 2 && method === "DELETE") {
@@ -364,12 +392,14 @@ export async function onRequest(ctx) {
           for (const ext of [".webp", "-800.webp", "-og.jpg"]) if (tree.tree.some(f => f.path === base + ext)) files.push({ path: base + ext, delete: true });
         }
         await gh(env).commit(`Blog: delete "${String(p.title || slug).replace(/"/g, "'")}" (by ${me.username} via team admin)`, files);
+        await indexDel(env, slug).run();
       }
       return json({ ok: true });
     }
     return fail(404, "Not found.");
   } catch (e) {
     if (e instanceof HttpError) return fail(e.status, e.message);
+    if (/no such table/i.test(String(e && e.message))) throw e;
     return fail(500, "Server error: " + (e && e.message || e));
   }
 }

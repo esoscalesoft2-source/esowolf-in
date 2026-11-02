@@ -39,8 +39,12 @@
       "label": "ESOWOLF home"
     },
     {
-      "url": "/#signup",
+      "url": "/#amazon",
       "label": "ESO Hunt Engine for Amazon sellers"
+    },
+    {
+      "url": "/#signup",
+      "label": "ESO Hunt Engine (old link — same page)"
     },
     {
       "url": "/#meesho",
@@ -95,7 +99,7 @@
     {
       "id": "amazon-selling",
       "name": "Amazon selling",
-      "guide": "/#signup",
+      "guide": "/#amazon",
       "guideLabel": "ESO Hunt Engine for Amazon sellers"
     },
     {

@@ -11,13 +11,30 @@
 <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="canonical" href="https://esowolf.in/">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":["Organization","ProfessionalService"],"@id":"https://esowolf.in/#org","name":"ESOWOLF (Ezy Sell Online)","alternateName":["ESOWOLF","ESO — Ezy Sell Online"],"url":"https://esowolf.in/","logo":"https://esowolf.in/assets/eso-icon.png","image":"https://esowolf.in/assets/og-image.jpg","description":"E-commerce growth company from Tamil Nadu helping Indian sellers on Amazon, Meesho and Myntra — Amazon seller onboarding, ESO Hunt Engine, Meesho and Myntra reconciliation software and WOO Chat WhatsApp automation.","parentOrganization":{"@type":"Organization","name":"MV Inc"},"taxID":"33ABPFM8566P1Z8","email":"support@esowolf.in","telephone":"+91-97515-51117","address":{"@type":"PostalAddress","streetAddress":"2/424-2, Sivan South Street, Maruthapattinam","addressLocality":"Thiruvarur","postalCode":"610001","addressRegion":"Tamil Nadu","addressCountry":"IN"},"areaServed":{"@type":"Country","name":"India"},"openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],"opens":"09:00","closes":"18:00"}],"contactPoint":[{"@type":"ContactPoint","telephone":"+91-97515-51117","email":"support@esowolf.in","contactType":"customer support","areaServed":"IN","availableLanguage":["English","Tamil","Hindi"]}]},{"@type":"WebSite","@id":"https://esowolf.in/#website","url":"https://esowolf.in/","name":"ESOWOLF","publisher":{"@id":"https://esowolf.in/#org"},"inLanguage":"en-IN"}]}</script>
+
 <link rel="icon" type="image/png" href="assets/favicon.png">
 <link rel="apple-touch-icon" href="assets/eso-icon.png">
 <title>ESOWOLF (Ezy Sell Online) — Grow on Amazon, Meesho, Myntra &amp; Shopify</title>
 <meta name="description" content="ESOWOLF helps sellers grow on Amazon, Meesho, Myntra and Shopify with 10+ years of e-commerce expertise — plus Meesho and Myntra reconciliation software and WhatsApp Business API.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;800;900&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="preload" href="/assets/fonts/big-shoulders-display.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/manrope.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+@font-face{font-family:"Big Shoulders Display";src:url(/assets/fonts/big-shoulders-display.woff2) format("woff2");font-weight:100 900;font-style:normal;font-display:swap}
+@font-face{font-family:"Manrope";src:url(/assets/fonts/manrope.woff2) format("woff2");font-weight:200 800;font-style:normal;font-display:swap}
+@font-face{font-family:"JetBrains Mono";src:url(/assets/fonts/jetbrains-mono.woff2) format("woff2");font-weight:100 800;font-style:normal;font-display:swap}
+
+/* floating WhatsApp button (hidden on the contact slide, which has its own WhatsApp button) */
+.wa-float{position:fixed;z-index:46;right:max(18px,env(safe-area-inset-right,0px));bottom:calc(env(safe-area-inset-bottom,0px) + 86px);display:flex;align-items:center;gap:8px;height:52px;padding:0 18px 0 14px;border-radius:999px;background:#25d366;color:#fff;text-decoration:none;font:700 14px/1 var(--body);box-shadow:0 12px 30px rgba(0,0,0,.35);transition:transform .2s,opacity .3s,visibility .3s}
+.wa-float svg{width:26px;height:26px;flex:none}
+.wa-float:hover{transform:translateY(-2px)}
+.wa-float:focus-visible{outline:3px solid #fff;outline-offset:3px}
+.wa-float.off{opacity:0;visibility:hidden;pointer-events:none}
+@media (max-width:760px){.wa-float{bottom:calc(env(safe-area-inset-bottom,0px) + 18px);right:16px;width:54px;height:54px;padding:0;justify-content:center}.wa-float span{display:none}}
+/* keyboard/screen-reader sound toggle: invisible until focused with the keyboard */
+.sound-btn{position:absolute;z-index:6;top:calc(env(safe-area-inset-top,0px) + 84px);left:50%;transform:translateX(-50%);padding:8px 14px;border-radius:999px;border:1px solid rgba(255,255,255,.3);background:rgba(13,10,8,.7);color:var(--paper);font:600 13px/1 var(--body);clip-path:inset(50%);width:1px;height:1px;overflow:hidden;white-space:nowrap}
+.sound-btn:focus-visible{clip-path:none;width:auto;height:auto;outline:2px solid var(--ember);outline-offset:2px}
+</style>
 <script>document.documentElement.classList.add("js")</script>
 <style>
 /* Layout: sticky full-bleed video hero; content sheet slides over it; numbered timeline only where order is real (experience). */
@@ -59,10 +76,18 @@ h1,h2,h3{font-family:var(--display);text-wrap:balance;line-height:.92;margin:0;t
 .btn{display:inline-flex;align-items:center;gap:8px;border-radius:999px;padding:10px 18px;font-weight:700;font-size:14px;text-decoration:none;border:1px solid transparent;cursor:pointer;font-family:var(--body);transition:transform .2s,background .2s}
 .btn-ember{background:var(--ember);color:var(--ink)}
 .btn-ember:hover{background:#ff8340;transform:translateY(-1px)}
-.btn-ghost{border-color:var(--line);color:var(--paper);background:transparent}
-.btn-ghost:hover{border-color:var(--ember)}
-.nav-blog-m{display:none}
-@media (max-width:860px){.nav ul{display:none}.nav .btn{margin-left:0}.nav-blog-m{display:inline-block;margin-left:auto;text-decoration:none;font-size:14px;font-weight:600;color:var(--paper);padding:8px 4px}}
+
+.nav-toggle{display:none}
+@media (max-width:860px){.nav ul{display:none}.nav .btn{margin-left:auto}
+  .nav-toggle{display:grid;place-content:center;gap:5px;width:44px;height:44px;margin-left:4px;border:1px solid rgba(255,255,255,.22);border-radius:12px;background:rgba(13,10,8,.45);cursor:pointer;padding:0}
+  .nav-toggle span{display:block;width:20px;height:2px;border-radius:2px;background:var(--paper);transition:transform .25s,opacity .2s}
+  .nav-toggle[aria-expanded="true"] span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+  .nav-toggle[aria-expanded="true"] span:nth-child(2){opacity:0}
+  .nav-toggle[aria-expanded="true"] span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+  .nav-panel{position:absolute;left:12px;right:12px;top:calc(100% + 6px);display:grid;padding:8px;border-radius:16px;background:rgba(18,13,10,.97);border:1px solid rgba(255,255,255,.1);box-shadow:0 24px 60px rgba(0,0,0,.5)}
+  .nav-panel a{padding:14px 16px;border-radius:10px;color:var(--paper);text-decoration:none;font:600 16px/1.2 var(--body)}
+  .nav-panel a:active,.nav-panel a:hover{background:rgba(242,106,27,.14);color:var(--ember)}
+}
 
 /* ---------- HERO ---------- */
 /* Video framing: subject sits ~60% across, head in the top half of the 16:9 frame.
@@ -86,13 +111,7 @@ h1,h2,h3{font-family:var(--display);text-wrap:balance;line-height:.92;margin:0;t
 .hero h1{font-size:clamp(64px,13vw,190px);font-weight:900;letter-spacing:-.01em}
 .hero h1 .l2{color:transparent;-webkit-text-stroke:2px var(--paper)}
 .hero .role{margin-top:16px;font-size:clamp(14px,1.6vw,18px);color:var(--paper);opacity:.85;max-width:44ch}
-.controls{position:absolute;right:max(16px,env(safe-area-inset-right,0px));bottom:clamp(72px,12vh,120px);z-index:4;display:flex;gap:10px;margin-right:clamp(0px,3vw,40px)}
-.glass{width:48px;height:48px;border-radius:50%;display:grid;place-items:center;background:var(--glass);border:1px solid rgba(255,255,255,.18);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);color:var(--paper);cursor:pointer;transition:transform .2s,border-color .2s}
-.glass:hover{transform:scale(1.06);border-color:var(--ember)}
-.glass svg{width:18px;height:18px;fill:currentColor}
-.bars{display:flex;gap:2px;align-items:flex-end;height:12px}
-.bars i{width:2px;background:var(--ember);animation:eq 1s ease-in-out infinite}
-.bars i:nth-child(2){animation-delay:.2s}.bars i:nth-child(3){animation-delay:.4s}.bars i:nth-child(4){animation-delay:.1s}
+
 @keyframes eq{0%,100%{height:3px}50%{height:12px}}
 .scroll-cue{position:absolute;z-index:4;bottom:18px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;background:none;border:0;color:var(--muted);font-family:var(--mono);font-size:10px;letter-spacing:.24em;text-transform:uppercase;cursor:pointer}
 .scroll-cue .line{width:1px;height:36px;background:rgba(255,255,255,.2);position:relative;overflow:hidden}
@@ -110,9 +129,9 @@ h1,h2,h3{font-family:var(--display);text-wrap:balance;line-height:.92;margin:0;t
   .hero-copy .eyebrow{margin-bottom:10px;font-size:11px}
   .hero h1{font-size:clamp(56px,19vw,112px)}
   .hero .role{margin-top:12px;font-size:13px;letter-spacing:.06em;text-transform:uppercase;opacity:.75}
-  .controls{bottom:calc(env(safe-area-inset-bottom,0px) + 22px);right:max(16px,env(safe-area-inset-right,0px));margin:0;gap:8px}
-  .glass{width:42px;height:42px}
-  .glass svg{width:15px;height:15px}
+  
+  
+  
   .scroll-cue{bottom:calc(env(safe-area-inset-bottom,0px) + 16px)}
   }
 @media (max-aspect-ratio:5/6) and (max-height:640px){.hero h1{font-size:clamp(48px,15vw,84px)}.hero .role{display:none}}
@@ -128,139 +147,39 @@ h1,h2,h3{font-family:var(--display);text-wrap:balance;line-height:.92;margin:0;t
 main{position:relative;z-index:5;background:var(--ink);border-radius:28px 28px 0 0;box-shadow:0 -30px 80px rgba(0,0,0,.6)}
 section{padding-block:clamp(72px,10vw,128px)}
 
-.chip{font-family:var(--mono);font-size:12px;padding:6px 12px;border:1px solid var(--line);border-radius:999px;color:var(--muted)}
-
 /* ===== Sign-up section =====
    Warm peach → ember gradient (the intro video's wall colour). Headline + one CTA on the left,
    cut-out portrait bleeding off the bottom-right with orbit rings, ember sparks and film grain.
    Everything animates in once when the section enters, then reacts to cursor and scroll. */
-.signup{
-  --su-ink:#1b120c; --su-cream:#fff3e8; --su-ember:#f26a1b;
-  position:relative;overflow:hidden;isolation:isolate;border-radius:28px 28px 0 0;color:var(--su-ink);
-  background:
-    radial-gradient(120% 80% at 78% 30%,rgba(255,236,214,.55) 0%,rgba(255,236,214,0) 55%),
-    linear-gradient(180deg,#fcdcc2 0%,#f8b384 34%,#f2843e 70%,#e8590f 100%);
-  min-height:100svh;display:flex;align-items:center;padding-block:clamp(120px,13vw,170px) clamp(96px,10vw,140px);
-}
-.su-grain{position:absolute;inset:-50%;z-index:-1;pointer-events:none;opacity:.22;mix-blend-mode:overlay;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  animation:grain 1.2s steps(6) infinite}
+
 @keyframes grain{0%{transform:translate(0,0)}20%{transform:translate(-3%,2%)}40%{transform:translate(2%,-3%)}60%{transform:translate(-2%,-1%)}80%{transform:translate(3%,3%)}100%{transform:translate(0,0)}}
-.su-sparks{position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
-.su-word{position:absolute;z-index:0;right:-2vw;top:50%;transform:translateY(-50%);pointer-events:none;
-  font-family:var(--display);font-weight:900;font-size:clamp(160px,30vw,520px);line-height:.8;letter-spacing:-.02em;
-  color:transparent;-webkit-text-stroke:1.5px rgba(255,255,255,.35);opacity:0;transition:opacity 1.6s ease .2s}
 
 /* portrait + rings */
-.su-glow{position:absolute;left:5%;top:4%;width:90%;aspect-ratio:1;border-radius:50%;z-index:-1;
-  background:radial-gradient(circle,rgba(255,246,236,.85) 0%,rgba(255,220,190,.35) 40%,rgba(255,200,160,0) 70%);
-  filter:blur(8px);animation:breathe 6s ease-in-out infinite}
+
 @keyframes breathe{50%{transform:scale(1.08);opacity:.85}}
-.su-orbit{position:absolute;left:-2%;top:50%;width:104%;aspect-ratio:1;translate:0 -50%;z-index:-1;overflow:visible}
-.su-orbit circle.ring{fill:none;stroke:rgba(255,255,255,.55);stroke-width:1;stroke-dasharray:1600;stroke-dashoffset:1600;
-  transition:stroke-dashoffset 2.4s cubic-bezier(.65,0,.35,1)}
-.su-orbit circle.ring.r2{stroke:rgba(27,18,12,.18);stroke-dasharray:4 9}
-.su-orbit .spin{transform-origin:200px 200px;animation:spin 38s linear infinite}
-.su-orbit .spin.rev{animation-duration:56s;animation-direction:reverse}
-.su-orbit circle.dot{fill:var(--su-cream)}
-.su-orbit circle.dot.ink{fill:var(--su-ink)}
+
 @keyframes spin{to{transform:rotate(360deg)}}
 
 /* copy */
-.signup-inner{position:relative;z-index:2;display:grid;grid-template-columns:minmax(0,1fr);gap:clamp(32px,5vw,80px);align-items:center;width:100%}
-.su-copy{display:grid;gap:clamp(36px,4vw,52px);justify-items:start;min-width:0}
-.signup-title{font-family:var(--body);text-transform:none;font-weight:800;letter-spacing:-.035em;line-height:1.08;
-  font-size:clamp(34px,4.8vw,78px);color:var(--su-ink);max-width:14.5ch;margin:0}
-.signup-title .w{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.08em;margin-bottom:-.08em}
-.signup-title .w>span{display:inline-block;transform:translate3d(0,108%,0) rotate(4deg);transform-origin:0 100%;
-  transition:transform 1s cubic-bezier(.16,1,.3,1)}
-.signup-title mark{position:relative;display:inline-block;white-space:nowrap;background:none;color:var(--su-cream);
-  padding:.04em .22em .1em;margin-top:.12em;line-height:1.1}
-.signup-title mark::before{content:"";position:absolute;inset:0;z-index:-1;border-radius:.16em;background:var(--su-ink);
-  transform:scaleX(0);transform-origin:0 50%;transition:transform .9s cubic-bezier(.77,0,.18,1) 1.05s;
-  box-shadow:0 18px 40px rgba(80,25,0,.25)}
-.signup-title mark .w>span{color:var(--su-cream)}
 
 /* CTA */
-.signup-cta{opacity:0;transform:translateY(24px);transition:opacity .8s ease 1.5s,transform 1s cubic-bezier(.16,1,.3,1) 1.5s}
-.signup-btn{position:relative;display:inline-flex;align-items:center;gap:16px;height:68px;padding:0 10px 0 34px;border-radius:999px;
-  background:var(--su-ink);color:var(--su-cream);text-decoration:none;font:800 18px/1 var(--body);letter-spacing:.01em;
-  box-shadow:0 18px 40px rgba(120,40,0,.28),inset 0 1px 0 rgba(255,255,255,.08);overflow:hidden;cursor:pointer;
-  transition:box-shadow .3s ease;will-change:transform}
-.signup-btn .lbl{position:relative;z-index:1}
-.signup-btn .arr{position:relative;z-index:1;width:48px;height:48px;border-radius:50%;display:grid;place-items:center;
-  background:var(--su-ember);color:#fff;font-size:20px;transition:transform .5s cubic-bezier(.16,1,.3,1),background .3s}
-.signup-btn::before{content:"";position:absolute;inset:0;border-radius:inherit;background:linear-gradient(110deg,transparent 30%,rgba(255,255,255,.18) 50%,transparent 70%);
-  transform:translateX(-120%);transition:transform .9s ease}
-.signup-btn::after{content:"";position:absolute;inset:-6px;border-radius:inherit;border:2px solid rgba(27,18,12,.35);opacity:0;
-  animation:ringPulse 2.6s ease-out 3s infinite;pointer-events:none}
+
 @keyframes ringPulse{0%{opacity:.7;transform:scale(.96)}100%{opacity:0;transform:scale(1.12)}}
-.signup-btn:hover{box-shadow:0 24px 50px rgba(120,40,0,.36)}
-.signup-btn:hover::before{transform:translateX(120%)}
-.signup-btn:hover .arr{transform:rotate(45deg) scale(1.06);background:#ff7d33}
-.signup-btn:focus-visible{outline:3px solid var(--su-cream);outline-offset:4px}
 
 /* entered state */
-.signup.is-in .signup-title .w>span{transform:none}
-.signup.is-in .signup-title mark::before{transform:scaleX(1)}
-.signup.is-in .signup-cta{opacity:1;transform:none}
-.signup.is-in .su-media-in{transform:none;opacity:1}
-.signup.is-in .su-orbit circle.ring{stroke-dashoffset:0}
-.signup.is-in .su-word{opacity:1}
-
-
 
 /* Meesho Reconciliation (slide 3): big title left, what it does right */
-.meesho{position:relative;overflow:hidden;background:var(--ink);color:var(--paper);min-height:100svh;display:flex;align-items:center;
-  padding-block:clamp(110px,12vw,150px) clamp(110px,10vw,140px)}
-.me-glow{position:absolute;inset:auto -10% -30% auto;width:70vw;aspect-ratio:1;border-radius:50%;pointer-events:none;
-  background:radial-gradient(circle,rgba(255,106,26,.28) 0%,rgba(255,106,26,.08) 40%,rgba(255,106,26,0) 70%)}
-.me-grid{position:relative;display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:clamp(40px,7vw,120px);align-items:center;width:100%}
-.me-title{font-family:var(--body);text-transform:none;font-weight:800;letter-spacing:-.035em;line-height:1.02;
-  font-size:clamp(40px,5.4vw,90px);color:var(--paper);margin:0;text-wrap:balance;min-width:0}
-.me-title span{display:inline-block;padding-right:.04em;background:linear-gradient(90deg,var(--ember),#ffb27a);
-  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
-.me-lead{font-size:clamp(18px,1.6vw,22px);line-height:1.55;color:#d9cbbd;margin:0 0 clamp(26px,3vw,40px);max-width:42ch}
-.me-list{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
-.me-list li{display:grid;grid-template-columns:56px 1fr;gap:14px;align-items:baseline;padding-block:18px;border-bottom:1px solid var(--line);
-  font-size:clamp(16px,1.3vw,19px);font-weight:600;line-height:1.45;color:var(--paper)}
-.me-n{font-family:var(--mono);font-size:13px;letter-spacing:.1em;color:var(--ember)}
-.meesho .rv{transform:translateX(50px);transition:transform 1s cubic-bezier(.16,1,.3,1),opacity .9s ease}
-.meesho .rv.in{transform:none}
-.meesho .me-title.rv{transform:translateX(-60px)}
-.meesho .me-title.rv.in{transform:none}
-.meesho .me-lead.rv{transition-delay:.25s}
-.meesho .me-list li:nth-child(1){transition-delay:.4s}.meesho .me-list li:nth-child(2){transition-delay:.52s}
-.meesho .me-list li:nth-child(3){transition-delay:.64s}.meesho .me-list li:nth-child(4){transition-delay:.76s}
-@media (max-width:960px){.me-grid{grid-template-columns:1fr}.meesho{align-items:flex-start}}
-
-
 
 /* WhatsApp Business API slide — styled after the WOO Chat sign-in screen */
 .wa{--wa-g:#10b981;--wa-g2:#4ade80;--wa-ink:#0a1310;padding:0;display:grid;grid-template-columns:1fr 1fr;min-height:100svh;background:var(--wa-ink);color:#eafff5;position:relative;overflow:hidden}
 .wa-left{position:relative;overflow:hidden;display:flex;align-items:center;
   background:radial-gradient(120% 90% at 30% 40%,#1f7a58 0%,#145d43 38%,#0d3a2b 75%,#0b2e23 100%)}
 .wa-left-in{position:relative;z-index:2;width:100%;padding:clamp(110px,14vh,150px) clamp(24px,5vw,72px) clamp(140px,19vh,190px)}
-.wa-brand{display:flex;align-items:center;gap:14px;font:800 clamp(20px,1.7vw,26px)/1 var(--body);letter-spacing:-.01em;margin-bottom:clamp(40px,7vh,90px)}
-.wa-logo{display:grid;place-items:center;width:50px;height:50px;border-radius:14px;background:rgba(10,19,16,.55);border:1px solid rgba(255,255,255,.12);overflow:hidden}
-.wa-logo img{width:86%;height:auto;object-fit:contain}
-.wa-logo-lg{width:58px;height:58px;border-radius:16px;margin:0 auto 18px;background:#0e1814}
+
 .wa-title{font-family:var(--body);text-transform:none;font-weight:800;letter-spacing:-.03em;line-height:1.04;font-size:clamp(40px,4.6vw,72px);margin:0 0 20px;color:#f1fff8}
 .wa-title em{font-style:normal;color:var(--wa-g2)}
 .wa-lead{margin:0 0 30px;max-width:44ch;font-size:clamp(16px,1.3vw,19px);line-height:1.55;color:rgba(234,255,245,.78)}
-.wa-chips{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,250px));gap:12px}
-.wa-chips li{display:flex;align-items:center;gap:12px;padding:14px 16px;border-radius:12px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);
-  font-weight:700;font-size:15px;color:#f1fff8;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);transition:background .25s,transform .25s}
-.wa-chips li:hover{background:rgba(255,255,255,.12);transform:translateY(-2px)}
-.wa-chips svg{width:18px;height:18px;flex:none;color:var(--wa-g2)}
-.wa-bubble{position:absolute;z-index:1;padding:12px 16px 8px;border-radius:14px;font-weight:600;font-size:15px;box-shadow:0 18px 40px rgba(0,0,0,.25);
-  opacity:0;transform:translateY(20px) scale(.9);transition:opacity .6s ease,transform .8s cubic-bezier(.16,1,.3,1)}
-.wa-bubble small{display:block;text-align:right;font-size:11px;font-weight:500;opacity:.7;margin-top:4px}
-.wa-b1{right:6%;top:15%;background:#0f6b4f;color:#eafff5;border-bottom-right-radius:4px;transition-delay:1.1s}
-.wa-b2{display:none;left:6%;bottom:24%;background:#fff;color:#1b2a24;border-bottom-left-radius:4px;transition-delay:1.6s}
-.wa-b3{right:8%;bottom:16%;background:#0f6b4f;color:#eafff5;border-bottom-right-radius:4px;transition-delay:2.2s}
-.wa.is-in .wa-bubble{opacity:1;transform:none;animation:waFloat 6s ease-in-out 3s infinite}
-.wa.is-in .wa-b2{animation-delay:3.6s}.wa.is-in .wa-b3{animation-delay:4.2s}
+
 @keyframes waFloat{50%{transform:translateY(-8px)}}
 .wa-right{position:relative;display:grid;place-items:center;padding:clamp(110px,12vh,150px) clamp(20px,4vw,60px) clamp(110px,12vh,150px);
   background:
@@ -269,44 +188,32 @@ section{padding-block:clamp(72px,10vw,128px)}
     linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px) 0 0/44px 44px,
     linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px) 0 0/44px 44px,
     var(--wa-ink)}
-.wa-card{width:min(100%,440px);padding:clamp(28px,3vw,40px);border-radius:18px;text-align:center;
-  background:rgba(17,26,22,.92);border:1px solid rgba(255,255,255,.08);box-shadow:0 40px 90px rgba(0,0,0,.45)}
-.wa-card h3{display:block;font-family:var(--body);text-transform:none;font-weight:800;
-  font-size:clamp(22px,1.8vw,27px);letter-spacing:-.01em;margin:0 0 10px;color:#f1fff8}
-.wa-card h3 svg{display:inline-block;width:22px;height:22px;vertical-align:-3px;margin-right:8px;color:var(--wa-g2)}
-.wa-card>p{margin:0 0 26px;color:rgba(234,255,245,.6);font-size:15px;line-height:1.5}
+
 .wa-btn{display:flex;align-items:center;justify-content:center;gap:10px;height:54px;border-radius:12px;background:var(--wa-g);color:#fff;
   font:700 16px/1 var(--body);text-decoration:none;box-shadow:0 14px 34px rgba(16,185,129,.35);transition:transform .2s,background .2s,box-shadow .2s}
 .wa-btn span{transition:transform .25s}
 .wa-btn:hover{background:#0ea371;transform:translateY(-2px);box-shadow:0 18px 40px rgba(16,185,129,.45)}
 .wa-btn:hover span{transform:translateX(4px)}
 .wa-btn:focus-visible{outline:3px solid var(--wa-g2);outline-offset:3px}
-.wa-small{margin:18px 0 0;font-size:14px;color:rgba(234,255,245,.6)}
-.wa-small a{color:var(--wa-g);font-weight:700;text-decoration:none}
-.wa-small a:hover{text-decoration:underline}
+
 /* entrance */
 .wa .rv{transform:translateY(26px);transition:transform 1s cubic-bezier(.16,1,.3,1),opacity .9s ease}
 .wa .rv.in{transform:none}
 .wa .wa-title.rv{transition-delay:.1s}.wa .wa-lead.rv{transition-delay:.22s}
-.wa .wa-chips li:nth-child(1){transition-delay:.34s}.wa .wa-chips li:nth-child(2){transition-delay:.42s}
-.wa .wa-chips li:nth-child(3){transition-delay:.5s}.wa .wa-chips li:nth-child(4){transition-delay:.58s}
-.wa .wa-card.rv{transform:translateY(40px) scale(.96);transition-delay:.45s}
-.wa .wa-card.rv.in{transform:none}
+
 @media (max-width:960px){
   .wa{grid-template-columns:1fr}
   .wa-left-in{padding-bottom:180px}
   .wa-right{padding-top:56px}
-  .wa-b3{display:none}
+  
 }
 @media (max-width:560px){
-  .wa-chips{grid-template-columns:1fr 1fr}
-  .wa-chips li{padding:12px;font-size:13px;gap:8px}
-  .wa-brand{margin-bottom:32px}
-  .wa-bubble{display:none}
+  
+  
+  
+  
   .wa-left-in{padding-bottom:64px}
 }
-@media (prefers-reduced-motion:reduce){.wa-bubble{opacity:1;transform:none}}
-
 
 /* Myntra slide — styled after the Myntra Profit sign-in screen */
 .mp{--mp-bg:#0b0b12;--mp-pink:#f43f74;--mp-orange:#fb923c;--mp-card:#16161d;--mp-line:#2a2a33;
@@ -319,9 +226,7 @@ section{padding-block:clamp(72px,10vw,128px)}
 .mp-title{font-family:var(--body);text-transform:none;font-weight:800;letter-spacing:-.03em;line-height:1.08;font-size:clamp(36px,3.9vw,60px);margin:0 0 20px;color:#fff;max-width:15ch}
 .mp-title span{display:block;background:linear-gradient(90deg,var(--mp-pink),var(--mp-orange));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent}
 .mp-lead{margin:0 0 26px;max-width:52ch;color:#a9a9b8;font-size:clamp(15px,1.15vw,17px);line-height:1.65}
-.mp-list{list-style:none;margin:0;padding:0;display:grid;gap:12px}
-.mp-list li{display:flex;gap:12px;align-items:flex-start;font-size:15px;line-height:1.5;color:#e6e6ee}
-.mp-list svg{flex:none;width:20px;height:20px;padding:3px;border-radius:6px;background:rgba(244,63,116,.14);color:var(--mp-pink);margin-top:1px}
+
 .mp-card{padding:clamp(26px,2.4vw,34px);border-radius:14px;background:var(--mp-card);border:1px solid var(--mp-line);box-shadow:0 30px 80px rgba(0,0,0,.45)}
 .mp-card h3{font-family:var(--body);text-transform:none;font-weight:800;font-size:clamp(22px,1.7vw,26px);letter-spacing:-.01em;margin:0 0 6px;color:#fff}
 .mp-card>p{margin:0 0 24px;color:#a9a9b8;font-size:14px;line-height:1.55}
@@ -335,12 +240,10 @@ section{padding-block:clamp(72px,10vw,128px)}
 .mp .rv{transform:translateY(26px);transition:transform 1s cubic-bezier(.16,1,.3,1),opacity .9s ease}
 .mp .rv.in{transform:none}
 .mp .mp-title.rv{transition-delay:.1s}.mp .mp-lead.rv{transition-delay:.22s}
-.mp .mp-list li:nth-child(1){transition-delay:.32s}.mp .mp-list li:nth-child(2){transition-delay:.4s}
-.mp .mp-list li:nth-child(3){transition-delay:.48s}.mp .mp-list li:nth-child(4){transition-delay:.56s}
+
 .mp .mp-card.rv{transform:translateY(40px) scale(.97);transition-delay:.4s}
 .mp .mp-card.rv.in{transform:none}
 @media (max-width:960px){.mp-grid{grid-template-columns:1fr}.mp-card{max-width:440px}}
-
 
 /* Meesho slide — meesho Profit colours (violet → cyan), split with a hairline divider */
 .mp.ms{--mp-bg:#0a0d15;--mp-pink:#8b7cf6;--mp-orange:#38bdf8;--mp-card:#121521;--mp-line:#262a3a;position:relative;
@@ -350,10 +253,9 @@ section{padding-block:clamp(72px,10vw,128px)}
 .mp.ms .mp-title span{-webkit-background-clip:text;background-clip:text}
 .mp.ms .mp-btn{box-shadow:0 12px 30px rgba(139,124,246,.3)}
 .mp.ms .mp-btn:hover{background:#7c6cf0;box-shadow:0 16px 36px rgba(139,124,246,.42)}
-.mp.ms .mp-list svg{background:rgba(139,124,246,.16)}
+
 .mp.ms .mp-grid{grid-template-columns:minmax(0,1fr) minmax(320px,440px);gap:clamp(40px,12vw,200px)}
 @media (max-width:960px){.mp.ms::before{display:none}.mp.ms .mp-grid{grid-template-columns:1fr}}
-
 
 /* contact details */
 .contact h2{margin-bottom:14px;font-size:clamp(44px,min(6.4vw,9.5vh),104px)}
@@ -376,17 +278,6 @@ a.ct-v:hover{text-decoration:underline}
 .mp-one{font-size:clamp(18px,1.6vw,23px);color:#d6d6e2;margin:0;max-width:30ch}
 
 /* Slide 2 only: copy left, sign-up card right */
-#signup .signup-inner{grid-template-columns:minmax(0,1.2fr) minmax(300px,420px);gap:clamp(36px,6vw,110px);align-items:center}
-#signup .os-card{position:relative;z-index:2;padding:clamp(26px,2.6vw,36px);border-radius:24px;color:var(--su-ink);
-  background:linear-gradient(160deg,rgba(255,247,240,.94),rgba(255,234,216,.82));border:1px solid rgba(255,255,255,.8);
-  box-shadow:0 30px 70px rgba(120,40,0,.22),inset 0 1px 0 #fff;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);min-width:0}
-#signup .os-card::before{content:"";position:absolute;left:clamp(26px,2.6vw,36px);top:0;width:56px;height:4px;border-radius:0 0 4px 4px;background:var(--su-ember)}
-#signup .os-card h3{font-family:var(--body);text-transform:none;font-weight:800;font-size:clamp(24px,2vw,30px);letter-spacing:-.02em;margin:0 0 20px;line-height:1.1}
-#signup .os-btn{width:100%;justify-content:space-between}
-#signup .os-card.rv{transform:translateY(36px) scale(.97);transition:transform 1.1s cubic-bezier(.16,1,.3,1) .35s,opacity .9s ease .35s}
-#signup .os-card.rv.in{transform:none}
-@media (max-width:960px){#signup .signup-inner{grid-template-columns:1fr}#signup .os-card{max-width:480px}}
-
 
 /* Book-a-demo block inside the Meesho / Myntra cards (links to bookdemo.esowolf.in with the platform preselected) */
 .mp-demo{margin-top:22px}
@@ -401,95 +292,30 @@ a.ct-v:hover{text-decoration:underline}
 .mp-demo-days li{display:grid;gap:2px;justify-items:center;padding:8px 4px;border-radius:8px;background:rgba(255,255,255,.04);border:1px solid var(--mp-line);font-size:12px;color:#a9a9b8}
 .mp-demo-days b{color:#fff;font-size:13px}
 
-
 /* ESO logos: light version on the dark nav, dark version on the orange contact slide */
 .brand{display:inline-flex;align-items:center;line-height:0}
 .brand-logo{height:clamp(34px,3.4vw,44px);width:auto;display:block}
 .ct-logo{display:block;height:clamp(64px,6.4vw,92px);width:auto;box-sizing:content-box;padding:12px 18px;border-radius:16px;background:#fff7f0;box-shadow:0 14px 34px rgba(110,35,0,.18);margin-bottom:clamp(18px,2.4vw,28px)}
 
 /* tablet & phone: copy first, portrait anchored to the bottom of the section */
-@media (max-width:960px){
-  .signup{flex-direction:column;align-items:stretch;padding-block:120px 96px;min-height:auto}
-  .signup-title{max-width:16ch}
-  .signup-inner{grid-template-columns:1fr;justify-items:center}
-  .su-copy{justify-self:stretch}
-  .su-word{top:auto;bottom:4%;transform:none;font-size:42vw}
-}
-@media (max-width:560px){
-  .signup{padding-top:108px}
-  .signup-title{font-size:clamp(31px,8.8vw,42px);max-width:none}
-  .signup-btn{height:62px;font-size:17px;padding-left:28px}
-  .signup-btn .arr{width:44px;height:44px}
-}
 
 /* no-JS & reduced motion: show everything at rest */
-html:not(.js) .signup .signup-title .w>span,html:not(.js) .signup .signup-cta,html:not(.js) .signup .su-media-in{transform:none;opacity:1}
-html:not(.js) .signup .signup-title mark::before{transform:none}
-@media (prefers-reduced-motion:reduce){
-  .signup .signup-title .w>span,.signup .signup-cta,.signup .su-media-in{transform:none!important;opacity:1!important}
-  .signup .signup-title mark::before{transform:none!important}
-  .su-grain{animation:none}
-}
 
 /* marquee */
-.marquee{border-block:1px solid var(--line);overflow:hidden;padding-block:18px;background:var(--ink-2)}
-.marquee .track{display:flex;gap:40px;width:max-content;animation:slide 38s linear infinite}
-.marquee span{font-family:var(--display);font-size:clamp(28px,4vw,44px);font-weight:800;text-transform:uppercase;white-space:nowrap;color:var(--paper)}
-.marquee span:nth-child(even){color:transparent;-webkit-text-stroke:1px var(--muted)}
+
 @keyframes slide{to{transform:translateX(-50%)}}
 
 /* about */
-.about .grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:clamp(32px,6vw,80px);align-items:center}
-.portrait{position:relative;border-radius:22px;overflow:hidden;aspect-ratio:4/5;max-width:100%;background:var(--ember)}
-.portrait img{width:100%;height:100%;object-fit:cover;display:block}
-.portrait figcaption{position:absolute;left:16px;bottom:16px;font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;background:var(--glass);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);padding:7px 12px;border-radius:999px}
-.about h2{font-size:clamp(44px,6vw,80px);font-weight:900;margin:14px 0 24px}
-.about p{color:var(--muted);max-width:60ch;margin:0 0 16px}
-.about p strong{color:var(--paper);font-weight:600}
-.socials{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px}
-@media (max-width:860px){.about .grid{grid-template-columns:1fr}.portrait{max-width:440px}}
 
 /* section head */
 .head{display:flex;justify-content:space-between;align-items:end;gap:20px;flex-wrap:wrap;margin-bottom:48px}
 .head h2{font-size:clamp(52px,8vw,112px);font-weight:900}
-.head .count{font-family:var(--mono);font-size:13px;color:var(--muted)}
 
 /* projects */
-.projects .list{display:grid;gap:22px}
-.proj{display:grid;grid-template-columns:1.15fr 1fr;gap:clamp(20px,4vw,48px);padding:clamp(16px,2.5vw,26px);border:1px solid var(--line);border-radius:24px;background:var(--ink-2);transition:border-color .3s}
-.proj:hover{border-color:#4a3a2c}
-.proj .media{position:relative;border-radius:16px;overflow:hidden;aspect-ratio:16/10;max-width:100%}
-.proj canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
-.proj .media .tag{position:absolute;top:14px;left:14px;font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;background:rgba(13,10,8,.6);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);padding:6px 11px;border-radius:999px}
-.proj .body{display:flex;flex-direction:column;gap:14px;min-width:0;padding-block:6px}
-.proj h3{font-size:clamp(36px,4.4vw,58px);font-weight:800}
-.proj .sub{font-weight:600;color:var(--ember);margin-top:-6px}
-.proj p{color:var(--muted);margin:0}
-.stack{display:flex;flex-wrap:wrap;gap:6px;margin-top:auto}
-.proj .row{display:flex;gap:10px;flex-wrap:wrap}
-@media (max-width:860px){.proj{grid-template-columns:1fr}}
 
 /* experience */
-.xp{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
-.xp li{display:grid;grid-template-columns:72px 1fr 1.3fr;gap:clamp(16px,3vw,40px);padding-block:36px;border-bottom:1px solid var(--line)}
-.xp .n{font-family:var(--display);font-size:44px;font-weight:800;color:var(--ember);line-height:1}
-.xp .meta{font-family:var(--mono);font-size:12px;color:var(--muted);letter-spacing:.06em;display:flex;flex-direction:column;gap:4px;margin-top:10px}
-.xp h3{font-size:clamp(32px,3.6vw,46px);font-weight:800}
-.xp .role{font-weight:600;margin-top:6px}
-.xp ul{margin:0;padding-left:18px;color:var(--muted);display:grid;gap:8px}
-.xp .stack{margin-top:16px}
-.xp li>div{min-width:0}
-@media (max-width:860px){.xp li{grid-template-columns:1fr}.xp .n{font-size:32px}}
 
 /* writing */
-.posts{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
-.post{display:flex;flex-direction:column;gap:12px;padding:26px;border:1px solid var(--line);border-radius:20px;text-decoration:none;background:var(--ink-2);transition:border-color .25s,transform .25s}
-.post:hover{border-color:var(--ember);transform:translateY(-3px)}
-.post .top{display:flex;justify-content:space-between;font-family:var(--mono);font-size:12px;color:var(--muted)}
-.post h3{font-family:var(--body);text-transform:none;font-size:20px;line-height:1.3;font-weight:700}
-.post p{margin:0;color:var(--muted);font-size:15px}
-.post .read{margin-top:auto;font-weight:700;color:var(--ember);font-size:14px}
-@media (max-width:760px){.posts{grid-template-columns:1fr}}
 
 /* contact / footer */
 .contact{background:var(--ember);color:var(--ink);border-radius:28px 28px 0 0;padding-block:clamp(72px,10vw,120px) 32px}
@@ -500,10 +326,8 @@ html:not(.js) .signup .signup-title mark::before{transform:none}
 .mail code{font-family:var(--mono);font-size:clamp(16px,2.4vw,24px);background:rgba(13,10,8,.1);padding:10px 16px;border-radius:12px;user-select:all;word-break:break-all}
 .contact .btn-dark{background:var(--ink);color:var(--paper)}
 .contact .btn-dark:hover{background:#2a1f17}
-.contact .btn-line{border-color:rgba(13,10,8,.35);color:var(--ink)}
-.contact .btn-line:hover{border-color:var(--ink)}
-.foot{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px;border-top:1px solid rgba(13,10,8,.25);padding-top:22px;font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase}
 
+.foot{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px;border-top:1px solid rgba(13,10,8,.25);padding-top:22px;font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase}
 
 /* ===== Slide deck: every section is a full-screen slide that moves sideways =====
    Active only with JS (html.deck). Without JS the page stays a normal vertical scroll. */
@@ -532,18 +356,13 @@ html.deck,html.deck body{height:100%;overflow:hidden;overscroll-behavior:none}
 /* sections inside slides */
 html.deck .hero{position:relative;height:100%;min-height:0}
 html.deck main{display:contents}
-html.deck .signup{border-radius:0;min-height:100%}
+
 html.deck .deck-slide>.deck-scroll>.deck-inner>section,html.deck .deck-slide>.deck-scroll>.deck-inner>footer{flex:1 0 auto}
 html.deck .contact{border-radius:0;display:flex;flex-direction:column;justify-content:center;padding-bottom:110px}
-html.deck .about,html.deck .projects,html.deck #experience,html.deck #writing{padding-bottom:max(128px,10vw)}
-html.deck .signup{padding-bottom:max(110px,10vw)}
-
 
 /* entrance replays: reset instantly, then animate in from the direction of travel */
 .deck-slide.rv-reset *,.deck-slide.rv-reset *::before{transition:none!important}
 .deck-slide.from-above .rv:not(.in){transform:translateY(-30px)!important}
-.deck-slide.from-above .signup:not(.is-in) .signup-title .w>span{transform:translate3d(0,-108%,0) rotate(-4deg)!important}
-.deck-slide.from-above .signup:not(.is-in) .signup-cta{transform:translateY(-24px)!important}
 
 /* controls: counter + progress, arrows, dots */
 .deck-ui{position:fixed;z-index:45;left:0;right:0;bottom:calc(env(safe-area-inset-bottom,0px) + 18px);display:flex;align-items:center;justify-content:space-between;
@@ -575,15 +394,14 @@ html.deck .signup{padding-bottom:max(110px,10vw)}
 /* reveal */
 .rv{transform:translateY(24px);opacity:.001;transition:transform .9s cubic-bezier(.2,.7,.2,1),opacity .9s}
 .rv.in{transform:none;opacity:1}
-.no-js .rv{opacity:1;transform:none}
+
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation:none!important;transition:none!important}
   .rv{opacity:1;transform:none}
   html{scroll-behavior:auto}
 }
 .sr-only{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
-#signup .os-note{margin:14px 0 0;font-size:14px;line-height:1.5;opacity:.7;text-align:center}
-.wa-trial{display:inline-block;margin:0 0 16px;padding:5px 12px;border-radius:999px;background:rgba(16,185,129,.16);color:#34d399;font-size:13px;font-weight:700}
+
 @media (max-aspect-ratio:5/6){.eb-loc{display:none}
   .hero .shade{background:linear-gradient(180deg,rgba(13,10,8,.55) 0%,rgba(13,10,8,0) 18%,rgba(13,10,8,0) 34%,rgba(13,10,8,.78) 54%,rgba(13,10,8,.98) 100%)!important}}
 /* Slide 2 (Amazon / ESO Hunt Engine): same layout as the Meesho slide, in the site's orange */
@@ -708,22 +526,26 @@ html.deck.deck-touch .deck-slide:not(.deck-tall) .deck-scroll{overflow:hidden;to
 <!-- ======================= NAV ======================= -->
 <header class="nav" id="nav">
   <div class="wrap">
-    <a class="brand" href="#top" aria-label="ESO — Ezy Sell Online, home"><img class="brand-logo" src="assets/eso-logo-light.webp" alt="ESO — Ezy Sell Online" width="1000" height="479"></a>
+    <a class="brand" href="#top" aria-label="ESO — Ezy Sell Online, home"><img class="brand-logo" src="assets/eso-logo-light-300.webp" alt="ESO — Ezy Sell Online" width="300" height="144"></a>
     <ul>
-      <li><a href="#signup">Amazon</a></li>
+      <li><a href="#amazon">Amazon</a></li>
       <li><a href="#meesho">Meesho</a></li>
       <li><a href="#myntra">Myntra</a></li>
       <li><a href="#whatsapp">WhatsApp</a></li>
       <li><a href="/blog/">Blog</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
-    <a class="nav-blog-m" href="/blog/">Blog</a>
     <a class="btn btn-ember" href="https://booking.closer.esowolf.in/book/amazon-increase-sales" target="_blank" rel="noopener">Book Meeting</a>
+    <button class="nav-toggle" id="navToggle" type="button" aria-expanded="false" aria-controls="navPanel" aria-label="Open menu"><span></span><span></span><span></span></button>
   </div>
+  <nav class="nav-panel" id="navPanel" aria-label="Menu" hidden>
+    <a href="#amazon">Amazon</a><a href="#meesho">Meesho</a><a href="#myntra">Myntra</a><a href="#whatsapp">WhatsApp</a><a href="/blog/">Blog</a><a href="#contact">Contact</a>
+  </nav>
 </header>
 
 <!-- ======================= HERO ======================= -->
-<section class="hero" id="top" aria-label="Intro video — click to turn sound on or off" role="button" tabindex="0" aria-pressed="false">
+<section class="hero" id="top" aria-label="Intro video">
+  <button class="sound-btn" id="soundBtn" type="button" aria-pressed="false">Video sound: off</button>
   <video class="v-ambient" id="vAmb" muted loop playsinline autoplay preload="auto" aria-hidden="true" tabindex="-1"></video>
   <canvas id="bokeh" aria-hidden="true"></canvas>
   <div class="shade"></div>
@@ -744,13 +566,14 @@ html.deck.deck-touch .deck-slide:not(.deck-tall) .deck-scroll{overflow:hidden;to
   <button class="scroll-cue" id="cue" type="button"><span>Scroll</span><span class="line"></span></button>
 </section>
 
+<a class="wa-float" id="waFloat" href="https://wa.me/919751551117?text=Hi%20ESOWOLF%2C%20I%20want%20to%20know%20more%20about%20your%20services." target="_blank" rel="noopener" aria-label="Chat with ESOWOLF on WhatsApp"><svg viewBox="0 0 32 32" aria-hidden="true"><path fill="currentColor" d="M16 3C9 3 3.3 8.6 3.3 15.6c0 2.3.6 4.5 1.8 6.4L3.2 29l7.2-1.9c1.8 1 3.8 1.5 5.9 1.5 7 0 12.7-5.6 12.7-12.6S23 3 16 3zm0 23.1c-1.9 0-3.7-.5-5.3-1.4l-.4-.2-4.3 1.1 1.1-4.1-.3-.4a10.4 10.4 0 0 1-1.6-5.5C5.2 9.8 10 5.1 16 5.1s10.8 4.7 10.8 10.5S22 26.1 16 26.1zm5.9-7.8c-.3-.2-1.9-.9-2.2-1s-.5-.2-.7.2-.8 1-1 1.2-.4.2-.7.1a8.6 8.6 0 0 1-4.3-3.7c-.3-.6.3-.5.9-1.6.1-.2 0-.4 0-.5l-1-2.4c-.3-.6-.5-.5-.7-.5h-.6c-.2 0-.6.1-.9.4s-1.2 1.1-1.2 2.7 1.2 3.1 1.4 3.3 2.3 3.6 5.6 5c2.1.9 2.9 1 3.9.8.6-.1 1.9-.8 2.2-1.5s.3-1.3.2-1.5-.3-.2-.6-.4z"/></svg><span>Chat with us</span></a>
 <main id="content">
   <!-- ======================= SIGN-UP ======================= -->
-  <section class="mp amz" id="signup" aria-labelledby="signupTitle">
+  <section class="mp amz" id="amazon" aria-labelledby="amazonTitle">
     <div class="wrap mp-grid">
       <div class="mp-copy">
-        <img class="mp-logo amz-logo rv" src="assets/eso-hunt-logo.webp" alt="ESO Hunt Engine" width="1000" height="478">
-        <h2 id="signupTitle" class="mp-title rv">Sell Your Product on Amazon <span>Using AI Easily.</span></h2>
+        <img class="mp-logo amz-logo rv" src="assets/eso-hunt-logo-480.webp" alt="ESO Hunt Engine" width="480" height="229">
+        <h2 id="amazonTitle" class="mp-title rv">Sell Your Product on Amazon <span>Using AI Easily.</span></h2>
         <p class="mp-lead mp-one rv">Spend One Hour Daily and Increase Your Sales by 3x in 90 Days.</p>
         <p class="rv amz-trust"><span class="trust-badge"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2 4 5v6c0 5 3.4 9.3 8 11 4.6-1.7 8-6 8-11V5l-8-3z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="m8.5 12 2.5 2.5 4.5-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>We are an Authorized Partner of Amazon</span></p>
       </div>
@@ -777,8 +600,8 @@ html.deck.deck-touch .deck-slide:not(.deck-tall) .deck-scroll{overflow:hidden;to
       <div class="mp-card rv">
         <h3>Get started</h3>
         <p>Upload your inventory, orders and Meesho payment reports and see your true profit.</p>
-        <a class="mp-btn" href="https://meesho.esowolf.in/auth" target="_blank" rel="noopener">Sign up</a>
-        <p class="mp-small">Already a vendor? <a href="https://meesho.esowolf.in/auth" target="_blank" rel="noopener">Sign in</a></p>
+        <a class="mp-btn" href="https://meesho.esowolf.in/auth" target="_blank" rel="noopener">Sign Up</a>
+        <p class="mp-small">Already a seller? <a href="https://meesho.esowolf.in/auth" target="_blank" rel="noopener">Sign In</a></p>
         <div class="mp-demo">
           <div class="mp-or"><span>or</span></div>
           <a class="mp-demo-btn" href="https://bookdemo.esowolf.in/?platform=Meesho#book" target="_blank" rel="noopener">Book a free demo <span aria-hidden="true">→</span></a>
@@ -799,8 +622,8 @@ html.deck.deck-touch .deck-slide:not(.deck-tall) .deck-scroll{overflow:hidden;to
       <div class="mp-card rv">
         <h3>Get started</h3>
         <p>Upload your Myntra inventory, orders and payment reports and see your true profit.</p>
-        <a class="mp-btn" href="https://myntra.esowolf.in/auth" target="_blank" rel="noopener">Sign up</a>
-        <p class="mp-small">Already a vendor? <a href="https://myntra.esowolf.in/auth" target="_blank" rel="noopener">Sign in</a></p>
+        <a class="mp-btn" href="https://myntra.esowolf.in/auth" target="_blank" rel="noopener">Sign Up</a>
+        <p class="mp-small">Already a seller? <a href="https://myntra.esowolf.in/auth" target="_blank" rel="noopener">Sign In</a></p>
         <div class="mp-demo">
           <div class="mp-or"><span>or</span></div>
           <a class="mp-demo-btn" href="https://bookdemo.esowolf.in/?platform=Myntra#book" target="_blank" rel="noopener">Book a free demo <span aria-hidden="true">→</span></a>
@@ -814,7 +637,7 @@ html.deck.deck-touch .deck-slide:not(.deck-tall) .deck-scroll{overflow:hidden;to
   <section class="wa" id="whatsapp" aria-labelledby="waTitle">
     <div class="wa-left">
       <div class="wa-left-in">
-        <img class="wa-main-logo rv" src="assets/woochat-logo.webp" alt="WOO Chat" width="915" height="450">
+        <img class="wa-main-logo rv" src="assets/woochat-logo-560.webp" alt="WOO Chat" width="560" height="275">
         <h2 id="waTitle" class="wa-title rv">WOO Chat <em>Software</em></h2>
         <p class="wa-lead wa-sub rv">We Sell Auto Bots.</p>
       </div>
@@ -838,7 +661,7 @@ html.deck.deck-touch .deck-slide:not(.deck-tall) .deck-scroll{overflow:hidden;to
   <!-- ======================= CONTACT ======================= -->
   <footer class="contact" id="contact">
     <div class="wrap">
-      <img class="ct-logo" src="assets/eso-logo-dark.webp" alt="ESO — Ezy Sell Online" width="1000" height="479" loading="lazy">
+      <img class="ct-logo" src="assets/eso-logo-dark-640.webp" alt="ESO — Ezy Sell Online" width="640" height="307" loading="lazy">
       <span class="greet" id="greet">Hello</span>
       <h2>Build your<br>dream now.</h2>
       <p class="ct-lead">Have a question or a project in mind? Reach out — we reply within 24 hours.</p>
@@ -871,10 +694,12 @@ const vMain=document.getElementById("vMain"), vAmb=document.getElementById("vAmb
 /* Pick the sharpest file the screen can actually show (never upscale, never waste data).
    Rendered width = the video box width × device pixel ratio; cover mode on landscape can enlarge it further. */
 const SOURCES=[{w:1280,src:"assets/intro-720.mp4"},{w:1920,src:"assets/intro-1080.mp4"},{w:2560,src:"assets/intro-1440.mp4"}];
+const PORTRAIT=()=>innerHeight>innerWidth;
 function neededWidth(){
-  const dpr=Math.min(window.devicePixelRatio||1,3), vw=innerWidth, vh=innerHeight;
-  const boxW = Math.max(vw, vh*16/9);   // cover fills the screen, so on portrait phones the frame is much wider than the screen
-  return boxW*dpr;
+  // Phones/tablets held upright only show a narrow slice of the 16:9 frame, so 720p is plenty (saves ~4 MB of mobile data).
+  if(PORTRAIT()) return 0;
+  const dpr=Math.min(window.devicePixelRatio||1,1.5), vw=innerWidth, vh=innerHeight;
+  return Math.max(vw, vh*16/9)*dpr;
 }
 function pickSource(){ const n=neededWidth(); return (SOURCES.find(s=>s.w>=n)||SOURCES[SOURCES.length-1]).src; }
 let currentSrc="", switching=false;
@@ -885,10 +710,10 @@ function loadSources(){
   vMain.addEventListener("loadedmetadata",()=>{ if(t) vMain.currentTime=t; if(wasPlaying) vMain.play().catch(()=>{}); setTimeout(()=>switching=false,300); },{once:true});
 }
 loadSources();
-let srcT; addEventListener("resize",()=>{clearTimeout(srcT);srcT=setTimeout(()=>{ if(SOURCES.findIndex(s=>s.src===pickSource())>SOURCES.findIndex(s=>s.src===currentSrc)) loadSources(); },400)});
+let srcT; addEventListener("resize",()=>{clearTimeout(srcT);srcT=setTimeout(()=>{ if(SOURCES.findIndex(s=>s.src===pickSource())>SOURCES.findIndex(s=>s.src===currentSrc)) loadSources(); if(vMain.classList.contains("ready")) loadAmbient(); },400)});
 
 /* The blurred backdrop (720p) loads only once the main video is playing, so it never competes for bandwidth. */
-function loadAmbient(){ if(!vAmb.src){ vAmb.src=SOURCES[0].src; vAmb.currentTime=vMain.currentTime||0; vAmb.play().catch(()=>{}); } }
+function loadAmbient(){ if(PORTRAIT()) return; /* upright screens: the main video already fills the screen, the blurred copy is never seen */ if(!vAmb.src){ vAmb.src=SOURCES[0].src; vAmb.currentTime=vMain.currentTime||0; vAmb.play().catch(()=>{}); } }
 vMain.addEventListener("playing",loadAmbient,{once:true});
 setTimeout(loadAmbient,6000);
 vMain.addEventListener("loadeddata",()=>vMain.classList.add("ready"));
@@ -928,7 +753,8 @@ function startIntro(){
    (Links and buttons inside it, like "Scroll", keep their own action.) */
 const hero=document.getElementById("top");
 function soundIsOn(){ return !vMain.muted && !vMain.paused; }
-function syncPressed(){ hero.setAttribute("aria-pressed", soundIsOn() ? "true" : "false"); }
+const soundBtn=document.getElementById("soundBtn");
+function syncPressed(){ const on=soundIsOn(); soundBtn.setAttribute("aria-pressed", on ? "true" : "false"); soundBtn.textContent = "Video sound: " + (on ? "on" : "off"); }
 function toggleSound(){
   if(soundIsOn()){
     vMain.muted=true; speaking=false;
@@ -939,7 +765,7 @@ function toggleSound(){
   syncPressed();
 }
 hero.addEventListener("click",e=>{ if(e.target.closest("a,button")) return; toggleSound(); });
-hero.addEventListener("keydown",e=>{ if(e.target!==hero) return; if(e.key==="Enter"||e.key===" "){ e.preventDefault(); e.stopPropagation(); toggleSound(); } });
+soundBtn.addEventListener("click",e=>{ e.stopPropagation(); toggleSound(); });   // keyboard / screen-reader way to the same toggle
 ["volumechange","play","pause"].forEach(ev=>vMain.addEventListener(ev,syncPressed));
 
 /* Stop immediately on a call or any interruption. */
@@ -994,35 +820,37 @@ startIntro();
 
 document.getElementById("cue").onclick=()=>{ if(window.deck) deck.go(1); else document.getElementById("content").scrollIntoView({behavior:"smooth"}); };
 
-/* ---------- bokeh particle layer ---------- */
+/* ---------- bokeh particle layer (light: pre-drawn sprites, ~30 fps, pauses when slide 1 is not on screen) ---------- */
 (function(){
   const cv=document.getElementById("bokeh"), g=cv.getContext("2d");
   const reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
-  let w,h,d,parts=[],mx=0,my=0,tx=0,ty=0,run=true;
-  function size(){ d=Math.min(devicePixelRatio||1,2); w=cv.width=cv.offsetWidth*d; h=cv.height=cv.offsetHeight*d;
-    const n=Math.round(Math.min(70,(cv.offsetWidth*cv.offsetHeight)/22000));
-    parts=Array.from({length:n},()=>({x:Math.random()*w,y:Math.random()*h,z:.3+Math.random()*.9,r:(1.5+Math.random()*7)*d,
-      ph:Math.random()*6.28,sp:.15+Math.random()*.5,warm:Math.random()<.72}));
+  let w,h,parts=[],mx=0,my=0,tx=0,ty=0,visible=true,onHero=true,raf=0,last=0;
+  const sprite=c=>{ const s=document.createElement("canvas"); s.width=s.height=64; const x=s.getContext("2d"); const rg=x.createRadialGradient(32,32,0,32,32,32);
+    rg.addColorStop(0,`rgba(${c},1)`); rg.addColorStop(.35,`rgba(${c},.35)`); rg.addColorStop(1,`rgba(${c},0)`); x.fillStyle=rg; x.fillRect(0,0,64,64); return s; };
+  const warm=sprite("255,140,60"), cool=sprite("255,240,225");
+  function size(){ w=cv.width=cv.offsetWidth; h=cv.height=cv.offsetHeight;
+    const n=Math.round(Math.min(innerWidth<760?24:48,(w*h)/26000));
+    parts=Array.from({length:n},()=>({x:Math.random()*w,y:Math.random()*h,z:.3+Math.random()*.9,r:1.5+Math.random()*7,ph:Math.random()*6.28,sp:.15+Math.random()*.5,s:Math.random()<.72?warm:cool}));
   }
   size(); addEventListener("resize",size);
-  addEventListener("pointermove",e=>{tx=(e.clientX/innerWidth-.5);ty=(e.clientY/innerHeight-.5)});
-  new IntersectionObserver(es=>{run=es[0].isIntersecting; if(run&&!reduce) requestAnimationFrame(tick)}).observe(cv);
+  addEventListener("pointermove",e=>{tx=(e.clientX/innerWidth-.5);ty=(e.clientY/innerHeight-.5)},{passive:true});
   function frame(t){
-    mx+=(tx-mx)*.04; my+=(ty-my)*.04;
+    mx+=(tx-mx)*.08; my+=(ty-my)*.08;
     g.clearRect(0,0,w,h); g.globalCompositeOperation="lighter";
     for(const p of parts){
-      const y=(p.y - t*.012*p.sp*d*p.z) % h, yy=y<0?y+h:y;
-      const x=p.x+Math.sin(t*.0006*p.sp+p.ph)*24*d*p.z - mx*60*d*p.z;
-      const py=yy - my*40*d*p.z;
-      const a=(.25+.35*Math.sin(t*.001+p.ph)**2)*p.z;
-      const rg=g.createRadialGradient(x,py,0,x,py,p.r*3);
-      const c=p.warm?"255,140,60":"255,240,225";
-      rg.addColorStop(0,`rgba(${c},${a})`); rg.addColorStop(.35,`rgba(${c},${a*.35})`); rg.addColorStop(1,`rgba(${c},0)`);
-      g.fillStyle=rg; g.beginPath(); g.arc(x,py,p.r*3,0,6.283); g.fill();
+      const y=(p.y - t*.012*p.sp*p.z) % h, yy=y<0?y+h:y;
+      const x=p.x+Math.sin(t*.0006*p.sp+p.ph)*24*p.z - mx*60*p.z, py=yy - my*40*p.z, R=p.r*3;
+      g.globalAlpha=(.25+.35*Math.sin(t*.001+p.ph)**2)*p.z;
+      g.drawImage(p.s,x-R,py-R,R*2,R*2);
     }
+    g.globalAlpha=1;
   }
-  function tick(t){ if(!run) return; frame(t); requestAnimationFrame(tick); }
-  if(reduce) frame(0); else requestAnimationFrame(tick);
+  function tick(t){ raf=0; if(!(visible&&onHero)||document.hidden) return; if(t-last>=32){ last=t; frame(t); } raf=requestAnimationFrame(tick); }
+  const start=()=>{ if(!reduce && !raf && visible && onHero) raf=requestAnimationFrame(tick); };
+  new IntersectionObserver(es=>{ visible=es[0].isIntersecting; start(); }).observe(cv);
+  document.addEventListener("visibilitychange",start);
+  setTimeout(()=>{ if(window.deck) deck.onChange(i=>{ onHero=i===0; start(); }); },0);
+  if(reduce) frame(0); else start();
 })();
 
 /* ---------- nav, greeting ---------- */
@@ -1034,85 +862,11 @@ function tickClock(){
 }
 tickClock(); setInterval(tickClock,30000);
 
-/* ---------- sign-up section motion ---------- */
-(function(){
-  const sec=document.getElementById("signup"); if(!sec || !sec.querySelector("[data-split]")) return;
-  const reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
-  const fine=matchMedia("(pointer: fine)").matches;
-
-  /* 1. split the headline into masked words, staggered */
-  const h=sec.querySelector("[data-split]"); let i=0;
-  const wrapWords=node=>{
-    [...node.childNodes].forEach(n=>{
-      if(n.nodeType===3){
-        const frag=document.createDocumentFragment();
-        n.textContent.split(/(\s+)/).forEach(part=>{
-          if(!part) return;
-          if(/^\s+$/.test(part)){ frag.appendChild(document.createTextNode(" ")); return; }
-          const w=document.createElement("span"); w.className="w";
-          const s=document.createElement("span"); s.textContent=part; s.style.transitionDelay=(0.08+i++*0.045)+"s";
-          w.appendChild(s); frag.appendChild(w);
-        });
-        n.replaceWith(frag);
-      } else if(n.nodeType===1) wrapWords(n);
-    });
-  };
-  wrapWords(h);
-
-  /* 2. play once on entry (and never leave it hidden) */
-  const go=()=>sec.classList.add("is-in");
-  if(reduce || !("IntersectionObserver" in window)) go();
-  else{
-    const io=new IntersectionObserver(es=>{ if(es[0].isIntersecting){ go(); io.disconnect(); } },{threshold:.22});
-    io.observe(sec);
-  }
-
-  /* 3. cursor + scroll parallax on the portrait, magnetic CTA */
-  const por=null, word=sec.querySelector(".su-word");
-  let mx=0,my=0,tx=0,ty=0,sy=0,raf=0,vis=false;
-  new IntersectionObserver(es=>{ vis=es[0].isIntersecting; if(vis&&!raf) raf=requestAnimationFrame(loop); }).observe(sec);
-  if(fine && !reduce) sec.addEventListener("pointermove",e=>{ const r=sec.getBoundingClientRect(); tx=(e.clientX-r.left)/r.width-.5; ty=(e.clientY-r.top)/r.height-.5; });
-  function loop(){
-    raf=0; if(!vis) return;
-    mx+=(tx-mx)*.06; my+=(ty-my)*.06;
-    const r=sec.getBoundingClientRect(); sy=Math.max(-1,Math.min(1,r.top/innerHeight));
-    if(!reduce){
-      if(por) por.style.transform=`translate3d(${-mx*26}px,${-my*18+sy*60}px,0)`;
-      word.style.translate=`${mx*40}px ${sy*-80}px`;
-    }
-    raf=requestAnimationFrame(loop);
-  }
-
-  const btn=sec.querySelector("[data-magnetic]");
-  if(btn && fine && !reduce){
-    btn.addEventListener("pointermove",e=>{ const r=btn.getBoundingClientRect(); const x=e.clientX-r.left-r.width/2, y=e.clientY-r.top-r.height/2; btn.style.transform=`translate(${x*.22}px,${y*.35}px)`; });
-    btn.addEventListener("pointerleave",()=>{ btn.style.transition="transform .6s cubic-bezier(.16,1,.3,1),box-shadow .3s"; btn.style.transform=""; setTimeout(()=>btn.style.transition="",600); });
-  }
-
-  /* 4. rising ember sparks */
-  const cv=document.getElementById("suSparks"), g=cv.getContext("2d"); let W,H,D,parts=[],on=false;
-  function size(){ D=Math.min(devicePixelRatio||1,2); W=cv.width=cv.offsetWidth*D; H=cv.height=cv.offsetHeight*D;
-    const n=Math.round(Math.min(46,cv.offsetWidth*cv.offsetHeight/26000));
-    parts=Array.from({length:n},()=>({x:Math.random()*W,y:Math.random()*H,r:(.8+Math.random()*2.4)*D,v:(.15+Math.random()*.45)*D,ph:Math.random()*6.28,a:.25+Math.random()*.55})); }
-  size(); addEventListener("resize",size);
-  function sparks(t){
-    if(!on) return;
-    g.clearRect(0,0,W,H);
-    for(const p of parts){
-      p.y-=p.v; if(p.y<-10){ p.y=H+10; p.x=Math.random()*W; }
-      const x=p.x+Math.sin(t*.0008+p.ph)*14*D, a=p.a*(.6+.4*Math.sin(t*.002+p.ph));
-      g.beginPath(); g.fillStyle=`rgba(255,248,240,${a})`; g.arc(x,p.y,p.r,0,6.283); g.fill();
-    }
-    requestAnimationFrame(sparks);
-  }
-  if(!reduce) new IntersectionObserver(es=>{ const was=on; on=es[0].isIntersecting; if(on&&!was) requestAnimationFrame(sparks); }).observe(sec);
-})();
-
 /* ---------- slide deck: sections move sideways like full-screen slides ----------
    Wheel / trackpad, swipe, arrow keys, the arrow buttons, the dots and nav links all move one slide.
    A slide taller than the screen scrolls inside itself first; at its edge the next move changes slide. */
 window.deck=(function(){
-  const order=["top","signup","meesho","myntra","whatsapp","contact"];
+  const order=["top","amazon","meesho","myntra","whatsapp","contact"];
   const els=order.map(id=>document.getElementById(id)).filter(Boolean);
   if(els.length<2) return null;
   const mq=document.querySelector(".marquee");
@@ -1262,7 +1016,8 @@ window.deck=(function(){
   addEventListener("resize",()=>paint(true));
 
   // start on the slide named in the link, if any
-  const start=location.hash? document.getElementById(location.hash.slice(1)) : null;
+  const ALIAS={signup:"amazon"};   // old links (e.g. /#signup in earlier posts) still open the right slide
+  const hid=location.hash.slice(1); const start=hid? document.getElementById(ALIAS[hid]||hid) : null;
   const ss=start && start.closest(".deck-slide");
   paint(true); if(ss) go(+ss.dataset.i,true);
 
@@ -1332,6 +1087,18 @@ if("IntersectionObserver" in window){
   var tm=document.getElementById('waTime');
   function clk(){ try{ tm.textContent=new Intl.DateTimeFormat('en-IN',{timeZone:'Asia/Kolkata',hour:'numeric',minute:'2-digit',hour12:true}).format(new Date()).replace(/\s?[ap]m/i,''); }catch(e){} }
   clk(); setInterval(clk,30000);
+})();
+
+/* ---------- phone menu + floating WhatsApp ---------- */
+(function(){
+  const btn=document.getElementById("navToggle"), panel=document.getElementById("navPanel");
+  const setOpen=o=>{ btn.setAttribute("aria-expanded",o); btn.setAttribute("aria-label",o?"Close menu":"Open menu"); panel.hidden=!o; document.getElementById("nav").classList.toggle("solid",o||!!(window.deck&&deck.index>0)); };
+  btn.addEventListener("click",e=>{ e.stopPropagation(); setOpen(panel.hidden); });
+  panel.addEventListener("click",e=>{ if(e.target.closest("a")) setOpen(false); });
+  document.addEventListener("click",e=>{ if(!panel.hidden && !e.target.closest("#navPanel,#navToggle")) setOpen(false); });
+  addEventListener("keydown",e=>{ if(e.key==="Escape" && !panel.hidden){ setOpen(false); btn.focus(); } });
+  const wa=document.getElementById("waFloat");
+  setTimeout(()=>{ if(window.deck) deck.onChange(i=>{ wa.classList.toggle("off", i===5); if(!panel.hidden) setOpen(false); }); },0);
 })();
 </script>
 </body>

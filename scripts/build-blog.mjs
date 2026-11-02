@@ -108,7 +108,7 @@ function head({ title, description, url, image, type = "website", extra = "" }) 
 ${extra}<style>${CSS}</style>
 </head>`;
 }
-const topBar = `<header class="top"><div class="wrap"><a class="logo" href="/" aria-label="${e(cfg.brand)} home"><img src="/assets/eso-logo-light.webp" alt="${e(cfg.brand)}" width="1000" height="479"></a>
+const topBar = `<header class="top"><div class="wrap"><a class="logo" href="/" aria-label="${e(cfg.brand)} home"><img src="/assets/eso-logo-light-300.webp" alt="${e(cfg.brand)}" width="300" height="144"></a>
 <nav aria-label="Main"><a href="/blog/">Blog</a><a class="hide-s" href="/#contact">Contact</a><a class="btn" href="${e(cfg.cta.secondary.url)}" target="_blank" rel="noopener">${e(cfg.cta.secondary.label)}</a></nav></div></header>`;
 const footer = `<footer><div class="wrap"><span>© ${NOW.getFullYear()} ${e(cfg.shortBrand)} is a company of MV Inc. All rights reserved.</span>
 <span><a href="/">Home</a> · <a href="/blog/">Blog</a> · <a href="/blog/rss.xml">RSS</a> · <a href="/policies.html#privacy">Privacy</a> · <a href="/#contact">Contact</a></span></div></footer>`;

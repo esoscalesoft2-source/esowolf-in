@@ -173,6 +173,7 @@ export function normUrl(u, site) {
   if (site && s.startsWith(site)) s = s.slice(site.length) || "/";
   s = s.replace(/^https?:\/\/(www\.)?esowolf\.in(?=\/|$)/, "") || s;
   if (s === "") s = "/";
+  if (s === "/#signup") s = "/#amazon";   // old name of the Amazon slide
   return s;
 }
 export function isInternal(u, site) {
