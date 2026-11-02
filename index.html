@@ -61,7 +61,8 @@ h1,h2,h3{font-family:var(--display);text-wrap:balance;line-height:.92;margin:0;t
 .btn-ember:hover{background:#ff8340;transform:translateY(-1px)}
 .btn-ghost{border-color:var(--line);color:var(--paper);background:transparent}
 .btn-ghost:hover{border-color:var(--ember)}
-@media (max-width:860px){.nav ul{display:none}.nav .btn{margin-left:auto}}
+.nav-blog-m{display:none}
+@media (max-width:860px){.nav ul{display:none}.nav .btn{margin-left:0}.nav-blog-m{display:inline-block;margin-left:auto;text-decoration:none;font-size:14px;font-weight:600;color:var(--paper);padding:8px 4px}}
 
 /* ---------- HERO ---------- */
 /* Video framing: subject sits ~60% across, head in the top half of the 16:9 frame.
@@ -705,8 +706,10 @@ html.deck.deck-touch .deck-slide:not(.deck-tall) .deck-scroll{overflow:hidden;to
       <li><a href="#meesho">Meesho</a></li>
       <li><a href="#myntra">Myntra</a></li>
       <li><a href="#whatsapp">WhatsApp</a></li>
+      <li><a href="/blog/">Blog</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
+    <a class="nav-blog-m" href="/blog/">Blog</a>
     <a class="btn btn-ember" href="https://booking.closer.esowolf.in/book/amazon-increase-sales" target="_blank" rel="noopener">Book Meeting</a>
   </div>
 </header>
