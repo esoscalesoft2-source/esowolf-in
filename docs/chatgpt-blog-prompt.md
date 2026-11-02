@@ -1,6 +1,6 @@
 # ChatGPT prompt for ESOWOLF blog posts
 
-The admin (/admin/ → New post → "Write a post with ChatGPT") fills in the topic, keywords and the list of existing posts for you and has a **Copy prompt** button. This file is the same template for reference. Edit the facts, links, topic groups and the cover image style (`imageStyle`) in `admin/blog-config.json`.
+The admin (/admin/ → New post → "Write a post with ChatGPT") fills in the topic, keywords and the list of existing posts for you and has a **Copy prompt** button. This file is the same template for reference. Edit the facts, links and topic groups in `admin/blog-config.json`.
 
 ````text
 You are writing a blog post for ESOWOLF (Ezy Sell Online) (https://esowolf.in).
@@ -91,8 +91,6 @@ TOPIC GROUP:
 MAIN KEYWORD:
 OTHER KEYWORDS: (separated by semicolons)
 SHORT LINK CODE: (2–4 words, lowercase, joined with hyphens)
-IMAGE PROMPT: (2–3 sentences describing ONE cover image for this post: the objects and scene only, e.g. parcels, a phone, charts, an Indian seller — no text, no logos)
-COVER ALT TEXT: (one sentence describing that image for blind readers)
 FAQ:
 Q:
 A:

@@ -143,7 +143,7 @@ function cleanPost(p) {
     title: s(p.title).slice(0, 200), slug: s(p.slug).toLowerCase(), description: s(p.description).slice(0, 400), summary: s(p.summary).slice(0, 600),
     topic: s(p.topic), keyword: s(p.keyword).toLowerCase().slice(0, 120),
     keywords: (Array.isArray(p.keywords) ? p.keywords : String(p.keywords || "").split(/[;,]/)).map(x => String(x).trim().toLowerCase()).filter(Boolean).slice(0, 20),
-    short: s(p.short).toLowerCase(), cover: s(p.cover), coverAlt: s(p.coverAlt).slice(0, 250), imagePrompt: s(p.imagePrompt).slice(0, 2000),
+    short: s(p.short).toLowerCase(), cover: s(p.cover), coverAlt: s(p.coverAlt).slice(0, 250),
     faqs: (Array.isArray(p.faqs) ? p.faqs : []).map(f => ({ q: s(f && f.q).slice(0, 300), a: s(f && f.a).slice(0, 2000) })).filter(f => f.q || f.a).slice(0, 12),
     body: String(p.body || "").replace(/\r\n?/g, "\n").slice(0, 200000),
     date: s(p.date), updated: s(p.updated), author: s(p.author)

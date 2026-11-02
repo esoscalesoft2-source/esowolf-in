@@ -1,7 +1,7 @@
 /* Shared blog logic — used by the admin app (browser), the API (Cloudflare Pages Function)
    and the build script (Node). Plain ES module, no dependencies. */
 
-export const FIELDS = ["title", "slug", "description", "summary", "topic", "keyword", "keywords", "short", "cover", "coverAlt", "imagePrompt", "date", "updated", "author", "faqs"];
+export const FIELDS = ["title", "slug", "description", "summary", "topic", "keyword", "keywords", "short", "cover", "coverAlt", "date", "updated", "author", "faqs"];
 
 /* ---------- small helpers ---------- */
 export function slugify(s) {
@@ -64,7 +64,7 @@ export function parsePost(text) {
 }
 
 /* ---------- ChatGPT answer → form fields ---------- */
-const LABELS = ["TITLE", "META DESCRIPTION", "SUMMARY", "TOPIC GROUP", "MAIN KEYWORD", "OTHER KEYWORDS", "SHORT LINK CODE", "IMAGE PROMPT", "COVER ALT TEXT", "FAQ", "ARTICLE", "END OF ARTICLE"];
+const LABELS = ["TITLE", "META DESCRIPTION", "SUMMARY", "TOPIC GROUP", "MAIN KEYWORD", "OTHER KEYWORDS", "SHORT LINK CODE", "FAQ", "ARTICLE", "END OF ARTICLE"];
 export function parseChatGPT(text, cfg) {
   let s = String(text || "")
     .replace(/\r\n?/g, "\n")
@@ -90,8 +90,6 @@ export function parseChatGPT(text, cfg) {
     else if (key === "MAIN KEYWORD") out.keyword = clean(v).toLowerCase();
     else if (key === "OTHER KEYWORDS") out.keywords = clean(v).split(/[;,\n]/).map(x => x.trim().replace(/^[-•*]\s*/, "").toLowerCase()).filter(Boolean);
     else if (key === "SHORT LINK CODE") out.short = slugify(clean(v));
-    else if (key === "IMAGE PROMPT") out.imagePrompt = withImageStyle(clean(v), cfg);
-    else if (key === "COVER ALT TEXT") out.coverAlt = clean(v);
     buf = [];
   };
   for (const line of lines) {
@@ -302,8 +300,6 @@ TOPIC GROUP:
 MAIN KEYWORD:
 OTHER KEYWORDS: (separated by semicolons)
 SHORT LINK CODE: (2–4 words, lowercase, joined with hyphens)
-IMAGE PROMPT: (2–3 sentences describing ONE cover image for this post: the objects and scene only, e.g. parcels, a phone, charts, an Indian seller — no text, no logos)
-COVER ALT TEXT: (one sentence describing that image for blind readers)
 FAQ:
 Q:
 A:
@@ -315,21 +311,3 @@ END OF ARTICLE
 \`\`\``;
 }
 function abs(u, cfg) { return u.startsWith("/") ? cfg.site + u : u; }
-
-/* ---------- cover image prompt (subject + fixed brand style) ---------- */
-export function withImageStyle(subject, cfg) {
-  const sub = String(subject || "").trim().replace(/\s*Style:[\s\S]*$/i, "").trim();
-  if (!sub) return "";
-  return `${sub.replace(/[.\s]*$/, ".")}\n\n${(cfg && cfg.imageStyle) || ""}`.trim();
-}
-export function autoImagePrompt(p, cfg) {
-  const g = (cfg && cfg.groups || []).find(x => x.id === p.topic);
-  const scene = {
-    "amazon-selling": "a laptop and smartphone showing an online store with abstract product cards, cardboard parcels and a rising growth arrow",
-    "meesho-myntra-profit": "a smartphone showing an abstract payment dashboard with bars, folded clothes, parcels and Indian rupee coins",
-    "whatsapp-automation": "a smartphone with friendly chat bubbles and small robot icons sending automatic messages, parcels in the background",
-    "ecommerce-basics": "a small online shop set-up with a laptop, parcels, a shopping bag and a simple checklist"
-  }[p.topic] || "an online seller's desk with a laptop, parcels and a growth chart";
-  const topic = p.title ? `for a blog post titled “${p.title}”` : "for an e-commerce blog post";
-  return withImageStyle(`Cover image ${topic}${g ? ` (${g.name})` : ""}: ${scene}, with a calm Indian seller working on it`, cfg);
-}
