@@ -76,6 +76,7 @@ code{background:#1f1f1f;padding:2px 6px;border-radius:6px;font-size:.9em}pre{bac
 .box{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:22px 24px;margin:36px 0}
 .faq details{border-bottom:1px solid var(--line);padding:14px 0}.faq summary{cursor:pointer;font-weight:700;font-size:17px}.faq details p{margin:10px 0 0}
 .guide{display:flex;gap:14px;align-items:center;justify-content:space-between;flex-wrap:wrap}.guide p{margin:0}
+.trust{display:inline-flex;align-items:center;gap:8px;margin:0 0 6px;padding:5px 12px 5px 9px;border-radius:999px;border:1px solid rgba(242,106,27,.45);font-size:14px;font-weight:600;color:var(--text)}.trust svg{width:16px;height:16px;color:var(--ember);flex:none}
 .cta{background:linear-gradient(135deg,rgba(242,106,27,.22),rgba(242,106,27,.06));border-color:rgba(242,106,27,.4)}.cta h2{margin-top:0}.cta .row{display:flex;gap:12px;flex-wrap:wrap;margin-top:16px}
 .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:20px;margin:22px 0 40px}
 .card{display:flex;flex-direction:column;background:var(--panel);border:1px solid var(--line);border-radius:16px;overflow:hidden;text-decoration:none;color:var(--text);transition:border-color .2s,transform .2s}.card:hover{border-color:var(--ember);transform:translateY(-2px)}
@@ -111,6 +112,7 @@ const topBar = `<header class="top"><div class="wrap"><a class="logo" href="/" a
 <nav aria-label="Main"><a href="/blog/">Blog</a><a class="hide-s" href="/#contact">Contact</a><a class="btn" href="${e(cfg.cta.secondary.url)}" target="_blank" rel="noopener">${e(cfg.cta.secondary.label)}</a></nav></div></header>`;
 const footer = `<footer><div class="wrap"><span>© ${NOW.getFullYear()} ${e(cfg.shortBrand)} is a company of MV Inc. All rights reserved.</span>
 <span><a href="/">Home</a> · <a href="/blog/">Blog</a> · <a href="/blog/rss.xml">RSS</a> · <a href="/policies.html#privacy">Privacy</a> · <a href="/#contact">Contact</a></span></div></footer>`;
+const SHIELD = `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2 4 5v6c0 5 3.4 9.3 8 11 4.6-1.7 8-6 8-11V5l-8-3z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="m8.5 12 2.5 2.5 4.5-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
 const ogFallback = `${SITE}/assets/og-image.jpg`;
 const coverImg = (p, cls, sizes, eager) => p.cover
   ? `<img class="${cls}" src="${e(p.cover)}.webp" srcset="${e(p.cover)}-800.webp 800w, ${e(p.cover)}.webp 1600w" sizes="${sizes}" width="1600" height="900" alt="${e(p.coverAlt || p.title)}"${eager ? ' fetchpriority="high"' : ' loading="lazy"'} decoding="async">`
@@ -151,7 +153,7 @@ ${html}
 ${faqs.length ? `<section class="faq box" aria-labelledby="faq"><h2 id="faq" style="margin-top:0">Frequently asked questions</h2>${faqs.map(f => `<details><summary>${e(f.q)}</summary><p>${e(f.a)}</p></details>`).join("")}</section>` : ""}
 </article>
 ${g ? `<aside class="box guide"><p><b>Main guide:</b> ${e(g.guideLabel || g.name)}</p><a class="btn ghost" href="${e(g.guide)}">Read the guide →</a></aside>` : ""}
-<aside class="box cta"><h2>${e(cfg.cta.title)}</h2><p>${e(cfg.cta.text)}</p><div class="row"><a class="btn" href="${e(cfg.cta.primary.url)}" target="_blank" rel="noopener">${e(cfg.cta.primary.label)} →</a><a class="btn ghost" href="${e(cfg.cta.secondary.url)}" target="_blank" rel="noopener">${e(cfg.cta.secondary.label)}</a></div></aside>
+<aside class="box cta"><h2>${e(cfg.cta.title)}</h2>${cfg.trustLine && (cfg.trustLine.groups || []).includes(p.topic) ? `<p class="trust">${SHIELD}${e(cfg.trustLine.text)}</p>` : ""}<p>${e(cfg.cta.text)}</p><div class="row"><a class="btn" href="${e(cfg.cta.primary.url)}" target="_blank" rel="noopener">${e(cfg.cta.primary.label)} →</a><a class="btn ghost" href="${e(cfg.cta.secondary.url)}" target="_blank" rel="noopener">${e(cfg.cta.secondary.label)}</a></div></aside>
 ${related.length ? `<section aria-labelledby="rel"><h2 id="rel">Related guides</h2><div class="cards">${related.map(card).join("")}</div></section>` : ""}
 </main>
 ${footer}
