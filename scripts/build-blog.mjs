@@ -95,6 +95,7 @@ function head({ title, description, url, image, type = "website", extra = "" }) 
 <meta name="description" content="${e(description)}">
 <link rel="canonical" href="${e(url)}">
 <meta name="theme-color" content="#0e0e0e">
+<meta name="generator" content="ESOWOLF blog">
 <meta property="og:type" content="${type}">
 <meta property="og:site_name" content="${e(cfg.shortBrand)}">
 <meta property="og:title" content="${e(title)}">
