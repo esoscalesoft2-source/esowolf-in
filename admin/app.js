@@ -1,5 +1,5 @@
 /* ESOWOLF team blog admin — single-page app. Loaded only on /admin/. */
-import { slugify, isValidSlug, parseChatGPT, seoScore, buildPrompt, preprocessMarkdown, escapeHtml as e, istInputToISO, isoToISTInput, formatIST } from "./shared.mjs?v=1";
+import { slugify, isValidSlug, parseChatGPT, seoScore, buildPrompt, autoImagePrompt, preprocessMarkdown, escapeHtml as e, istInputToISO, isoToISTInput, formatIST } from "./shared.mjs?v=2";
 
 const $ = (s, el = document) => el.querySelector(s);
 const $$ = (s, el = document) => [...el.querySelectorAll(s)];
@@ -142,6 +142,10 @@ async function editView(slug) {
       <div class="field"><label>Summary <small>(for blog cards)</small></label><textarea id="summary" rows="2"></textarea></div>
       <div class="grid2"><div class="field"><label>Topic group</label><select id="topic">${groupOpts}</select></div><div class="field"><label>Main keyword</label><input type="text" id="keyword"></div></div>
       <div class="grid2"><div class="field"><label>Other keywords <small>(separate with ;)</small></label><input type="text" id="keywords"></div><div class="field"><label>Short link code <small>(esowolf.in/go/…)</small></label><input type="text" id="short" placeholder="e.g. amazon-start"></div></div>
+      <div class="field imgp"><label>Cover image prompt <small>(filled from ChatGPT's answer — edit if you like, then make the image in the same ChatGPT chat)</small></label>
+        <textarea id="imagePrompt" rows="5" class="code"></textarea>
+        <div class="row" style="margin-top:8px"><button class="btn sm" type="button" id="copyImg">Copy image prompt</button><a class="btn ghost sm" href="https://chatgpt.com/" target="_blank" rel="noopener">Open ChatGPT ↗</a><button class="btn ghost sm" type="button" id="autoImg">Make prompt from title</button></div>
+        <div class="hint">In ChatGPT: paste this prompt, download the image, then upload it below.</div></div>
       <div class="field"><label>Cover image <small>(JPG/PNG/WebP up to 20 MB — we make a 1600×900 WebP and a 1200×630 share image)</small></label>
         <div class="cover"><img id="coverImg" alt="" hidden><div class="grow"><input type="file" id="coverFile" accept="image/*"><div class="hint" id="coverMsg"></div></div></div></div>
       <div class="field"><label>Cover alt text <small>(describe the picture)</small></label><input type="text" id="coverAlt"></div>
@@ -164,7 +168,7 @@ async function editView(slug) {
 
   const F = id => $("#" + id);
   const set = p => {
-    for (const k of ["title", "slug", "description", "summary", "topic", "keyword", "short", "coverAlt", "body"]) if (p[k] !== undefined) F(k).value = p[k] || "";
+    for (const k of ["title", "slug", "description", "summary", "topic", "keyword", "short", "coverAlt", "imagePrompt", "body"]) if (p[k] !== undefined) F(k).value = p[k] || "";
     if (p.keywords !== undefined) F("keywords").value = (p.keywords || []).join("; ");
     if (p.faqs !== undefined) drawFaqs(p.faqs);
     if (p.cover !== undefined) { post.cover = p.cover; showCover(); }
@@ -173,7 +177,7 @@ async function editView(slug) {
     ...post,
     title: F("title").value.trim(), slug: F("slug").value.trim(), description: F("description").value.trim(), summary: F("summary").value.trim(),
     topic: F("topic").value, keyword: F("keyword").value.trim().toLowerCase(), keywords: F("keywords").value.split(/[;,]/).map(s => s.trim().toLowerCase()).filter(Boolean),
-    short: F("short").value.trim().toLowerCase(), coverAlt: F("coverAlt").value.trim(), body: F("body").value,
+    short: F("short").value.trim().toLowerCase(), coverAlt: F("coverAlt").value.trim(), imagePrompt: F("imagePrompt").value.trim(), body: F("body").value,
     faqs: $$("#faqs .faq").map(r => ({ q: $("[data-q]", r).value.trim(), a: $("[data-a]", r).value.trim() })).filter(f => f.q || f.a)
   });
   function drawFaqs(list) {
@@ -201,12 +205,13 @@ async function editView(slug) {
   F("copy").onclick = async () => { try { await navigator.clipboard.writeText(F("gPrompt").value); toast("Prompt copied. Paste it into ChatGPT.", "good"); } catch { F("gPrompt").select(); document.execCommand("copy"); toast("Prompt copied."); } };
   F("fill").onclick = () => {
     const r = parseChatGPT(F("paste").value, cfg);
-    const got = ["title", "description", "summary", "topic", "keyword", "keywords", "short", "faqs", "body"].filter(k => Array.isArray(r[k]) ? r[k].length : r[k]);
+    const got = ["title", "description", "summary", "topic", "keyword", "keywords", "short", "imagePrompt", "coverAlt", "faqs", "body"].filter(k => Array.isArray(r[k]) ? r[k].length : r[k]);
     if (!got.length) { F("fillMsg").textContent = "Could not find the labelled sections (TITLE:, ARTICLE: …). Paste ChatGPT's whole answer."; return; }
     if (!slugTouched && r.title) r.slug = slugify(r.title); else delete r.slug;
     if (!r.topic) delete r.topic;
+    if (!r.imagePrompt) r.imagePrompt = autoImagePrompt({ ...get(), ...r }, cfg);
     set(r);
-    F("fillMsg").textContent = `Filled: ${got.length} sections${r.faqs ? `, ${r.faqs.length} FAQs` : ""}. Now add a cover image and check the SEO score.`;
+    F("fillMsg").textContent = `Filled: ${got.length} sections${r.faqs ? `, ${r.faqs.length} FAQs` : ""}. Next: copy the image prompt, make the cover in ChatGPT, upload it, then check the SEO score.`;
     update(); toast("Form filled from ChatGPT's answer.", "good");
   };
 
@@ -215,6 +220,9 @@ async function editView(slug) {
   F("slug").oninput = () => { slugTouched = true; update(); };
   F("slug").onblur = () => { F("slug").value = slugify(F("slug").value); update(); };
   ["description", "summary", "topic", "keyword", "keywords", "short", "coverAlt", "body"].forEach(id => F(id).addEventListener("input", update));
+  F("autoImg").onclick = () => { const p = get(); if (F("imagePrompt").value.trim() && !confirm("Replace the current image prompt?")) return; F("imagePrompt").value = autoImagePrompt(p, cfg); };
+  F("copyImg").onclick = async () => { if (!F("imagePrompt").value.trim()) F("imagePrompt").value = autoImagePrompt(get(), cfg); try { await navigator.clipboard.writeText(F("imagePrompt").value); toast("Image prompt copied. Paste it into ChatGPT.", "good"); } catch { F("imagePrompt").select(); document.execCommand("copy"); toast("Image prompt copied."); } };
+  if (!post.imagePrompt && !isNew && post.title) F("imagePrompt").value = autoImagePrompt(post, cfg);
   F("topic").onchange = update;
   F("addFaq").onclick = () => { addFaqRow(); update(); };
 
