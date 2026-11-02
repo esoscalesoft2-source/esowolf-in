@@ -1,0 +1,140 @@
+{
+  "brand": "ESOWOLF (Ezy Sell Online)",
+  "shortBrand": "ESOWOLF",
+  "site": "https://esowolf.in",
+  "repo": "esoscalesoft2-source/esowolf-in",
+  "branch": "main",
+  "postsDir": "content/blog",
+  "imagesDir": "assets/blog",
+  "language": "English",
+  "minSeoScore": 80,
+  "noPrices": true,
+  "business": "ESOWOLF (Ezy Sell Online) is a company of MV Inc from Thiruvarur, Tamil Nadu, with 10+ years of hands-on e-commerce experience. We help Indian sellers grow on Amazon, Meesho, Myntra and Shopify with software, training and done-with-you support.",
+  "audience": "Indian online sellers and small brands — beginners and growing sellers on Amazon, Meesho, Myntra and Shopify — many of them non-native English readers.",
+  "facts": [
+    "ESOWOLF (Ezy Sell Online) is a company of MV Inc, 2/424-2, Sivan South Street, Maruthapattinam, Thiruvarur — 610001, Tamil Nadu, India.",
+    "The team has 10+ years of hands-on e-commerce experience.",
+    "ESOWOLF helps sellers on Amazon, Meesho, Myntra and Shopify.",
+    "ESO Hunt Engine: an AI-based tool that helps Amazon sellers sell their products more easily. Sign up at https://engine.esowolf.in/login",
+    "Meesho Profit (Meesho reconciliation software): sellers upload their inventory, orders and Meesho payment reports and see their actual profit.",
+    "Myntra Profit (Myntra reconciliation software): sellers upload their Myntra inventory, orders and payment reports and see their actual profit.",
+    "Free live demo of Meesho Profit / Myntra Profit: 30 min – 1 hour at 3:00 PM IST. Meesho: Mon Hindi, Tue English, Fri Tamil. Myntra: Wed English, Thu Hindi, Sat Tamil.",
+    "WOO Chat: WhatsApp automation software (auto bots) built on the official WhatsApp Business API from Meta. Live demo at https://woochatofficial.esowolf.in/live-demo",
+    "Live webinar on growing an Amazon business: https://webinar.esowolf.in/",
+    "Book a meeting with the team about growing Amazon sales: https://booking.closer.esowolf.in/book/amazon-increase-sales",
+    "Contact: support@esowolf.in, phone/WhatsApp +91 97515 51117, Mon–Sat 9am to 6pm IST. We reply within 24 hours."
+  ],
+  "neverClaim": [
+    "guaranteed sales, rankings, profit or results of any number",
+    "being an official partner, agency or reseller of Amazon, Meesho, Myntra, Shopify or Meta",
+    "any price, fee or discount of ESOWOLF products or services (say: see the website or book a meeting)",
+    "customer counts, reviews, testimonials, awards, case studies or statistics that are not in this list",
+    "physical product sales, shipping or delivery — ESOWOLF sells software, training and services"
+  ],
+  "links": [
+    {
+      "url": "/",
+      "label": "ESOWOLF home"
+    },
+    {
+      "url": "/#signup",
+      "label": "ESO Hunt Engine for Amazon sellers"
+    },
+    {
+      "url": "/#meesho",
+      "label": "Meesho Profit — Meesho reconciliation software"
+    },
+    {
+      "url": "/#myntra",
+      "label": "Myntra Profit — Myntra reconciliation software"
+    },
+    {
+      "url": "/#whatsapp",
+      "label": "WOO Chat — WhatsApp automation"
+    },
+    {
+      "url": "/#contact",
+      "label": "Contact ESOWOLF"
+    },
+    {
+      "url": "/blog/",
+      "label": "ESOWOLF blog"
+    },
+    {
+      "url": "/policies.html#about",
+      "label": "About ESOWOLF"
+    },
+    {
+      "url": "https://webinar.esowolf.in/",
+      "label": "Live Amazon webinar"
+    },
+    {
+      "url": "https://booking.closer.esowolf.in/book/amazon-increase-sales",
+      "label": "Book a meeting"
+    },
+    {
+      "url": "https://bookdemo.esowolf.in/?platform=Meesho#book",
+      "label": "Book a free Meesho Profit demo"
+    },
+    {
+      "url": "https://bookdemo.esowolf.in/?platform=Myntra#book",
+      "label": "Book a free Myntra Profit demo"
+    },
+    {
+      "url": "https://woochatofficial.esowolf.in/live-demo",
+      "label": "WOO Chat live demo"
+    },
+    {
+      "url": "https://engine.esowolf.in/login",
+      "label": "ESO Hunt Engine sign up"
+    }
+  ],
+  "groups": [
+    {
+      "id": "amazon-selling",
+      "name": "Amazon selling",
+      "guide": "/#signup",
+      "guideLabel": "ESO Hunt Engine for Amazon sellers"
+    },
+    {
+      "id": "meesho-myntra-profit",
+      "name": "Meesho & Myntra profit",
+      "guide": "/#meesho",
+      "guideLabel": "Meesho Profit — see your real profit"
+    },
+    {
+      "id": "whatsapp-automation",
+      "name": "WhatsApp automation",
+      "guide": "/#whatsapp",
+      "guideLabel": "WOO Chat — WhatsApp automation"
+    },
+    {
+      "id": "ecommerce-basics",
+      "name": "E-commerce basics",
+      "guide": "/blog/",
+      "guideLabel": "All ESOWOLF guides"
+    }
+  ],
+  "banned": [
+    "delve",
+    "game-changer",
+    "game changer",
+    "revolutionize",
+    "revolutionise",
+    "unlock",
+    "in today's fast-paced world"
+  ],
+  "cta": {
+    "title": "Want help growing your sales?",
+    "text": "Join our live webinar or book a meeting with the ESOWOLF team.",
+    "primary": {
+      "label": "Join Webinar",
+      "url": "https://webinar.esowolf.in/"
+    },
+    "secondary": {
+      "label": "Book Meeting",
+      "url": "https://booking.closer.esowolf.in/book/amazon-increase-sales"
+    }
+  },
+  "indexNowKey": "6b4a3a8997e1c507df4d2b3a330542f3"
+}

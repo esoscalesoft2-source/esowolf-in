@@ -1,0 +1,79 @@
+name: Blog build
+
+# Rebuilds the public blog pages when a post is published from /admin/, and every hour
+# so scheduled posts go live on time. Then deploys to Cloudflare Pages and pings IndexNow.
+on:
+  push:
+    branches: [main]
+    paths:
+      - "content/blog/**"
+      - "admin/blog-config.json"
+      - "admin/shared.mjs"
+      - "scripts/build-blog.mjs"
+  schedule:
+    - cron: "7 * * * *"   # every hour (UTC), a few minutes past the hour
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: blog-build
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install build tool
+        run: npm ci --prefix scripts
+
+      - name: Build blog pages
+        id: build
+        run: node scripts/build-blog.mjs
+
+      - name: Commit generated files
+        id: commit
+        run: |
+          git config user.name "esowolf-blog-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add -A blog sitemap.xml llms.txt _redirects scripts/.build-state.json
+          if git diff --cached --quiet; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "Nothing new to publish."
+          else
+            git commit -m "Blog: rebuild site pages [skip ci]"
+            git pull --rebase origin main
+            git push origin HEAD:main
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Deploy to Cloudflare Pages
+        if: steps.commit.outputs.changed == 'true' || github.event_name == 'push'
+        env:
+          CF_DEPLOY_HOOK: ${{ secrets.CF_DEPLOY_HOOK }}
+        run: |
+          if [ -z "$CF_DEPLOY_HOOK" ]; then echo "::warning::CF_DEPLOY_HOOK secret is missing — add it in GitHub → Settings → Secrets → Actions"; exit 0; fi
+          curl -fsS -X POST "$CF_DEPLOY_HOOK" > /dev/null && echo "Deploy started."
+
+      - name: Ping IndexNow (Bing, Yandex…) after the deploy
+        if: steps.commit.outputs.changed == 'true' && steps.build.outputs.changed != ''
+        env:
+          INDEXNOW_URLS: ${{ steps.build.outputs.changed }}
+        run: |
+          sleep 120
+          INDEXNOW_URLS="$INDEXNOW_URLS" node -e "
+            const cfg=require('./admin/blog-config.json');
+            const urlList=process.env.INDEXNOW_URLS.split(/\s+/).filter(Boolean);
+            fetch('https://api.indexnow.org/indexnow',{method:'POST',headers:{'content-type':'application/json; charset=utf-8'},
+              body:JSON.stringify({host:new URL(cfg.site).host,key:cfg.indexNowKey,keyLocation:cfg.site+'/'+cfg.indexNowKey+'.txt',urlList})})
+              .then(r=>console.log('IndexNow',r.status,urlList.length,'URL(s)'));
+          "
