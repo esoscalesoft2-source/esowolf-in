@@ -138,8 +138,13 @@ export function preprocessMarkdown(md) {
     const t = line.trim();
     const id = /^https?:\/\/\S+$/.test(t) ? youTubeId(t) : "";
     if (id) return `\n<div class="yt" data-id="${id}"><button type="button" aria-label="Play video"><img src="https://i.ytimg.com/vi/${id}/hqdefault.jpg" alt="" loading="lazy" width="480" height="360"><span class="yt-play" aria-hidden="true"></span></button></div>\n`;
-    const v = t.match(/^!\[([^\]]*)\]\(([^)\s]+\.mp4)(?:\s+"[^"]*")?\)$/i);
-    if (v) return `\n<video class="post-video" src="${v[2]}" controls preload="metadata" playsinline aria-label="${escapeHtml(v[1])}"></video>\n`;
+    // ![description](video.mp4 "poster.jpg 1080x1920")  — poster image and size are optional
+    const v = t.match(/^!\[([^\]]*)\]\(([^)\s]+\.(?:mp4|webm))(?:\s+"([^"]*)")?\)$/i);
+    if (v) {
+      const extra = String(v[3] || ""), poster = (extra.match(/(\S+\.(?:jpe?g|webp|png))/i) || [])[1], size = extra.match(/(\d{2,5})x(\d{2,5})/);
+      const tall = size && +size[2] > +size[1];
+      return `\n<video class="post-video${tall ? " tall" : ""}" src="${escapeHtml(v[2])}"${poster ? ` poster="${escapeHtml(poster)}"` : ""}${size ? ` width="${size[1]}" height="${size[2]}"` : ""} controls preload="${poster ? "none" : "metadata"}" playsinline aria-label="${escapeHtml(v[1])}"></video>\n`;
+    }
     return line;
   }).join("\n");
 }

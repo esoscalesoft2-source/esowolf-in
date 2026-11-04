@@ -190,7 +190,8 @@ async function handle(ctx) {
       if (req.headers.get("x-admin") !== "1") return fail(403, "Bad request origin.");
       const origin = req.headers.get("origin"); if (origin && new URL(origin).host !== new URL(req.url).host) return fail(403, "Bad request origin.");
     }
-    const body = method === "POST" || method === "PUT" ? await req.json().catch(() => ({})) : {};
+    const rawBody = route === "videos/part" || route === "videos/poster";   // binary uploads, not JSON
+    const body = !rawBody && (method === "POST" || method === "PUT") ? await req.json().catch(() => ({})) : {};
     const ip = req.headers.get("cf-connecting-ip") || "local";
 
     /* public: state, setup, login */
@@ -354,6 +355,49 @@ async function handle(ctx) {
       await gh(env).commit(`Blog: cover image (by ${me.username} via team admin)`, files.map(([k, ext]) => ({ path: base + ext, base64: body[k] })));
       return json({ ok: true, cover: "/" + base });
     }
+    /* videos → R2 bucket (binding MEDIA), uploaded in parts so any size works */
+    if (parts[0] === "videos") {
+      if (!env.MEDIA) return fail(500, "Video storage is not connected yet (R2 bucket binding MEDIA).");
+      const q = new URL(req.url).searchParams;
+      const okKey = k => /^videos\/[0-9-]+-[a-f0-9]{8}\.(mp4|webm)$/.test(k || "");
+      if (route === "videos/start" && method === "POST") {
+        const ext = { "video/mp4": "mp4", "video/webm": "webm" }[body.type];
+        if (!ext) return fail(400, "Please upload an MP4 or WebM video. (iPhone .mov files: export or convert to MP4 first.)");
+        if (!(body.size > 0) || body.size > 2e9) return fail(413, "The video must be smaller than 2 GB.");
+        const key = `videos/${new Date().toISOString().slice(0, 10)}-${randHex(4)}.${ext}`;
+        const up = await env.MEDIA.createMultipartUpload(key, { httpMetadata: { contentType: body.type }, customMetadata: { by: me.username, name: String(body.name || "").slice(0, 120) } });
+        return json({ key, uploadId: up.uploadId });
+      }
+      const key = q.get("key") || body.key, uploadId = q.get("uploadId") || body.uploadId;
+      if (!okKey(key)) return fail(400, "Bad video key.");
+      if (route === "videos/part" && method === "PUT") {
+        const n = parseInt(q.get("n"), 10);
+        if (!(n >= 1 && n <= 10000) || !uploadId) return fail(400, "Bad part.");
+        const buf = await req.arrayBuffer();
+        if (!buf.byteLength || buf.byteLength > 95e6) return fail(413, "Bad part size.");
+        const part = await env.MEDIA.resumeMultipartUpload(key, uploadId).uploadPart(n, buf);
+        return json({ partNumber: part.partNumber, etag: part.etag });
+      }
+      if (route === "videos/complete" && method === "POST") {
+        const list = (Array.isArray(body.parts) ? body.parts : []).map(p => ({ partNumber: +p.partNumber, etag: String(p.etag) }));
+        if (!list.length) return fail(400, "No parts uploaded.");
+        await env.MEDIA.resumeMultipartUpload(key, uploadId).complete(list);
+        return json({ ok: true, url: "/media/" + key });
+      }
+      if (route === "videos/abort" && method === "POST") {
+        try { await env.MEDIA.resumeMultipartUpload(key, uploadId).abort(); } catch {}
+        return json({ ok: true });
+      }
+      if (route === "videos/poster" && method === "PUT") {
+        const buf = await req.arrayBuffer();
+        if (!buf.byteLength || buf.byteLength > 3e6) return fail(413, "Poster image is too big.");
+        const pkey = key.replace(/\.(mp4|webm)$/, ".jpg");
+        await env.MEDIA.put(pkey, buf, { httpMetadata: { contentType: "image/jpeg" } });
+        return json({ ok: true, url: "/media/" + pkey });
+      }
+      return fail(404, "Not found.");
+    }
+
     if (route === "publish" && method === "POST") {
       const p = cleanPost(body.post || {});
       const oldSlug = String(body.oldSlug || p.slug);

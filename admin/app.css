@@ -89,3 +89,5 @@ dialog::backdrop{background:rgba(0,0,0,.6)}
 .bars{display:grid;grid-template-columns:repeat(var(--n),1fr);gap:2px;align-items:end;height:140px;margin:10px 0 6px}.bars i{display:block;background:var(--ember);border-radius:3px 3px 0 0;min-height:2px}
 .sgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:14px;margin-top:14px;align-items:start}.sgrid .card{overflow-x:auto}
 .t td.num{text-align:right;font-variant-numeric:tabular-nums}
+.vup{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:8px}.vup .hint{margin:0}
+.vbar{flex-basis:100%;height:6px;border-radius:99px;background:#2a2a2a;overflow:hidden}.vbar i{display:block;height:100%;width:0;background:var(--ember);transition:width .3s}

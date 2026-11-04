@@ -1,5 +1,5 @@
 /* ESOWOLF team blog admin — single-page app. Loaded only on /admin/. */
-import { slugify, isValidSlug, parseChatGPT, seoScore, buildPrompt, preprocessMarkdown, escapeHtml as e, istInputToISO, isoToISTInput, formatIST } from "./shared.mjs?v=3";
+import { slugify, isValidSlug, parseChatGPT, seoScore, buildPrompt, preprocessMarkdown, escapeHtml as e, istInputToISO, isoToISTInput, formatIST } from "./shared.mjs?v=5";
 
 const $ = (s, el = document) => el.querySelector(s);
 const $$ = (s, el = document) => [...el.querySelectorAll(s)];
@@ -155,7 +155,8 @@ async function editView(slug) {
         <div class="cover"><img id="coverImg" alt="" hidden><div class="grow"><input type="file" id="coverFile" accept="image/*"><div class="hint" id="coverMsg"></div></div></div></div>
       <div class="field"><label>Cover alt text <small>(describe the picture)</small></label><input type="text" id="coverAlt"></div>
       <div class="field"><label>FAQs <small>(4–6)</small></label><div id="faqs"></div><button class="btn ghost sm" type="button" id="addFaq">+ Add FAQ</button></div>
-      <div class="field"><label>Article <small>(Markdown: ## headings, | tables |, [links](/url). A YouTube link on its own line becomes a video.)</small> <span class="count" id="cWords"></span></label><textarea id="body" class="code" rows="24"></textarea></div>
+      <div class="field"><label>Article <small>(Markdown: ## headings, | tables |, [links](/url). A YouTube link on its own line becomes a video, or upload your own below.)</small> <span class="count" id="cWords"></span></label><textarea id="body" class="code" rows="24"></textarea>
+        <div class="vup"><input type="file" id="vidFile" accept="video/mp4,video/webm" hidden><button class="btn ghost sm" type="button" id="vidBtn">🎬 Upload video</button><span class="hint" id="vidMsg">MP4 or WebM, any size. The video is added where the cursor is in the article.</span><div class="vbar" id="vidBar" hidden><i></i></div></div></div>
     </div>
   </div>
   <aside class="side">
@@ -226,6 +227,44 @@ async function editView(slug) {
   ["description", "summary", "topic", "keyword", "keywords", "short", "coverAlt", "body"].forEach(id => F(id).addEventListener("input", update));
   F("topic").onchange = update;
   F("addFaq").onclick = () => { addFaqRow(); update(); };
+
+  /* video upload → R2 (in 20 MB parts), then a ![…](video "poster WxH") line at the cursor */
+  F("vidBtn").onclick = () => F("vidFile").click();
+  F("vidFile").onchange = async () => {
+    const file = F("vidFile").files[0]; F("vidFile").value = ""; if (!file) return;
+    if (!/^video\/(mp4|webm)$/.test(file.type)) { toast("Please choose an MP4 or WebM video. iPhone .mov videos: convert to MP4 first.", "bad"); return; }
+    const ta = F("body"), at = ta.selectionStart ?? ta.value.length;
+    const msg = F("vidMsg"), bar = F("vidBar"), btn = F("vidBtn");
+    const show = (t, pct) => { msg.textContent = t; if (pct != null) { bar.hidden = false; bar.firstChild.style.width = pct + "%"; } };
+    btn.disabled = true; let start;
+    const raw = (path, data) => fetch("/api/blog/" + path, { method: "PUT", headers: { "x-admin": "1" }, credentials: "same-origin", body: data }).then(async r => { const j = await r.json().catch(() => ({})); if (!r.ok) throw new Error(j.error || "Upload error " + r.status); return j; });
+    try {
+      const meta = await videoMeta(file);
+      start = await api("videos/start", { body: { name: file.name, type: file.type, size: file.size } });
+      const CH = 20 * 1024 * 1024, n = Math.ceil(file.size / CH), parts = [];
+      for (let i = 0; i < n; i++) {
+        show(`Uploading video… ${Math.round(i / n * 100)}% (${(file.size / 1048576).toFixed(0)} MB). Keep this tab open.`, i / n * 100);
+        const q = `key=${encodeURIComponent(start.key)}&uploadId=${encodeURIComponent(start.uploadId)}`;
+        let p, tries = 0;
+        while (true) { try { p = await raw(`videos/part?${q}&n=${i + 1}`, file.slice(i * CH, (i + 1) * CH)); break; } catch (err) { if (++tries >= 3) throw err; await new Promise(r => setTimeout(r, 1500 * tries)); } }
+        parts.push(p);
+      }
+      show("Finishing…", 100);
+      const done = await api("videos/complete", { body: { key: start.key, uploadId: start.uploadId, parts } });
+      let poster = "";
+      if (meta.poster) { try { poster = (await raw(`videos/poster?key=${encodeURIComponent(start.key)}`, meta.poster)).url; } catch {} }
+      const label = (F("title").value.trim() || file.name.replace(/\.[^.]+$/, "")).replace(/[\[\]]/g, "");
+      const line = `![Video: ${label}](${done.url}${poster || meta.w ? ` "${[poster, meta.w ? meta.w + "x" + meta.h : ""].filter(Boolean).join(" ")}"` : ""})`;
+      const v = ta.value, before = v.slice(0, at), after = v.slice(at);
+      ta.value = before.replace(/\s*$/, "") + (before.trim() ? "\n\n" : "") + line + "\n\n" + after.replace(/^\s*/, "");
+      update(); bar.hidden = true;
+      show("Video added to the article. You can edit the text after “Video:” to describe it.");
+      toast("Video uploaded.", "good");
+    } catch (err) {
+      if (start) api("videos/abort", { body: { key: start.key, uploadId: start.uploadId } }).catch(() => {});
+      bar.hidden = true; show("Upload failed: " + err.message); toast(err.message, "bad");
+    } finally { btn.disabled = false; }
+  };
 
   /* cover upload: convert in the browser, then commit through the API */
   F("coverFile").onchange = async () => {
@@ -345,6 +384,24 @@ async function calendarView() {
     <div>${done ? `<span class="badge live">Done</span>` : `<button class="btn sm" data-i="${i}">Write with ChatGPT</button>`}</div></div>`;
   }).join("") : `<p class="muted">No calendar found.</p>`;
   $$("#cal [data-i]").forEach(b => b.onclick = () => { pending = calendar[+b.dataset.i]; go("edit", "new"); });
+}
+
+/* read a video's size and grab a frame (at ~1 s) as the poster image */
+function videoMeta(file) {
+  return new Promise(res => {
+    const v = document.createElement("video"), url = URL.createObjectURL(file);
+    let done = false; const end = r => { if (done) return; done = true; URL.revokeObjectURL(url); res(r); };
+    v.muted = true; v.playsInline = true; v.preload = "auto"; v.src = url;
+    setTimeout(() => end({ w: v.videoWidth, h: v.videoHeight }), 15000);
+    v.onerror = () => end({});
+    v.onloadedmetadata = () => { v.currentTime = Math.min(1, (v.duration || 2) / 2); };
+    v.onseeked = () => {
+      const w = v.videoWidth, h = v.videoHeight, s = Math.min(1, 1280 / Math.max(w, h));
+      const c = document.createElement("canvas"); c.width = Math.round(w * s); c.height = Math.round(h * s);
+      try { c.getContext("2d").drawImage(v, 0, 0, c.width, c.height); c.toBlob(b => end({ w, h, poster: b }), "image/jpeg", 0.82); }
+      catch { end({ w, h }); }
+    };
+  });
 }
 
 /* ---------- stats (cookie-free counts from /api/t) ---------- */

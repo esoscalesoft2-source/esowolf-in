@@ -72,7 +72,7 @@ article p,article li{color:#dcdcdc}article blockquote{margin:22px 0;padding:6px 
 code{background:#1f1f1f;padding:2px 6px;border-radius:6px;font-size:.9em}pre{background:#1a1a1a;padding:16px;border-radius:12px;overflow-x:auto}pre code{background:none;padding:0}
 .yt{position:relative;margin:26px 0;aspect-ratio:16/9;border-radius:14px;overflow:hidden;background:#000}.yt button{all:unset;cursor:pointer;display:block;width:100%;height:100%}.yt img{width:100%;height:100%;object-fit:cover;display:block}
 .yt-play{position:absolute;left:50%;top:50%;width:72px;height:50px;margin:-25px 0 0 -36px;border-radius:14px;background:var(--ember)}.yt-play:after{content:"";position:absolute;left:29px;top:15px;border-style:solid;border-width:10px 0 10px 17px;border-color:transparent transparent transparent #fff}.yt iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
-.post-video{width:100%;border-radius:14px;margin:24px 0;background:#000}
+.post-video{display:block;width:100%;height:auto;border-radius:14px;margin:24px auto;background:#000}.post-video.tall{width:auto;max-width:100%;max-height:80vh;aspect-ratio:9/16}
 .box{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:22px 24px;margin:36px 0}
 .faq details{border-bottom:1px solid var(--line);padding:14px 0}.faq summary{cursor:pointer;font-weight:700;font-size:17px}.faq details p{margin:10px 0 0}
 .guide{display:flex;gap:14px;align-items:center;justify-content:space-between;flex-wrap:wrap}.guide p{margin:0}
@@ -138,6 +138,11 @@ function postPage(p) {
     { "@context": "https://schema.org", "@type": "BlogPosting", headline: p.title, description: p.description, image: [img, ...(p.cover ? [`${SITE}${p.cover}.webp`] : [])], datePublished: published, dateModified: modified, mainEntityOfPage: url, url, inLanguage: "en-IN", keywords: [p.keyword, ...(p.keywords || [])].filter(Boolean).join(", "), articleSection: g ? g.name : undefined, author: { "@type": "Organization", name: cfg.shortBrand, url: SITE + "/" }, publisher: { "@type": "Organization", name: cfg.brand, url: SITE + "/", logo: { "@type": "ImageObject", url: `${SITE}/assets/eso-icon.png` } } },
     { "@context": "https://schema.org", "@type": "BreadcrumbList", itemListElement: [{ "@type": "ListItem", position: 1, name: "Home", item: SITE + "/" }, { "@type": "ListItem", position: 2, name: "Blog", item: SITE + "/blog/" }, { "@type": "ListItem", position: 3, name: p.title, item: url }] }
   ];
+  // uploaded videos → VideoObject (helps them show in Google video results)
+  for (const m of String(p.body || "").matchAll(/^\s*!\[([^\]]*)\]\((\/media\/[^)\s]+\.(?:mp4|webm))(?:\s+"([^"]*)")?\)\s*$/gim)) {
+    const poster = (String(m[3] || "").match(/(\S+\.(?:jpe?g|webp|png))/i) || [])[1];
+    schema.push({ "@context": "https://schema.org", "@type": "VideoObject", name: m[1] || p.title, description: p.description, uploadDate: published, contentUrl: SITE + m[2], thumbnailUrl: poster ? (poster.startsWith("/") ? SITE + poster : poster) : img, embedUrl: url });
+  }
   if (faqs.length) schema.push({ "@context": "https://schema.org", "@type": "FAQPage", mainEntity: faqs.map(f => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })) });
   const extra = `<meta property="article:published_time" content="${published}">\n<meta property="article:modified_time" content="${modified}">\n${p.cover ? `<link rel="preload" as="image" href="${e(p.cover)}-800.webp" imagesrcset="${e(p.cover)}-800.webp 800w, ${e(p.cover)}.webp 1600w" imagesizes="(max-width:820px) 100vw, 760px">\n` : ""}${schema.map(ld).join("")}`;
   return `${head({ title: `${p.title} | ${cfg.shortBrand}`, description: p.description || p.summary || "", url, image: img, type: "article", extra })}
