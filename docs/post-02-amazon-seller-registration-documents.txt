@@ -1,0 +1,110 @@
+TITLE: Amazon Seller Registration in India: Documents You Need
+
+META DESCRIPTION: Amazon seller registration in India needs a few key documents: GSTIN, PAN, a bank account and more. Use this simple checklist before you start.
+
+SUMMARY: A simple checklist of every document you need for Amazon seller registration in India, why Amazon asks for each one, and how to avoid the mistakes that delay new seller accounts.
+
+TOPIC GROUP: amazon-selling
+
+MAIN KEYWORD: amazon seller registration
+
+OTHER KEYWORDS: amazon seller documents; gst for amazon seller; amazon seller central india; amazon seller account india; sell on amazon india
+
+SHORT LINK CODE: amazon-documents
+
+FAQ:
+Q: Can I do Amazon seller registration without GST?
+A: Only if you sell products that are fully exempt from GST, such as most printed books. For almost every other category, Amazon asks for a valid GSTIN during registration.
+
+Q: Can I use my savings bank account for Amazon?
+A: Amazon pays your sales money into the bank account you add. Many small sellers use a current account in the business name, but check what Seller Central accepts for your business type when you register.
+
+Q: Does the PAN have to match the GST details?
+A: Yes. Your GSTIN is linked to a PAN, and the name and details you enter should match your GST certificate. Mismatches are a common reason for delays.
+
+Q: How long does Amazon take to verify my documents?
+A: The registration form takes about an hour if your documents are ready. Amazon may take a few working days to verify GST and other details, so plan for that.
+
+Q: Do I need a trademark to sell on Amazon India?
+A: No, you can start selling without one. A registered or applied trademark is needed only if you want to join Amazon Brand Registry for your own brand.
+
+ARTICLE:
+Amazon seller registration in India is quick when your documents are ready, and slow when they are not. Most new sellers lose days because one detail, such as a GST name or a bank account, does not match. This guide gives you a simple checklist of every document you need, explains why Amazon asks for it, and shows how to avoid the common mistakes.
+
+Keep this page open while you register on Amazon Seller Central India. Rules can change, so always check the latest requirements on Seller Central before you submit.
+
+## What Amazon seller registration needs from you
+
+When you sign up at sell.amazon.in, Amazon wants to confirm three things: who you are, that your business is allowed to sell, and where to send your money. Every document on the list below helps Amazon check one of these points.
+
+The good news is that you do not need a big company or an office. Many sellers start from home with a proprietorship. What matters is that your details are correct and match each other everywhere.
+
+## The Amazon seller documents checklist
+
+Here is everything you should keep ready before you start. Use it as a tick list.
+
+| Document or detail | Why Amazon needs it | Tips to avoid delays |
+|---|---|---|
+| GSTIN (GST number) | To confirm your business can sell taxable goods | Needed for most categories. Check that your GST status is active |
+| PAN card | Your tax identity, linked to your GST | Use the PAN that your GSTIN is registered under |
+| Bank account details | Amazon pays your sales money here | Account name should match your business or PAN name |
+| Mobile number | Login and one-time passwords (OTP) | Use a number you will keep for the long term |
+| Email address | Seller Central login and Amazon messages | Use a business email you check every day |
+| Business name and address | Shown on invoices and used for pickups | Write it exactly as it is on your GST certificate |
+| Digital or scanned signature | Needed to accept the seller agreement and for invoices | Sign on white paper and keep a clear photo or scan ready |
+| Product details | You must list at least one product to go live | Keep product photos, MRP, HSN code and GST rate ready |
+
+If you plan to sell only GST-exempt products, such as most books, Amazon lets you register without a GSTIN. For everything else, get your GST number first. Without it, you will be stuck at the tax details step.
+
+## GST for Amazon sellers: what you should know
+
+GST is the step where most people pause. Amazon asks for your GSTIN because online sellers who supply taxable goods through a marketplace need GST registration under Indian tax rules. Amazon also collects a small Tax Collected at Source (TCS) on your sales and reports it to the GST system.
+
+A few practical points:
+
+- **Get GST before you register.** Applying for GST on the government portal can take some days. Start early.
+- **Check your principal place of business.** The address on your GST certificate becomes your business address on Amazon.
+- **Add the right business type.** Proprietorship, partnership and private limited companies can all sell. Choose the option that matches your GST certificate.
+
+If you are not sure which GST rate or HSN code applies to your products, ask your accountant. A wrong rate on your listings can cause problems later.
+
+## Step-by-step: how Amazon seller registration works
+
+Once your documents are ready, the registration itself follows a simple path:
+
+1. **Create your account.** Go to sell.amazon.in, click "Start Selling" and sign up with your email and mobile number.
+2. **Enter your business details.** Add your legal name, business type and address.
+3. **Add your tax details.** Enter your GSTIN and PAN, and wait for Amazon to read your GST details.
+4. **Add bank details.** Enter your account number and IFSC code for payouts.
+5. **Set up shipping.** Choose how your orders will be picked up and delivered.
+6. **Upload your signature** and accept the seller agreement.
+7. **List your first product.** Your store goes live only after at least one product is listed.
+
+For the full journey from sign-up to your first order, read our beginner guide on the [ESOWOLF blog](/blog/).
+
+## Common mistakes that delay new seller accounts
+
+From our hands-on work with new sellers, these are the mistakes we see most often:
+
+- **Name mismatch.** The name on the bank account, PAN and GST certificate do not match. Fix this before you start.
+- **Inactive or wrong GSTIN.** A cancelled or suspended GST number will be rejected.
+- **Blurry signature.** Amazon cannot use a dark, cropped or unclear signature image.
+- **Personal email or number you later lose.** Changing these afterwards takes extra verification, so choose carefully.
+- **Leaving the product step for later.** Many sellers finish registration but never list a product, so the store never goes live.
+
+Each of these can turn a one-hour task into a week of back and forth with seller support.
+
+A simple habit helps: before you open Seller Central, put your GST certificate, PAN card, a cancelled cheque or bank statement and your signature image in one folder on your phone or computer. Check that the names and addresses match across all of them. This five-minute check saves more time than anything else on this list.
+
+## How ESOWOLF helps with Amazon seller registration
+
+ESOWOLF is an e-commerce growth company from Thiruvarur, Tamil Nadu, with 10+ years of hands-on experience. Through our Amazon seller onboarding service, we create your Amazon seller account with you, list your first sample product on your behalf, and give you a sample product upload sheet so you can add more products yourself. Read how it works in our [Amazon seller account setup guide](/blog/amazon-seller-account-setup/).
+
+Once your store is live, our AI tool [ESO Hunt Engine](/#amazon) helps you sell your products on Amazon more easily. You can also join our [live Amazon webinar](https://webinar.esowolf.in/) to learn the next steps, or [contact our team](/#contact) with your questions.
+
+We can't promise sales numbers, because results depend on your products, prices and effort. But we can make sure your registration is done right the first time.
+
+**Next step**
+
+Have your documents ready? [Book a meeting](https://booking.closer.esowolf.in/book/amazon-increase-sales) with our team, and we will help you complete your Amazon seller registration without the usual delays.
+END OF ARTICLE

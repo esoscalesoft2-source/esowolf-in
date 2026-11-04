@@ -1,0 +1,11 @@
+Cover image prompts (16:9, 1600×900). Upload in Blog Admin → Cover image.
+
+POST 2 — Amazon Seller Registration in India: Documents You Need
+Prompt:
+A clean, realistic flat-lay photo on a warm wooden desk in an Indian home office: a neatly arranged set of business documents — a GST certificate printout, a PAN-card-shaped blank card (no real numbers or names), a bank passbook, a cancelled cheque with blank fields, a pen and a smartphone showing a generic online seller sign-up screen with no logos. A small checklist notepad with ticks. Soft natural morning light, shallow depth of field, warm orange and charcoal colour accents. No readable text, no real ID numbers, no brand logos, no people's faces. 16:9.
+Alt text: Business documents for Amazon seller registration in India — GST certificate, PAN card, bank passbook and a checklist on a desk
+
+POST 3 — RTO in Ecommerce: What It Means and How to Reduce It
+Prompt:
+A realistic photo inside a small Indian e-commerce packing room: a stack of returned courier parcels with "RETURN" style tags (no readable courier brand names) on a steel shelf, and a young Indian seller in a simple kurta checking a parcel against a laptop sheet with a thoughtful expression. Warm daylight from a side window, brown cardboard boxes, orange and charcoal colour accents. Clean, uncluttered, documentary style. No logos, no readable text. 16:9.
+Alt text: Indian online seller checking returned RTO parcels against an order sheet in a small packing room
