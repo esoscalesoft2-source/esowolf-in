@@ -43,7 +43,8 @@ async function init(db) {
     db.prepare("CREATE TABLE IF NOT EXISTS meta (k TEXT PRIMARY KEY, v TEXT)"),
     db.prepare("CREATE TABLE IF NOT EXISTS drafts (slug TEXT PRIMARY KEY, data TEXT NOT NULL, updated TEXT NOT NULL, author TEXT)"),
     db.prepare("CREATE TABLE IF NOT EXISTS cache (sha TEXT PRIMARY KEY, data TEXT NOT NULL)"),
-    db.prepare("CREATE TABLE IF NOT EXISTS posts_index (slug TEXT PRIMARY KEY, data TEXT NOT NULL)")
+    db.prepare("CREATE TABLE IF NOT EXISTS posts_index (slug TEXT PRIMARY KEY, data TEXT NOT NULL)"),
+    db.prepare("CREATE TABLE IF NOT EXISTS stats (day TEXT NOT NULL, name TEXT NOT NULL, n INTEGER NOT NULL, PRIMARY KEY (day, name))")
   ]);
   ready = true;
 }
@@ -243,6 +244,17 @@ async function handle(ctx) {
     const owner = me.role === "owner";
 
     if (route === "me") return json({ user: me });
+
+    /* visit & click counts (written by /api/t) */
+    if (route === "stats" && method === "GET") {
+      const days = Math.min(365, Math.max(1, parseInt(new URL(req.url).searchParams.get("days"), 10) || 30));
+      const from = new Date(Date.now() + 5.5 * 3600e3 - (days - 1) * 864e5).toISOString().slice(0, 10);
+      const [tot, daily] = await env.DB.batch([
+        env.DB.prepare("SELECT name, SUM(n) AS n FROM stats WHERE day >= ? GROUP BY name ORDER BY n DESC LIMIT 300").bind(from),
+        env.DB.prepare("SELECT day, SUM(n) AS n FROM stats WHERE day >= ? AND name LIKE 'view:%' GROUP BY day ORDER BY day").bind(from)
+      ]);
+      return json({ days, from, totals: tot.results, daily: daily.results });
+    }
 
     /* team (owner only) */
     if (parts[0] === "users") {

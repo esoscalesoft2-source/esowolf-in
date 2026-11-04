@@ -83,3 +83,9 @@ table.t{width:100%;border-collapse:collapse}table.t th,table.t td{padding:10px;b
 .toast.show{opacity:1;transform:translateX(-50%)}.toast.bad{border-color:var(--bad)}.toast.good{border-color:var(--ok)}
 dialog{background:var(--panel);color:var(--text);border:1px solid var(--line);border-radius:14px;padding:20px;max-width:420px}
 dialog::backdrop{background:rgba(0,0,0,.6)}
+
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px;margin:14px 0}
+.kpi{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px 16px}.kpi b{display:block;font-size:28px;line-height:1.1}.kpi span{color:var(--muted);font-size:13px}
+.bars{display:grid;grid-template-columns:repeat(var(--n),1fr);gap:2px;align-items:end;height:140px;margin:10px 0 6px}.bars i{display:block;background:var(--ember);border-radius:3px 3px 0 0;min-height:2px}
+.sgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:14px;margin-top:14px;align-items:start}.sgrid .card{overflow-x:auto}
+.t td.num{text-align:right;font-variant-numeric:tabular-nums}

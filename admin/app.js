@@ -59,6 +59,7 @@ function route() {
   if (tab === "edit") return editView(decodeURIComponent(rest.join("/") || ""));
   if (tab === "calendar") return calendarView();
   if (tab === "team" && me.role === "owner") return teamView();
+  if (tab === "stats") return statsView();
   return postsView();
 }
 
@@ -344,6 +345,37 @@ async function calendarView() {
     <div>${done ? `<span class="badge live">Done</span>` : `<button class="btn sm" data-i="${i}">Write with ChatGPT</button>`}</div></div>`;
   }).join("") : `<p class="muted">No calendar found.</p>`;
   $$("#cal [data-i]").forEach(b => b.onclick = () => { pending = calendar[+b.dataset.i]; go("edit", "new"); });
+}
+
+/* ---------- stats (cookie-free counts from /api/t) ---------- */
+const TARGETS = [
+  [/^engine\.esowolf\.in/, "ESO Hunt Engine sign up"], [/^booking\.closer\.esowolf\.in/, "Book Meeting"], [/^webinar\.esowolf\.in/, "Join Webinar"],
+  [/^whatsapp$/, "WhatsApp chat"], [/^call$/, "Phone call"], [/^email$/, "Email"], [/^woochatofficial\.esowolf\.in\/live-demo/, "WOO Chat live demo"],
+  [/^bookdemo\.esowolf\.in/, "Book free demo (Meesho/Myntra)"], [/^meesho\.esowolf\.in/, "Meesho Profit sign up"], [/^myntra\.esowolf\.in/, "Myntra Profit sign up"]
+];
+const SECTIONS = { top: "Hero", amazon: "Amazon slide", meesho: "Meesho slide", myntra: "Myntra slide", whatsapp: "WOO Chat slide", contact: "Contact", nav: "Top menu", footer: "Footer", float: "Floating WhatsApp button", blog: "Blog" };
+const targetLabel = t => { for (const [re, l] of TARGETS) if (re.test(t)) return l; return t.startsWith("/") ? "Page " + t : t; };
+function splitClick(name) { const r = name.slice(6); const i = r.indexOf(":"); const sec = i > 0 && SECTIONS[r.slice(0, i)] ? r.slice(0, i) : ""; return { sec, target: sec ? r.slice(i + 1) : r }; }
+async function statsView(days = +(sessionStorage.getItem("statsDays") || 30)) {
+  app.innerHTML = `<div class="row"><h1 class="grow" style="margin:0">Visitors &amp; clicks</h1>${[7, 30, 90].map(d => `<button class="btn sm ${d === days ? "" : "ghost"}" data-d="${d}">${d} days</button>`).join("")}</div>
+  <p class="muted small">Counted without cookies (daily totals only, bots skipped). Numbers start from the day this was switched on.</p><div id="st"><p class="muted">Loading…</p></div>`;
+  $$("[data-d]").forEach(b => b.onclick = () => { try { sessionStorage.setItem("statsDays", b.dataset.d); } catch {} statsView(+b.dataset.d); });
+  let d; try { d = await api("stats?days=" + days); } catch (err) { $("#st").innerHTML = `<p class="err">${e(err.message)}</p>`; return; }
+  const sum = pre => d.totals.filter(t => t.name.startsWith(pre)).reduce((a, t) => a + t.n, 0);
+  const byTarget = new Map(), rows = [];
+  for (const t of d.totals.filter(t => t.name.startsWith("click:"))) { const c = splitClick(t.name), l = targetLabel(c.target); byTarget.set(l, (byTarget.get(l) || 0) + t.n); rows.push({ l, where: SECTIONS[c.sec] || "—", n: t.n }); }
+  const kpi = (label, n) => `<div class="kpi"><b>${n.toLocaleString("en-IN")}</b><span>${label}</span></div>`;
+  const map = new Map(d.daily.map(x => [x.day, x.n])); const series = [];
+  for (let i = days - 1; i >= 0; i--) { const k = new Date(Date.now() + 5.5 * 3600e3 - i * 864e5).toISOString().slice(0, 10); series.push([k, map.get(k) || 0]); }
+  const max = Math.max(1, ...series.map(x => x[1]));
+  const table = (title, head, list) => `<div class="card"><h2>${title}</h2>${list.length ? `<table class="t"><tr>${head.map(h => `<th>${h}</th>`).join("")}</tr>${list.map(r => `<tr>${r.map((c, i) => `<td${i === r.length - 1 ? ' class="num"' : ""}>${e(String(c))}</td>`).join("")}</tr>`).join("")}</table>` : `<p class="muted small">Nothing yet.</p>`}</div>`;
+  $("#st").innerHTML = `<div class="kpis">${kpi("Page views", sum("view:"))}${kpi("Hunt Engine sign up clicks", byTarget.get("ESO Hunt Engine sign up") || 0)}${kpi("Book Meeting clicks", byTarget.get("Book Meeting") || 0)}${kpi("Join Webinar clicks", byTarget.get("Join Webinar") || 0)}${kpi("WhatsApp clicks", byTarget.get("WhatsApp chat") || 0)}</div>
+  <div class="card"><h2>Page views per day</h2><div class="bars" style="--n:${series.length}">${series.map(([k, n]) => `<i style="height:${Math.round(n / max * 100)}%" title="${k}: ${n}"></i>`).join("")}</div><div class="row small muted"><span class="grow">${series[0][0]}</span><span>${series[series.length - 1][0]}</span></div></div>
+  <div class="sgrid">
+  ${table("Button &amp; link clicks", ["Button / link", "Where", "Clicks"], rows.map(r => [r.l, r.where, r.n]))}
+  ${table("Top pages", ["Page", "Views"], d.totals.filter(t => t.name.startsWith("view:")).slice(0, 20).map(t => [t.name.slice(5), t.n]))}
+  ${table("Where visitors came from", ["Website", "Visits"], d.totals.filter(t => t.name.startsWith("ref:")).slice(0, 20).map(t => [t.name.slice(4), t.n]))}
+  </div>`;
 }
 
 /* ---------- team ---------- */

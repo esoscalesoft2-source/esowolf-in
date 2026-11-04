@@ -159,6 +159,7 @@ ${related.length ? `<section aria-labelledby="rel"><h2 id="rel">Related guides</
 </main>
 ${footer}
 ${html.includes('class="yt"') ? ytScript : ""}
+<script src="/assets/t.js" defer></script>
 </body>
 </html>
 `;
@@ -185,6 +186,7 @@ ${live.length ? (used.length > 1
     : `<div class="box"><p>Our first guides are on the way. Meanwhile, join our live webinar.</p><a class="btn" href="${e(cfg.cta.primary.url)}" target="_blank" rel="noopener">${e(cfg.cta.primary.label)} →</a></div>`}
 </main>
 ${footer}
+<script src="/assets/t.js" defer></script>
 </body>
 </html>
 `;
