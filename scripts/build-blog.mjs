@@ -139,7 +139,7 @@ function postPage(p) {
     { "@context": "https://schema.org", "@type": "BreadcrumbList", itemListElement: [{ "@type": "ListItem", position: 1, name: "Home", item: SITE + "/" }, { "@type": "ListItem", position: 2, name: "Blog", item: SITE + "/blog/" }, { "@type": "ListItem", position: 3, name: p.title, item: url }] }
   ];
   // uploaded videos → VideoObject (helps them show in Google video results)
-  for (const m of String(p.body || "").matchAll(/^\s*!\[([^\]]*)\]\((\/media\/[^)\s]+\.(?:mp4|webm))(?:\s+"([^"]*)")?\)\s*$/gim)) {
+  for (const m of String(p.body || "").matchAll(/^\s*!\[([^\]]*)\]\((\/(?:media|assets\/blog\/video)\/[^)\s]+\.(?:mp4|webm))(?:\s+"([^"]*)")?\)\s*$/gim)) {
     const poster = (String(m[3] || "").match(/(\S+\.(?:jpe?g|webp|png))/i) || [])[1];
     schema.push({ "@context": "https://schema.org", "@type": "VideoObject", name: m[1] || p.title, description: p.description, uploadDate: published, contentUrl: SITE + m[2], thumbnailUrl: poster ? (poster.startsWith("/") ? SITE + poster : poster) : img, embedUrl: url });
   }

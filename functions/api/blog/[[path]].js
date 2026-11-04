@@ -54,7 +54,7 @@ function gh(env) {
   const base = env.GITHUB_API || "https://api.github.com";
   const call = async (path, opts = {}) => {
     if (!env.GITHUB_TOKEN) throw new HttpError(500, "GITHUB_TOKEN is not set in Cloudflare yet.");
-    const r = await fetch(base + path, { ...opts, headers: { "authorization": "Bearer " + env.GITHUB_TOKEN, "accept": "application/vnd.github+json", "user-agent": "esowolf-blog-admin", "x-github-api-version": "2022-11-28", ...(opts.body ? { "content-type": "application/json" } : {}) } });
+    const r = await fetch(base + path, { method: opts.method, body: opts.body, headers: { "authorization": "Bearer " + env.GITHUB_TOKEN, "accept": "application/vnd.github+json", "user-agent": "esowolf-blog-admin", "x-github-api-version": "2022-11-28", ...(opts.body ? { "content-type": "application/json" } : {}), ...(opts.headers2 || {}) } });
     if (!r.ok) { const t = await r.text(); const e = new HttpError(r.status === 404 ? 404 : 502, `GitHub ${r.status}: ${t.slice(0, 200)}`); e.gh = r.status; throw e; }
     return r.status === 204 ? null : r.json();
   };
@@ -65,6 +65,8 @@ function gh(env) {
       return call(`${repo}/git/trees/${ref.object.sha}?recursive=1`);
     },
     blob: sha => call(`${repo}/git/blobs/${sha}`),
+    /* create a blob from a stream that already holds the JSON body (used for videos, so the Function never parses big data) */
+    createBlobStream: (stream, length) => call(`${repo}/git/blobs`, { method: "POST", body: stream, headers2: { "content-length": String(length) } }),
     /* files: [{path, content (utf-8) | base64, delete:true}] */
     async commit(message, files) {
       for (let attempt = 0; attempt < 3; attempt++) {
@@ -73,6 +75,7 @@ function gh(env) {
         const tree = [];
         for (const f of files) {
           if (f.delete) { tree.push({ path: f.path, mode: "100644", type: "blob", sha: null }); continue; }
+          if (f.sha) { tree.push({ path: f.path, mode: "100644", type: "blob", sha: f.sha }); continue; }
           const blob = await call(`${repo}/git/blobs`, { method: "POST", body: JSON.stringify(f.base64 ? { content: f.base64, encoding: "base64" } : { content: b64(f.content), encoding: "base64" }) });
           tree.push({ path: f.path, mode: "100644", type: "blob", sha: blob.sha });
         }
@@ -190,7 +193,7 @@ async function handle(ctx) {
       if (req.headers.get("x-admin") !== "1") return fail(403, "Bad request origin.");
       const origin = req.headers.get("origin"); if (origin && new URL(origin).host !== new URL(req.url).host) return fail(403, "Bad request origin.");
     }
-    const rawBody = route === "videos/part" || route === "videos/poster";   // binary uploads, not JSON
+    const rawBody = route === "videos/part" || route === "videos/poster" || route === "videos/blob";   // binary uploads, not JSON
     const body = !rawBody && (method === "POST" || method === "PUT") ? await req.json().catch(() => ({})) : {};
     const ip = req.headers.get("cf-connecting-ip") || "local";
 
@@ -198,7 +201,7 @@ async function handle(ctx) {
     if (route === "state" && method === "GET") {
       const [c, u] = await env.DB.batch([env.DB.prepare("SELECT COUNT(*) AS n FROM users"), env.DB.prepare("SELECT v FROM meta WHERE k='setup_used'")]);
       const n = c.results[0].n, used = u.results[0];
-      return json({ needsSetup: n === 0 && !used, setupCodeSet: !!env.SETUP_CODE, user: await currentUser(req, env), minSeoScore: cfg.minSeoScore });
+      return json({ needsSetup: n === 0 && !used, setupCodeSet: !!env.SETUP_CODE, user: await currentUser(req, env), minSeoScore: cfg.minSeoScore, r2: !!env.MEDIA });
     }
     if (route === "setup" && method === "POST") {
       const n = (await env.DB.prepare("SELECT COUNT(*) AS n FROM users").first()).n;
@@ -355,6 +358,25 @@ async function handle(ctx) {
       await gh(env).commit(`Blog: cover image (by ${me.username} via team admin)`, files.map(([k, ext]) => ({ path: base + ext, base64: body[k] })));
       return json({ ok: true, cover: "/" + base });
     }
+    /* videos without R2: stored in the site itself (GitHub repo → Cloudflare Pages, 25 MB per file).
+       The browser compresses big videos first and sends base64 text, which is streamed straight into GitHub. */
+    if (route === "videos/blob" && method === "PUT") {
+      const len = +req.headers.get("content-length");
+      if (!(len > 0) || len > 34e6) return fail(413, "The file is too big. Site videos must be under 25 MB.");
+      const pre = enc.encode('{"encoding":"base64","content":"'), suf = enc.encode('"}');
+      const { readable, writable } = new FixedLengthStream(pre.length + len + suf.length);
+      const pump = (async () => { const w = writable.getWriter(); await w.write(pre); const rd = req.body.getReader(); for (;;) { const { done, value } = await rd.read(); if (done) break; await w.write(value); } await w.write(suf); await w.close(); })();
+      const [blob] = await Promise.all([gh(env).createBlobStream(readable, pre.length + len + suf.length), pump]);
+      return json({ sha: blob.sha });
+    }
+    if (route === "videos/save" && method === "POST") {
+      const okSha = x => /^[a-f0-9]{40}$/.test(x || "");
+      if (!okSha(body.sha) || (body.poster && !okSha(body.poster))) return fail(400, "Bad upload.");
+      const id = `${new Date().toISOString().slice(0, 10)}-${randHex(4)}`, base = `${cfg.imagesDir}/video/${id}`;
+      await gh(env).commit(`Blog: video (by ${me.username} via team admin)`, [{ path: base + ".mp4", sha: body.sha }, ...(body.poster ? [{ path: base + ".jpg", sha: body.poster }] : [])]);
+      return json({ ok: true, url: "/" + base + ".mp4", poster: body.poster ? "/" + base + ".jpg" : "" });
+    }
+
     /* videos → R2 bucket (binding MEDIA), uploaded in parts so any size works */
     if (parts[0] === "videos") {
       if (!env.MEDIA) return fail(500, "Video storage is not connected yet (R2 bucket binding MEDIA).");

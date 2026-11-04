@@ -1,10 +1,10 @@
 /* ESOWOLF team blog admin — single-page app. Loaded only on /admin/. */
-import { slugify, isValidSlug, parseChatGPT, seoScore, buildPrompt, preprocessMarkdown, escapeHtml as e, istInputToISO, isoToISTInput, formatIST } from "./shared.mjs?v=5";
+import { slugify, youTubeId, isValidSlug, parseChatGPT, seoScore, buildPrompt, preprocessMarkdown, escapeHtml as e, istInputToISO, isoToISTInput, formatIST } from "./shared.mjs?v=6";
 
 const $ = (s, el = document) => el.querySelector(s);
 const $$ = (s, el = document) => [...el.querySelectorAll(s)];
 const app = $("#app");
-let cfg, me = null, posts = [], livePosts = [], calendar = [];
+let cfg, r2 = false, me = null, posts = [], livePosts = [], calendar = [];
 
 /* ---------- API ---------- */
 async function api(path, opts = {}) {
@@ -39,7 +39,7 @@ function imgFallback(img, cover, size) { img.onerror = () => { img.onerror = nul
   try {
     const s = await stateP;
     if (s.error) throw s.error;
-    me = s.user;
+    me = s.user; r2 = !!s.r2;
     if (!me && s.needsSetup) return setupView(s);
   } catch (err) { app.innerHTML = `<div class="auth card"><h2>Admin is not ready yet</h2><p class="err">${e(err.message)}</p></div>`; return; }
   render();
@@ -156,7 +156,8 @@ async function editView(slug) {
       <div class="field"><label>Cover alt text <small>(describe the picture)</small></label><input type="text" id="coverAlt"></div>
       <div class="field"><label>FAQs <small>(4–6)</small></label><div id="faqs"></div><button class="btn ghost sm" type="button" id="addFaq">+ Add FAQ</button></div>
       <div class="field"><label>Article <small>(Markdown: ## headings, | tables |, [links](/url). A YouTube link on its own line becomes a video, or upload your own below.)</small> <span class="count" id="cWords"></span></label><textarea id="body" class="code" rows="24"></textarea>
-        <div class="vup"><input type="file" id="vidFile" accept="video/mp4,video/webm" hidden><button class="btn ghost sm" type="button" id="vidBtn">🎬 Upload video</button><span class="hint" id="vidMsg">MP4 or WebM, any size. The video is added where the cursor is in the article.</span><div class="vbar" id="vidBar" hidden><i></i></div></div></div>
+        <div class="vup"><input type="file" id="vidFile" accept="video/*" hidden><button class="btn ghost sm" type="button" id="ytBtn">▶ Add YouTube video</button><button class="btn ghost sm" type="button" id="vidBtn">🎬 Upload video</button><span class="hint" id="vidMsg">${r2 ? "MP4 or WebM, any size." : "Big videos are made smaller automatically to fit the website (best for videos up to ~3 minutes; longer ones → YouTube)."} The video goes where the cursor is in the article.</span>
+        <div class="row grow" id="ytRow" hidden><input type="url" id="ytUrl" placeholder="https://youtu.be/… or https://youtube.com/shorts/…" class="grow"><button class="btn sm" type="button" id="ytAdd">Add</button></div><div class="vbar" id="vidBar" hidden><i></i></div></div></div>
     </div>
   </div>
   <aside class="side">
@@ -228,42 +229,77 @@ async function editView(slug) {
   F("topic").onchange = update;
   F("addFaq").onclick = () => { addFaqRow(); update(); };
 
-  /* video upload → R2 (in 20 MB parts), then a ![…](video "poster WxH") line at the cursor */
+  /* videos: (a) YouTube link, (b) upload — to R2 when it is connected (any size), otherwise into the site itself
+     (compressed in the browser to fit 25 MB). Either way a ![…](video "poster WxH") line goes in at the cursor. */
+  const insertAtCursor = (line, at) => {
+    const ta = F("body"), v = ta.value; at = at ?? ta.selectionStart ?? v.length;
+    const before = v.slice(0, at), after = v.slice(at);
+    ta.value = before.replace(/\s*$/, "") + (before.trim() ? "\n\n" : "") + line + "\n\n" + after.replace(/^\s*/, "");
+    update();
+  };
+  F("ytBtn").onclick = () => { F("ytRow").hidden = !F("ytRow").hidden; if (!F("ytRow").hidden) F("ytUrl").focus(); };
+  F("ytAdd").onclick = () => {
+    const u = F("ytUrl").value.trim();
+    if (!youTubeId(u)) { toast("That is not a YouTube link. Copy the link from YouTube's Share button.", "bad"); return; }
+    insertAtCursor(u); F("ytUrl").value = ""; F("ytRow").hidden = true; toast("YouTube video added.", "good");
+  };
   F("vidBtn").onclick = () => F("vidFile").click();
   F("vidFile").onchange = async () => {
     const file = F("vidFile").files[0]; F("vidFile").value = ""; if (!file) return;
-    if (!/^video\/(mp4|webm)$/.test(file.type)) { toast("Please choose an MP4 or WebM video. iPhone .mov videos: convert to MP4 first.", "bad"); return; }
-    const ta = F("body"), at = ta.selectionStart ?? ta.value.length;
+    if (!/^video\//.test(file.type)) { toast("Please choose a video file.", "bad"); return; }
+    if (r2 && !/^video\/(mp4|webm)$/.test(file.type)) { toast("Please choose an MP4 or WebM video. iPhone .mov videos: convert to MP4 first.", "bad"); return; }
+    const at = F("body").selectionStart ?? F("body").value.length;
     const msg = F("vidMsg"), bar = F("vidBar"), btn = F("vidBtn");
     const show = (t, pct) => { msg.textContent = t; if (pct != null) { bar.hidden = false; bar.firstChild.style.width = pct + "%"; } };
+    const raw = (path, data, type) => fetch("/api/blog/" + path, { method: "PUT", headers: { "x-admin": "1", ...(type ? { "content-type": type } : {}) }, credentials: "same-origin", body: data }).then(async r => { const j = await r.json().catch(() => ({})); if (!r.ok) throw new Error(j.error || "Upload error " + r.status); return j; });
+    const retry = async fn => { for (let t = 1; ; t++) { try { return await fn(); } catch (err) { if (t >= 3) throw err; await new Promise(r => setTimeout(r, 1500 * t)); } } };
     btn.disabled = true; let start;
-    const raw = (path, data) => fetch("/api/blog/" + path, { method: "PUT", headers: { "x-admin": "1" }, credentials: "same-origin", body: data }).then(async r => { const j = await r.json().catch(() => ({})); if (!r.ok) throw new Error(j.error || "Upload error " + r.status); return j; });
+    const away = ev => { ev.preventDefault(); ev.returnValue = ""; };
+    addEventListener("beforeunload", away);
     try {
+      show("Reading the video…", 0);
       const meta = await videoMeta(file);
-      start = await api("videos/start", { body: { name: file.name, type: file.type, size: file.size } });
-      const CH = 20 * 1024 * 1024, n = Math.ceil(file.size / CH), parts = [];
-      for (let i = 0; i < n; i++) {
-        show(`Uploading video… ${Math.round(i / n * 100)}% (${(file.size / 1048576).toFixed(0)} MB). Keep this tab open.`, i / n * 100);
-        const q = `key=${encodeURIComponent(start.key)}&uploadId=${encodeURIComponent(start.uploadId)}`;
-        let p, tries = 0;
-        while (true) { try { p = await raw(`videos/part?${q}&n=${i + 1}`, file.slice(i * CH, (i + 1) * CH)); break; } catch (err) { if (++tries >= 3) throw err; await new Promise(r => setTimeout(r, 1500 * tries)); } }
-        parts.push(p);
+      let url, poster = "", w = meta.w, h = meta.h;
+      if (r2) {
+        start = await api("videos/start", { body: { name: file.name, type: file.type, size: file.size } });
+        const CH = 20 * 1024 * 1024, n = Math.ceil(file.size / CH), parts = [];
+        for (let i = 0; i < n; i++) {
+          show(`Uploading video… ${Math.round(i / n * 100)}% (${(file.size / 1048576).toFixed(0)} MB). Keep this tab open.`, i / n * 100);
+          const q = `key=${encodeURIComponent(start.key)}&uploadId=${encodeURIComponent(start.uploadId)}`;
+          parts.push(await retry(() => raw(`videos/part?${q}&n=${i + 1}`, file.slice(i * CH, (i + 1) * CH))));
+        }
+        show("Finishing…", 100);
+        url = (await api("videos/complete", { body: { key: start.key, uploadId: start.uploadId, parts } })).url;
+        if (meta.poster) { try { poster = (await raw(`videos/poster?key=${encodeURIComponent(start.key)}`, meta.poster)).url; } catch {} }
+      } else {
+        const { compressVideo, SITE_LIMIT } = await import("./video.mjs?v=1");
+        let blob = file;
+        if (file.size > SITE_LIMIT || file.type !== "video/mp4") {
+          show(`Making the video smaller so it fits the website (${(file.size / 1048576).toFixed(0)} MB → under 25 MB). This takes about as long as the video. Keep this tab open…`, 0);
+          const out = await compressVideo(file, (p, attempt) => show(`${attempt ? "Second pass — " : ""}Making the video smaller… ${Math.round(p * 100)}%. Keep this tab open.`, p * 100));
+          blob = out.blob; w = out.width; h = out.height;
+          if (out.lostSound) toast("Note: this browser could not keep the sound. Try Google Chrome on a computer if the video needs sound.", "bad");
+        }
+        const b64 = async b => { const d = await new Promise((res, rej) => { const r = new FileReader(); r.onload = () => res(r.result); r.onerror = () => rej(new Error("Could not read the file.")); r.readAsDataURL(b); }); return d.slice(d.indexOf(",") + 1); };
+        show(`Uploading video (${(blob.size / 1048576).toFixed(1)} MB)… Keep this tab open.`, 100);
+        const vSha = (await retry(async () => raw("videos/blob", await b64(blob), "text/plain"))).sha;
+        let pSha = "";
+        if (meta.poster) { try { pSha = (await raw("videos/blob", await b64(meta.poster), "text/plain")).sha; } catch {} }
+        show("Saving…", 100);
+        const saved = await api("videos/save", { body: { sha: vSha, poster: pSha } });
+        url = saved.url; poster = saved.poster;
       }
-      show("Finishing…", 100);
-      const done = await api("videos/complete", { body: { key: start.key, uploadId: start.uploadId, parts } });
-      let poster = "";
-      if (meta.poster) { try { poster = (await raw(`videos/poster?key=${encodeURIComponent(start.key)}`, meta.poster)).url; } catch {} }
       const label = (F("title").value.trim() || file.name.replace(/\.[^.]+$/, "")).replace(/[\[\]]/g, "");
-      const line = `![Video: ${label}](${done.url}${poster || meta.w ? ` "${[poster, meta.w ? meta.w + "x" + meta.h : ""].filter(Boolean).join(" ")}"` : ""})`;
-      const v = ta.value, before = v.slice(0, at), after = v.slice(at);
-      ta.value = before.replace(/\s*$/, "") + (before.trim() ? "\n\n" : "") + line + "\n\n" + after.replace(/^\s*/, "");
-      update(); bar.hidden = true;
-      show("Video added to the article. You can edit the text after “Video:” to describe it.");
+      const extra = [poster, w ? w + "x" + h : ""].filter(Boolean).join(" ");
+      insertAtCursor(`![Video: ${label}](${url}${extra ? ` "${extra}"` : ""})`, at);
+      bar.hidden = true;
+      show(r2 ? "Video added to the article. You can edit the text after “Video:” to describe it."
+              : "Video added to the article. It plays on the live post a minute after you publish (not in the preview here). You can edit the text after “Video:”.");
       toast("Video uploaded.", "good");
     } catch (err) {
       if (start) api("videos/abort", { body: { key: start.key, uploadId: start.uploadId } }).catch(() => {});
       bar.hidden = true; show("Upload failed: " + err.message); toast(err.message, "bad");
-    } finally { btn.disabled = false; }
+    } finally { btn.disabled = false; removeEventListener("beforeunload", away); }
   };
 
   /* cover upload: convert in the browser, then commit through the API */
