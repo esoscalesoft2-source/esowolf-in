@@ -16,7 +16,3 @@
 
 /assets/*.mp4
   Cache-Control: public, max-age=2592000
-
-/assets/gbp/*
-  Access-Control-Allow-Origin: *
-  X-Robots-Tag: noindex
