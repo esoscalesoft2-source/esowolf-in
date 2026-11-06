@@ -33,7 +33,7 @@ a{color:var(--ember2)}img,video{max-width:100%;height:auto}
 .wrap{width:min(100% - 32px,1120px);margin-inline:auto}.narrow{width:min(100% - 32px,760px);margin-inline:auto}
 .top{position:sticky;top:0;z-index:5;background:rgba(14,14,14,.92);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
 .top .wrap{display:flex;align-items:center;gap:18px;height:64px}.top .logo img{height:38px;width:auto;display:block}
-.top nav{margin-left:auto;display:flex;align-items:center;gap:18px;font-size:15px}.top nav a{color:var(--text);text-decoration:none}.top nav a:hover{color:var(--ember2)}
+.top nav{margin-left:auto;display:flex;align-items:center;gap:18px;font-size:15px}.top nav .btn{min-height:40px;padding:0 18px;white-space:nowrap}.top nav a{color:var(--text);text-decoration:none}.top nav a:hover{color:var(--ember2)}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:0 20px;border-radius:999px;background:var(--ember);color:#160b00!important;font-weight:700;text-decoration:none;border:0}
 .btn:hover{background:var(--ember2)}.btn.ghost{background:transparent;border:1.5px solid var(--ember);color:var(--text)!important}
 .crumbs{font-size:14px;color:var(--muted);margin:28px 0 14px}.crumbs a{color:var(--muted);text-decoration:none}.crumbs a:hover{color:var(--ember2)}.crumbs span{margin:0 6px}
@@ -78,11 +78,13 @@ code{background:#1f1f1f;padding:2px 6px;border-radius:6px;font-size:.9em}pre{bac
 @media (max-width:820px){.card.feat{display:flex}.card.feat .ph{aspect-ratio:16/9;min-height:0}.card.feat .in{padding:20px}.bhero{padding:30px 22px;border-radius:20px}}
 .chips{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0 0}
 footer{border-top:1px solid var(--line);margin-top:56px;padding:28px 0 40px;color:var(--muted);font-size:14px}footer a{color:var(--muted)}footer .wrap{display:flex;flex-wrap:wrap;gap:12px 24px;justify-content:space-between}
-@media (max-width:640px){body{font-size:16px}.top nav .hide-s{display:none}.top .logo img{height:32px}.box{padding:18px}}</style>
+@media (max-width:420px){.top nav .hide-xs{display:none}}
+@media (max-width:380px){.top .logo img{height:28px}.top nav .btn{padding:0 10px;font-size:13px}}
+@media (max-width:640px){body{font-size:16px}.top nav{gap:10px;font-size:14px}.top nav .btn{min-height:36px;padding:0 12px;font-size:13.5px}.top nav .hide-s{display:none}.top .logo img{height:32px}.box{padding:18px}}</style>
 </head>
 <body>
 <header class="top"><div class="wrap"><a class="logo" href="/" aria-label="ESOWOLF (Ezy Sell Online) home"><img src="/assets/eso-logo-light-300.webp" alt="ESOWOLF (Ezy Sell Online)" width="300" height="144"></a>
-<nav aria-label="Main"><a href="/blog/">Blog</a><a class="hide-s" href="/#contact">Contact</a><a class="btn" href="https://booking.closer.esowolf.in/book/amazon-increase-sales" target="_blank" rel="noopener">Book Meeting</a></nav></div></header>
+<nav aria-label="Main"><a class="hide-xs" href="/blog/">Blog</a><a class="hide-s" href="/#contact">Contact</a><a class="btn ghost" href="https://webinar.esowolf.in/" target="_blank" rel="noopener">Join Webinar</a><a class="btn" href="https://booking.closer.esowolf.in/book/amazon-increase-sales" target="_blank" rel="noopener">Book Meeting</a></nav></div></header>
 <main class="narrow">
 <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a><span>›</span><a href="/blog/">Blog</a><span>›</span><a href="/#amazon">Amazon selling</a><span>›</span><span aria-current="page" style="margin:0">Amazon Product Not Selling? Learn From a Tea Shop</span></nav>
 <article>
