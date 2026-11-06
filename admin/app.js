@@ -407,7 +407,7 @@ async function crop(bmp, w, h, type, q) {
 
 /* ---------- content calendar ---------- */
 async function calendarView() {
-  app.innerHTML = `<h1>Content calendar</h1><p class="muted small">30 daily topics. A topic is marked done when a post's title contains its main keyword.</p><div class="cal" id="cal"><p class="muted">Loading…</p></div>`;
+  app.innerHTML = `<h1>Content calendar</h1><p class="muted small">Problem-based topics — real searches Amazon, Meesho and Myntra sellers type into Google. 3 posts a week (Mon, Wed, Fri). HUB posts are the big guides; link the smaller posts to them. A topic is marked done when a post's title contains its main keyword.</p><div class="cal" id="cal"><p class="muted">Loading…</p></div>`;
   await loadPosts().catch(() => {});
   const titles = posts.map(p => p.title.toLowerCase());
   const today = new Date().toISOString().slice(0, 10);

@@ -1,66 +1,330 @@
 [
  {
-  "date": "2026-11-03",
+  "date": "2026-11-09",
   "group": "amazon-selling",
-  "title": "How to Sell on Amazon India: Step-by-Step Guide for Beginners",
-  "keyword": "sell on amazon india",
+  "title": "Amazon Seller No Orders? A Step-by-Step Fix Checklist",
+  "keyword": "amazon seller no orders",
   "keywords": [
-   "how to sell on amazon",
-   "amazon seller account india",
-   "start selling online india"
+   "no sales on amazon",
+   "why is my product not selling on amazon",
+   "amazon seller tips"
   ],
-  "notes": "Big guide (1,600–2,200 words). Registration → listing → first orders. Link the webinar."
+  "notes": "HUB for the 'sales & visibility' cluster. Checklist table: visibility → clicks → conversion → price → reviews. Link each step to the spoke posts as they go live. Use one real (anonymised) example from our work."
  },
  {
-  "date": "2026-11-04",
+  "date": "2026-11-11",
   "group": "amazon-selling",
-  "title": "Amazon Seller Registration in India: Documents You Need",
-  "keyword": "amazon seller registration",
+  "title": "Amazon Listing Suppressed: Meaning, Reasons and How to Fix It",
+  "keyword": "amazon listing suppressed",
   "keywords": [
-   "amazon seller documents",
-   "gst for amazon seller",
-   "amazon seller central india"
+   "search suppressed amazon",
+   "amazon suppressed listing meaning",
+   "why is my amazon listing suppressed"
   ],
-  "notes": "Checklist table of documents. Tell readers to check Seller Central for the latest rules."
+  "notes": "Explain 'search suppressed' status in Seller Central India. Table of common reasons (missing info, image, title length, price) → fix. Tell readers to check the latest rules on Seller Central."
  },
  {
-  "date": "2026-11-05",
+  "date": "2026-11-13",
+  "group": "amazon-selling",
+  "title": "Amazon Product Not Showing Up in Search Results: How to Fix It",
+  "keyword": "amazon product not showing up in search",
+  "keywords": [
+   "amazon listing not visible",
+   "amazon listing not indexing",
+   "why my products are not visible on amazon"
+  ],
+  "notes": "Step-by-step: check listing status, indexing test (search ASIN + keyword), backend keywords, category, stock/price. Link the hub."
+ },
+ {
+  "date": "2026-11-16",
+  "group": "amazon-selling",
+  "title": "Amazon Category Approval in India: How to Get Ungated",
+  "keyword": "amazon category approval",
+  "keywords": [
+   "amazon product approval process",
+   "amazon category approval request",
+   "amazon grocery category approval"
+  ],
+  "notes": "HUB for 'listings & approvals'. Which categories need approval, documents usually asked (invoices etc.), how to apply. No guarantees; say approval is Amazon's decision. Mention our onboarding help."
+ },
+ {
+  "date": "2026-11-18",
+  "group": "amazon-selling",
+  "title": "Amazon Ads Not Getting Impressions? 7 Reasons and Fixes",
+  "keyword": "amazon ads not getting impressions",
+  "keywords": [
+   "amazon ads not working",
+   "amazon sponsored ads",
+   "amazon ppc india"
+  ],
+  "notes": "Reasons: low bid, narrow keywords, listing not eligible/suppressed, budget, Buy Box lost. Table: reason → how to check → fix."
+ },
+ {
+  "date": "2026-11-20",
+  "group": "amazon-selling",
+  "title": "Amazon Seller Account Suspended in India: What to Do Now",
+  "keyword": "amazon seller account suspended",
+  "keywords": [
+   "amazon seller account suspended appeal",
+   "amazon seller account deactivated",
+   "amazon account health"
+  ],
+  "notes": "HUB for 'account & money'. Calm, practical first steps; read the notice; common reasons; where to appeal. Never promise reinstatement. Advise reading Amazon's official policy pages."
+ },
+ {
+  "date": "2026-11-23",
+  "group": "amazon-selling",
+  "title": "Amazon Buy Box Explained: Why You Lost It and How to Win It Back",
+  "keyword": "amazon buy box",
+  "keywords": [
+   "amazon buy box meaning",
+   "amazon buy box algorithm",
+   "amazon buy box suppression"
+  ],
+  "notes": "Plain-English Buy Box factors (price, delivery, seller performance, stock). Featured offer wording. Simple checklist."
+ },
+ {
+  "date": "2026-11-25",
+  "group": "amazon-selling",
+  "title": "Amazon Seller Fees in India Explained With a Profit Example",
+  "keyword": "amazon seller fees",
+  "keywords": [
+   "amazon fees for sellers",
+   "amazon fees calculator",
+   "amazon referral fee india"
+  ],
+  "notes": "HUB for 'costs & profit'. Fee types (referral, closing, shipping/weight handling) with ONE worked example in round numbers; tell readers to verify current fee rates on Amazon's fee page. Mention our upcoming profit calculator if live."
+ },
+ {
+  "date": "2026-11-27",
   "group": "meesho-myntra-profit",
-  "title": "How Meesho Payments Work and How to Check Them",
-  "keyword": "meesho payment",
+  "title": "Meesho Seller Payment Not Received? How to Check and Fix",
+  "keyword": "meesho seller payment not received",
   "keywords": [
    "meesho payment cycle",
-   "meesho settlement",
-   "meesho seller payment report"
+   "meesho supplier payment",
+   "meesho settlement"
   ],
-  "notes": "Explain the payment report in simple words; show how Meesho Profit helps."
+  "notes": "Where to see payments in the supplier panel, normal timing vs delay, deductions (returns, penalties), how to raise a ticket. Show how Meesho Profit reconciles payments."
  },
  {
-  "date": "2026-11-06",
-  "group": "ecommerce-basics",
-  "title": "RTO in E-commerce: What It Means and How to Reduce It",
-  "keyword": "rto in ecommerce",
-  "keywords": [
-   "return to origin",
-   "rto charges",
-   "reduce rto india"
-  ],
-  "notes": "Indian COD context. Practical tips table."
- },
- {
-  "date": "2026-11-07",
+  "date": "2026-11-30",
   "group": "amazon-selling",
-  "title": "How to Write an Amazon Product Title That Ranks",
-  "keyword": "amazon product title",
+  "title": "Amazon Ads Not Converting: How to Turn Clicks Into Orders",
+  "keyword": "amazon ads not converting",
   "keywords": [
-   "amazon listing title",
-   "amazon seo",
-   "amazon keywords"
+   "amazon ads clicks but no sales",
+   "amazon acos",
+   "amazon listing optimization"
   ],
-  "notes": "Good vs bad title examples in a table."
+  "notes": "Clicks with no orders = listing problem. Check main image, price, reviews, bullets, A+. Link the tea-shop post and the listing posts."
  },
  {
-  "date": "2026-11-08",
+  "date": "2026-12-02",
+  "group": "amazon-selling",
+  "title": "Amazon Brand Approval: Process, Documents and Invoice Format",
+  "keyword": "amazon brand approval",
+  "keywords": [
+   "amazon brand approval process",
+   "amazon brand approval invoice format",
+   "amazon brand approval requirements"
+  ],
+  "notes": "Explain brand approval vs Brand Registry, what Amazon usually checks, invoice tips. Tell readers to check current requirements. Spoke of the approvals hub."
+ },
+ {
+  "date": "2026-12-04",
+  "group": "amazon-selling",
+  "title": "Amazon Suspension Appeal: How to Write a Plan of Action",
+  "keyword": "amazon suspension appeal",
+  "keywords": [
+   "amazon seller account suspended appeal",
+   "amazon plan of action",
+   "amazon account reinstatement"
+  ],
+  "notes": "Structure of a Plan of Action: root cause, actions taken, prevention. Honest, no templates that promise success. Spoke of the account hub."
+ },
+ {
+  "date": "2026-12-07",
+  "group": "amazon-selling",
+  "title": "Amazon Easy Ship Charges and Weight Handling Fee Explained",
+  "keyword": "amazon easy ship charges",
+  "keywords": [
+   "amazon weight handling fee",
+   "amazon easy ship fees calculator",
+   "amazon shipping fees india"
+  ],
+  "notes": "How Easy Ship works, what decides the weight handling fee (weight, size, distance), how to avoid overcharges (correct dimensions). Verify current rates on Amazon. Spoke of the fees hub."
+ },
+ {
+  "date": "2026-12-09",
+  "group": "amazon-selling",
+  "title": "Amazon Listing Image Size and Rules: Avoid Rejected Images",
+  "keyword": "amazon listing image size",
+  "keywords": [
+   "amazon listing image size in pixels",
+   "amazon main image rules",
+   "amazon listing images"
+  ],
+  "notes": "Main image rules (white background, product fills frame), recommended pixels, extra image ideas. Table: rule → why → tip. Link the tea-shop post."
+ },
+ {
+  "date": "2026-12-11",
+  "group": "meesho-myntra-profit",
+  "title": "Meesho Penalty Charges for Suppliers: Why and How to Avoid",
+  "keyword": "meesho penalty charges",
+  "keywords": [
+   "meesho seller penalty charges",
+   "meesho order cancel penalty for seller",
+   "meesho supplier penalty"
+  ],
+  "notes": "Common penalty reasons (cancellations, late dispatch, wrong product), how to check them, prevention checklist. Meesho Profit shows penalties per order."
+ },
+ {
+  "date": "2026-12-14",
+  "group": "amazon-selling",
+  "title": "Amazon Seller Payment Cycle: When You Get Paid and Holds",
+  "keyword": "amazon seller payment cycle",
+  "keywords": [
+   "amazon seller payment",
+   "amazon reserve balance",
+   "amazon settlement report"
+  ],
+  "notes": "Settlement cycle basics, reserve/held amounts and why, how to read the payments report. Verify current cycle on Seller Central."
+ },
+ {
+  "date": "2026-12-16",
+  "group": "amazon-selling",
+  "title": "Amazon Listing Not Indexing for Keywords: How to Check and Fix",
+  "keyword": "amazon listing not indexing",
+  "keywords": [
+   "amazon backend keywords",
+   "amazon search terms",
+   "amazon product not indexed"
+  ],
+  "notes": "Simple indexing test, backend search terms rules (length, no repeats), title/bullets keywords. Spoke of the visibility hub."
+ },
+ {
+  "date": "2026-12-18",
+  "group": "amazon-selling",
+  "title": "Amazon Profit Margin: How to Calculate Your Real Profit",
+  "keyword": "amazon profit margin",
+  "keywords": [
+   "amazon profit margin for sellers",
+   "amazon profit calculator",
+   "amazon fees and gst"
+  ],
+  "notes": "Worked example: price − referral − closing − shipping − ads − returns − GST − product cost. Simple table. Link the fees hub."
+ },
+ {
+  "date": "2026-12-21",
+  "group": "meesho-myntra-profit",
+  "title": "Myntra Seller Payment Cycle and Fees Explained",
+  "keyword": "myntra seller payment cycle",
+  "keywords": [
+   "myntra seller fees",
+   "myntra seller fees calculator",
+   "myntra seller payment"
+  ],
+  "notes": "Payment timing, fee types, how returns affect payouts. Verify on Myntra partner portal. Show how Myntra Profit helps."
+ },
+ {
+  "date": "2026-12-23",
+  "group": "amazon-selling",
+  "title": "Amazon A+ Content: What It Is and How to Use It to Sell More",
+  "keyword": "amazon a+ content",
+  "keywords": [
+   "amazon a plus content",
+   "amazon enhanced brand content",
+   "amazon brand registry india"
+  ],
+  "notes": "Who can use A+ (brand registered), module ideas, good vs weak examples (described, no copied images)."
+ },
+ {
+  "date": "2026-12-25",
+  "group": "amazon-selling",
+  "title": "Amazon Account Health Rating: How It Works and How to Fix It",
+  "keyword": "amazon account health rating",
+  "keywords": [
+   "amazon seller rating calculation",
+   "amazon seller performance",
+   "amazon order defect rate"
+  ],
+  "notes": "Plain-English metrics (ODR, late dispatch, cancellation, policy). Table: metric → target → how to improve. Verify current targets."
+ },
+ {
+  "date": "2026-12-28",
+  "group": "amazon-selling",
+  "title": "Amazon RTO Charges in India and How to Reduce Them",
+  "keyword": "amazon rto charges",
+  "keywords": [
+   "amazon rto policy",
+   "amazon rto charges in india",
+   "return to origin amazon"
+  ],
+  "notes": "Amazon-specific RTO: what it costs, COD impact, address/delivery fixes. Link our general RTO guide. Verify current charges."
+ },
+ {
+  "date": "2026-12-30",
+  "group": "amazon-selling",
+  "title": "Amazon Negative Review: What Sellers Can and Can't Do",
+  "keyword": "amazon negative review",
+  "keywords": [
+   "amazon negative review removal",
+   "amazon review policy",
+   "amazon product rating"
+  ],
+  "notes": "Honest guide: reply/fix the issue, report only reviews that break Amazon's rules, never pay for or fake reviews, never ask friends/family. Turn feedback into product fixes."
+ },
+ {
+  "date": "2027-01-01",
+  "group": "amazon-selling",
+  "title": "Amazon FBA India: Fees, Pros and Cons for Small Sellers",
+  "keyword": "amazon fba india",
+  "keywords": [
+   "amazon fba fees india",
+   "fba vs easy ship",
+   "amazon fulfilment india"
+  ],
+  "notes": "FBA vs Easy Ship vs Self Ship comparison table. When FBA makes sense for a small seller. Verify fees."
+ },
+ {
+  "date": "2027-01-04",
+  "group": "meesho-myntra-profit",
+  "title": "Meesho Return Charges: How Returns Eat Your Profit",
+  "keyword": "meesho return charges",
+  "keywords": [
+   "meesho return policy",
+   "meesho rto",
+   "meesho returns"
+  ],
+  "notes": "Return vs RTO on Meesho, what the seller pays, how to reduce returns (size chart, real photos). Meesho Profit shows profit after returns."
+ },
+ {
+  "date": "2027-01-06",
+  "group": "amazon-selling",
+  "title": "How to Increase Sales on Amazon: 10 Practical Steps",
+  "keyword": "how to increase sales on amazon",
+  "keywords": [
+   "increase amazon sales",
+   "amazon seller tips",
+   "amazon sales tips india"
+  ],
+  "notes": "Round-up post linking every spoke written so far (visibility, listing, ads, Buy Box, reviews). Good for internal links."
+ },
+ {
+  "date": "2027-01-08",
+  "group": "amazon-selling",
+  "title": "Amazon GST Verification Process for New Sellers",
+  "keyword": "amazon gst verification process",
+  "keywords": [
+   "amazon gst number",
+   "gst for amazon seller",
+   "amazon seller registration"
+  ],
+  "notes": "What happens when Amazon verifies GST, common errors (name mismatch, inactive GSTIN), how long it takes. Link the documents post."
+ },
+ {
+  "date": "2027-01-11",
   "group": "whatsapp-automation",
   "title": "WhatsApp Business API vs WhatsApp Business App",
   "keyword": "whatsapp business api",
@@ -69,294 +333,30 @@
    "official whatsapp api",
    "whatsapp for business india"
   ],
-  "notes": "Comparison table. Mention the ban risk of unofficial tools. WOO Chat uses the official API."
+  "notes": "Comparison table. Ban risk of unofficial tools. WOO Chat uses the official API. Practical use for e-commerce: order updates, COD confirmation (link RTO posts)."
  },
  {
-  "date": "2026-11-09",
-  "group": "meesho-myntra-profit",
-  "title": "Meesho Return Charges Explained for Sellers",
-  "keyword": "meesho return charges",
-  "keywords": [
-   "meesho rto charges",
-   "meesho customer return",
-   "meesho seller loss"
-  ],
-  "notes": "Ask readers to check Meesho's current rate card; no exact fees."
- },
- {
-  "date": "2026-11-10",
+  "date": "2027-01-13",
   "group": "amazon-selling",
-  "title": "Amazon Sponsored Products: A Beginner's Guide to PPC Ads",
-  "keyword": "amazon ppc",
+  "title": "Amazon Product Title Rules: Write a Title That Ranks",
+  "keyword": "amazon product title",
   "keywords": [
-   "amazon sponsored products",
-   "amazon ads india",
-   "acos"
+   "amazon listing title",
+   "amazon title character limit",
+   "amazon seo"
   ],
-  "notes": "Explain ACoS with a simple worked example (no made-up results)."
+  "notes": "Title rules (length, no promo words), formula, good vs bad table."
  },
  {
-  "date": "2026-11-11",
-  "group": "ecommerce-basics",
-  "title": "GST for Online Sellers in India: Simple Guide",
-  "keyword": "gst for online sellers",
-  "keywords": [
-   "gst registration ecommerce",
-   "tcs on ecommerce",
-   "gst for amazon sellers"
-  ],
-  "notes": "General information only; suggest a CA for their case."
- },
- {
-  "date": "2026-11-12",
-  "group": "meesho-myntra-profit",
-  "title": "How to Find Your Real Profit on Meesho",
-  "keyword": "meesho profit",
-  "keywords": [
-   "meesho profit calculator",
-   "meesho seller profit",
-   "meesho reconciliation"
-  ],
-  "notes": "Main keyword = product name area. Strong 'How ESOWOLF helps' section."
- },
- {
-  "date": "2026-11-13",
+  "date": "2027-01-15",
   "group": "amazon-selling",
-  "title": "Amazon Product Images: Rules and Tips That Get More Clicks",
-  "keyword": "amazon product images",
+  "title": "Amazon Seller Central India: 10 Mistakes New Sellers Make",
+  "keyword": "amazon seller central india",
   "keywords": [
-   "amazon image requirements",
-   "amazon main image",
-   "product photography india"
+   "amazon seller account india",
+   "new amazon seller mistakes",
+   "amazon seller tips"
   ],
-  "notes": "Checklist table."
- },
- {
-  "date": "2026-11-14",
-  "group": "whatsapp-automation",
-  "title": "How to Send Order Updates on WhatsApp Automatically",
-  "keyword": "whatsapp order updates",
-  "keywords": [
-   "whatsapp automation",
-   "whatsapp notifications ecommerce",
-   "whatsapp auto reply"
-  ],
-  "notes": "Use cases for Indian D2C/online sellers."
- },
- {
-  "date": "2026-11-15",
-  "group": "meesho-myntra-profit",
-  "title": "Myntra Seller Registration: How to Start Selling on Myntra",
-  "keyword": "myntra seller registration",
-  "keywords": [
-   "sell on myntra",
-   "myntra partner portal",
-   "myntra seller requirements"
-  ],
-  "notes": "Fashion sellers. Link Myntra Profit."
- },
- {
-  "date": "2026-11-16",
-  "group": "amazon-selling",
-  "title": "Amazon FBA vs Easy Ship vs Self Ship: Which Is Right for You?",
-  "keyword": "amazon fba india",
-  "keywords": [
-   "amazon easy ship",
-   "amazon self ship",
-   "amazon fulfilment"
-  ],
-  "notes": "Comparison table. No exact fees."
- },
- {
-  "date": "2026-11-17",
-  "group": "ecommerce-basics",
-  "title": "Cash on Delivery vs Prepaid Orders: How to Get More Prepaid",
-  "keyword": "cod vs prepaid",
-  "keywords": [
-   "reduce cod orders",
-   "prepaid orders india",
-   "cod rto"
-  ],
-  "notes": "Indian buyer behaviour; practical tips."
- },
- {
-  "date": "2026-11-18",
-  "group": "meesho-myntra-profit",
-  "title": "Myntra Payment Reconciliation: A Simple Guide",
-  "keyword": "myntra payment reconciliation",
-  "keywords": [
-   "myntra settlement report",
-   "myntra seller payment",
-   "myntra profit"
-  ],
-  "notes": "Show the steps; link Myntra Profit demo."
- },
- {
-  "date": "2026-11-19",
-  "group": "amazon-selling",
-  "title": "How to Get Your First 10 Reviews on Amazon (the Right Way)",
-  "keyword": "amazon reviews",
-  "keywords": [
-   "amazon vine",
-   "get reviews on amazon",
-   "amazon review policy"
-  ],
-  "notes": "Only allowed methods. Warn against paid/fake reviews."
- },
- {
-  "date": "2026-11-20",
-  "group": "whatsapp-automation",
-  "title": "How to Recover Abandoned Carts with WhatsApp",
-  "keyword": "abandoned cart whatsapp",
-  "keywords": [
-   "cart recovery",
-   "whatsapp marketing",
-   "shopify whatsapp"
-  ],
-  "notes": "Shopify sellers. Template message examples."
- },
- {
-  "date": "2026-11-21",
-  "group": "ecommerce-basics",
-  "title": "Wedding Season Sales: How Online Sellers Can Prepare",
-  "keyword": "wedding season sales",
-  "keywords": [
-   "festive sales planning",
-   "ethnic wear online sales",
-   "inventory planning"
-  ],
-  "notes": "Indian wedding season (Nov–Feb). Fashion + gifting."
- },
- {
-  "date": "2026-11-22",
-  "group": "amazon-selling",
-  "title": "Amazon Keyword Research for Beginners",
-  "keyword": "amazon keyword research",
-  "keywords": [
-   "amazon search terms",
-   "backend keywords amazon",
-   "amazon seo india"
-  ],
-  "notes": "Free methods (search bar suggestions, competitor titles)."
- },
- {
-  "date": "2026-11-23",
-  "group": "meesho-myntra-profit",
-  "title": "Common Meesho Seller Mistakes That Cut Your Profit",
-  "keyword": "meesho seller mistakes",
-  "keywords": [
-   "meesho tips",
-   "meesho seller loss",
-   "meesho pricing"
-  ],
-  "notes": "List + table of mistake → fix."
- },
- {
-  "date": "2026-11-24",
-  "group": "ecommerce-basics",
-  "title": "How to Price Products for Online Marketplaces",
-  "keyword": "product pricing ecommerce",
-  "keywords": [
-   "marketplace pricing",
-   "profit margin calculation",
-   "pricing strategy india"
-  ],
-  "notes": "Simple formula; marketplace fee + shipping + GST + returns."
- },
- {
-  "date": "2026-11-25",
-  "group": "amazon-selling",
-  "title": "Amazon Buy Box: What It Is and How to Win It",
-  "keyword": "amazon buy box",
-  "keywords": [
-   "featured offer amazon",
-   "win buy box",
-   "amazon seller performance"
-  ],
-  "notes": "Explain factors in simple words."
- },
- {
-  "date": "2026-11-26",
-  "group": "whatsapp-automation",
-  "title": "WhatsApp Message Templates: How Approval Works",
-  "keyword": "whatsapp message templates",
-  "keywords": [
-   "whatsapp template approval",
-   "whatsapp marketing messages",
-   "whatsapp business api templates"
-  ],
-  "notes": "Template categories; good examples."
- },
- {
-  "date": "2026-11-27",
-  "group": "ecommerce-basics",
-  "title": "Christmas and New Year Sales Plan for Indian Online Sellers",
-  "keyword": "new year sale ideas",
-  "keywords": [
-   "christmas sale india",
-   "year end sale",
-   "festive offers ecommerce"
-  ],
-  "notes": "Calendar table for late Dec."
- },
- {
-  "date": "2026-11-28",
-  "group": "amazon-selling",
-  "title": "Amazon Seller Account Health: How to Keep It Safe",
-  "keyword": "amazon account health",
-  "keywords": [
-   "amazon seller policy",
-   "odr amazon",
-   "amazon account suspension"
-  ],
-  "notes": "Main metrics table; check Seller Central help."
- },
- {
-  "date": "2026-11-29",
-  "group": "meesho-myntra-profit",
-  "title": "Meesho vs Myntra: Which Marketplace Suits Your Products?",
-  "keyword": "meesho vs myntra",
-  "keywords": [
-   "sell on meesho",
-   "sell on myntra",
-   "fashion marketplace india"
-  ],
-  "notes": "Comparison table; no fees."
- },
- {
-  "date": "2026-11-30",
-  "group": "ecommerce-basics",
-  "title": "How to Start an Online Business in India with Small Capital",
-  "keyword": "start online business india",
-  "keywords": [
-   "small business ideas online",
-   "ecommerce for beginners india",
-   "online selling tips"
-  ],
-  "notes": "Big guide. Link webinar and blog."
- },
- {
-  "date": "2026-12-01",
-  "group": "amazon-selling",
-  "title": "Amazon A+ Content: How to Make Better Product Pages",
-  "keyword": "amazon a+ content",
-  "keywords": [
-   "enhanced brand content",
-   "amazon brand registry",
-   "amazon listing design"
-  ],
-  "notes": "Brand Registry basics."
- },
- {
-  "date": "2026-12-02",
-  "group": "whatsapp-automation",
-  "title": "WhatsApp Chatbot for Small Business: What It Can Do",
-  "keyword": "whatsapp chatbot",
-  "keywords": [
-   "whatsapp auto bot",
-   "whatsapp automation india",
-   "customer support automation"
-  ],
-  "notes": "Use cases; how WOO Chat helps (auto bots)."
+  "notes": "Round-up of the most common mistakes we see from new sellers (from our onboarding work). Link the documents, onboarding and hub posts."
  }
 ]
