@@ -279,7 +279,8 @@ WRITING RULES
 - 4–8 sections with "##" headings (no "#" title line, use "###" only inside a section).
 - Include exactly one simple Markdown table.
 - Use Indian context where useful (₹ for platform fees, Indian festivals and seasons, GST, Indian marketplaces). Never mention ${cfg.shortBrand}'s own prices.
-- Add 4–8 internal links in Markdown format [text](url), ONLY to URLs from the allowed list below, and always include the main guide of the topic group.
+- Add 4–8 internal links in Markdown format [text](url), ONLY to URLs from the allowed list below, and always include the main guide of the topic group. Never write a bare URL like https://esowolf.in/… — every link must be [words](url).
+- If the article has steps, put them under ONE "##" section and use "### Step 1: …", "### Step 2: …" for each step (do not give each step its own "##").
 - Add a short, honest "How ${cfg.shortBrand} helps" section near the end, using only the facts above.
 - End with one clear next step for the reader.
 - 4–6 FAQs with short, direct answers.
@@ -317,3 +318,76 @@ END OF ARTICLE
 \`\`\``;
 }
 function abs(u, cfg) { return u.startsWith("/") ? cfg.site + u : u; }
+
+/* ---------- SEO auto-fix (runs after "Fill the form" and from the "Auto-fix" button) ----------
+   Fixes the things ChatGPT most often gets wrong, without rewriting the article:
+   1. plain esowolf.in URLs → proper [label](url) links
+   2. links to pages that are not on the allowed list → plain text
+   3. too many "##" headings → numbered/step headings become "###" sub-headings
+   4. missing main-guide link / fewer than 4 internal links → a short "Helpful links" list at the end
+   Returns { post, fixes } — fixes is a list of plain-English notes for the editor. */
+export function autoFixSeo(p, cfg, existingSlugs = []) {
+  const site = cfg && cfg.site || "";
+  const fixes = [];
+  let body = String(p.body || "").replace(/\r\n?/g, "\n");
+  const linkCfg = (cfg && cfg.links || []).map(l => ({ ...l, n: normUrl(l.url, site) }));
+  const allowed = new Set([...linkCfg.map(l => l.n), ...existingSlugs.map(s => `/blog/${s}/`)]);
+  const isAllowed = u => { const n = normUrl(u, site); return allowed.has(n) || allowed.has(n.replace(/\/$/, "")) || allowed.has(n + "/"); };
+  const labelFor = u => { const n = normUrl(u, site); const l = linkCfg.find(x => x.n === n || x.n === n.replace(/\/$/, "") || x.n + "/" === n); return l ? l.label : ""; };
+
+  // 1. bare URLs (not already inside a markdown link or angle brackets) → links
+  let bare = 0;
+  body = body.split("\n").map(line => {
+    if (/^\s*https?:\/\/\S+\s*$/.test(line) && youTubeId(line.trim())) return line;   // YouTube line = video
+    return line.replace(/(^|[^(\[<"'\w/])((?:https?:\/\/)(?:[a-z0-9-]+\.)*esowolf\.in(?:\/[^\s)<>\]]*)?)/gi, (m, pre, url) => {
+      let u = url.replace(/[.,;:!?]+$/, ""); const tail = url.slice(u.length);
+      if (!isAllowed(u)) return m;
+      bare++;
+      const label = labelFor(u) || u.replace(/^https?:\/\//, "");
+      return `${pre}[${label}](${isInternal(u, site) && /^https?:\/\/(www\.)?esowolf\.in/i.test(u) ? normUrl(u, site) : u})${tail}`;
+    });
+  }).join("\n");
+  if (bare) fixes.push(`Turned ${bare} plain website address${bare > 1 ? "es" : ""} into proper links.`);
+
+  // 2. internal links that are not allowed → keep the words, drop the link
+  let dropped = 0;
+  body = body.replace(/(^|[^!])\[([^\]]+)\]\(\s*<?([^)\s>]+)>?(?:\s+"[^"]*")?\s*\)/g, (m, pre, text, url) => {
+    if (isInternal(url, site) && !isAllowed(url)) { dropped++; return pre + text; }
+    return m;
+  });
+  if (dropped) fixes.push(`Removed ${dropped} link${dropped > 1 ? "s" : ""} to pages that are not on the allowed list (the words are kept).`);
+
+  // 3. too many ## headings → "Step N" headings become ### sub-headings (only if that leaves 4–8 sections)
+  if (headings(body).length > 8) {
+    const isStep = l => /^##\s+(?:\d+[.)]\s*)?step\s*\d+\b/i.test(l);
+    const L = body.split("\n"), steps = L.filter(isStep).length, after = headings(body).length - steps;
+    if (steps && after >= 4) {
+      body = L.map(l => isStep(l) ? l.replace(/^##\s+(?:\d+[.)]\s*)?/, "### ") : l).join("\n").replace(/^##\s+\d+[.)]\s+/gm, "## ");
+      fixes.push(`Made ${steps} "Step" heading${steps > 1 ? "s" : ""} into sub-headings (###) so there are at most 8 main sections.`);
+    }
+  }
+
+  // 4. make sure the main guide is linked and there are at least 4 internal links
+  const group = (cfg && cfg.groups || []).find(g => g.id === p.topic);
+  const guide = group ? normUrl(group.guide, site) : "";
+  const current = () => links(body).filter(u => isInternal(u, site)).map(u => normUrl(u, site));
+  const has = u => current().some(x => x === u || x.replace(/\/$/, "") === u.replace(/\/$/, ""));
+  const want = [];
+  if (guide && !has(guide)) want.push({ url: guide, label: group.guideLabel || group.name });
+  const pool = ["https://webinar.esowolf.in/", "https://booking.closer.esowolf.in/book/amazon-increase-sales", "/blog/", "/#contact", "/policies.html#about"]
+    .map(u => ({ url: u, label: labelFor(u) || u })).filter(x => isAllowed(x.url));
+  for (const x of pool) { if (current().length + want.length >= 5) break; if (!has(normUrl(x.url, site)) && !want.some(w => w.url === x.url)) want.push(x); }
+  if (current().length + want.length > 8) want.splice(Math.max(0, 8 - current().length));
+  if (want.length) {
+    const list = "\n\n**Helpful links:**\n\n" + want.map(w => `- [${w.label}](${w.url})`).join("\n") + "\n";
+    // put it before a closing "Next step" line if there is one, otherwise at the very end
+    const m = body.match(/\n\n(\*\*?(?:your )?next step[^\n]*\*?\*?[^\n]*(?:\n(?!\n)[^\n]*)*)\s*$/i);
+    body = m ? body.slice(0, m.index) + list + "\n" + m[0].replace(/^\n+/, "\n") : body.replace(/\s*$/, "") + list;
+    fixes.push(`Added ${want.length} helpful link${want.length > 1 ? "s" : ""}${guide && want.some(w => w.url === guide) ? " (including the main guide)" : ""} near the end.`);
+  }
+
+  // things only a person can fix — report them
+  const s = seoScore({ ...p, body }, cfg, existingSlugs);
+  const left = s.checks.filter(c => !c.ok && c.id !== "cover").map(c => c.label);
+  return { post: { ...p, body }, fixes, left };
+}

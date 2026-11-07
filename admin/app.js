@@ -1,5 +1,5 @@
 /* ESOWOLF team blog admin — single-page app. Loaded only on /admin/. */
-import { slugify, youTubeId, isValidSlug, parseChatGPT, seoScore, buildPrompt, preprocessMarkdown, escapeHtml as e, istInputToISO, isoToISTInput, formatIST } from "./shared.mjs?v=6";
+import { slugify, youTubeId, isValidSlug, parseChatGPT, seoScore, autoFixSeo, buildPrompt, preprocessMarkdown, escapeHtml as e, istInputToISO, isoToISTInput, formatIST } from "./shared.mjs?v=7";
 
 const $ = (s, el = document) => el.querySelector(s);
 const $$ = (s, el = document) => [...el.querySelectorAll(s)];
@@ -161,7 +161,7 @@ async function editView(slug) {
     </div>
   </div>
   <aside class="side">
-    <div class="card"><h2>SEO score</h2><div class="score"><div class="ring" id="ring"><b id="scoreNum">0%</b></div><div class="small muted" id="scoreMsg"></div></div><ul class="checks" id="checks"></ul></div>
+    <div class="card"><h2>SEO score</h2><div class="score"><div class="ring" id="ring"><b id="scoreNum">0%</b></div><div class="small muted" id="scoreMsg"></div></div><button class="btn sm" type="button" id="autofix" style="margin-top:12px">✨ Auto-fix SEO</button><div class="hint" id="fixMsg"></div><ul class="checks" id="checks"></ul></div>
     <div class="card"><h2>Google preview</h2><div class="gprev"><div class="u"><i></i><span>esowolf.in › blog › <span id="gpSlug"></span></span></div><div class="t" id="gpTitle"></div><div class="d" id="gpDesc"></div></div></div>
     <div class="card"><h2>Article preview</h2><iframe class="preview" id="prev" sandbox="allow-popups" title="Article preview"></iframe></div>
   </aside></div>
@@ -217,7 +217,8 @@ async function editView(slug) {
     if (!slugTouched && r.title) r.slug = slugify(r.title); else delete r.slug;
     if (!r.topic) delete r.topic;
     set(r);
-    F("fillMsg").textContent = `Filled: ${got.length} sections${r.faqs ? `, ${r.faqs.length} FAQs` : ""}. Now add a cover image and check the SEO score.`;
+    const fx = runAutoFix(true);
+    F("fillMsg").textContent = `Filled: ${got.length} sections${r.faqs ? `, ${r.faqs.length} FAQs` : ""}.${fx ? " SEO auto-fixed (see the SEO score box)." : ""} Now add a cover image and check the SEO score.`;
     update(); toast("Form filled from ChatGPT's answer.", "good");
   };
 
@@ -228,6 +229,7 @@ async function editView(slug) {
   ["description", "summary", "topic", "keyword", "keywords", "short", "coverAlt", "body"].forEach(id => F(id).addEventListener("input", update));
   F("topic").onchange = update;
   F("addFaq").onclick = () => { addFaqRow(); update(); };
+  F("autofix").onclick = () => runAutoFix(false);
 
   /* videos: (a) YouTube link, (b) upload — to R2 when it is connected (any size), otherwise into the site itself
      (compressed in the browser to fit 25 MB). Either way a ![…](video "poster WxH") line goes in at the cursor. */
@@ -323,6 +325,16 @@ async function editView(slug) {
   /* live checks */
   let t;
   function update() { clearTimeout(t); t = setTimeout(refresh, 150); }
+  /* fix the SEO items ChatGPT usually gets wrong (links, headings) without rewriting the article */
+  function runAutoFix(quiet) {
+    const p = get(), r = autoFixSeo(p, cfg, others().map(x => x.slug));
+    if (r.post.body !== p.body) F("body").value = r.post.body;
+    const leftNote = r.left.length ? ` Still to fix by hand: ${r.left.join("; ")}.` : "";
+    F("fixMsg").textContent = (r.fixes.length ? "Auto-fixed: " + r.fixes.join(" ") : "Nothing to auto-fix.") + leftNote + (p.cover ? "" : " Add a cover image.");
+    update();
+    if (!quiet) toast(r.fixes.length ? "SEO auto-fixed." : "Nothing to auto-fix.", r.fixes.length ? "good" : "");
+    return r.fixes.length;
+  }
   function refresh() {
     const p = get();
     const tl = p.title.length, dl = p.description.length;
