@@ -419,19 +419,43 @@ async function crop(bmp, w, h, type, q) {
 
 /* ---------- content calendar ---------- */
 async function calendarView() {
-  app.innerHTML = `<h1>Content calendar</h1><p class="muted small">Problem-based topics — real searches Amazon, Meesho and Myntra sellers type into Google. 3 posts a week (Mon, Wed, Fri). HUB posts are the big guides; link the smaller posts to them. A topic is marked done when a post's title contains its main keyword.</p><div class="cal" id="cal"><p class="muted">Loading…</p></div>`;
+  app.innerHTML = `<h1>Content calendar</h1><p class="muted small">Problem-based topics — real searches Amazon, Meesho and Myntra sellers type into Google. 3 posts a week (Mon, Wed, Fri, India time). Dates for topics not written yet move forward automatically from today, so the plan never shows missed or past dates. Written topics show their real publish date. A topic is matched to a post when the post's title contains its main keyword.</p><div class="cal" id="cal"><p class="muted">Loading…</p></div>`;
   await loadPosts().catch(() => {});
-  const titles = posts.map(p => p.title.toLowerCase());
-  const today = new Date().toISOString().slice(0, 10);
-  $("#cal").innerHTML = calendar.length ? calendar.map((c, i) => {
-    const done = titles.some(t => t.includes(String(c.keyword).toLowerCase()));
-    const g = cfg.groups.find(x => x.id === c.group);
-    const d = new Date(c.date + "T00:00:00+05:30");
-    return `<div class="citem ${done ? "done" : ""}"><div class="d">${d.toLocaleDateString("en-IN", { day: "numeric", month: "short", timeZone: "Asia/Kolkata" })}<small>${d.toLocaleDateString("en-IN", { weekday: "short", timeZone: "Asia/Kolkata" })}${c.date === today ? " · today" : ""}</small></div>
-    <div><h3>${done ? "✓ " : ""}${e(c.title)}</h3><p><b>${e(g ? g.name : c.group)}</b> · keyword: <b>${e(c.keyword)}</b></p><p>Other: ${e((c.keywords || []).join("; "))}</p>${c.notes ? `<p>Notes: ${e(c.notes)}</p>` : ""}</div>
-    <div>${done ? `<span class="badge live">Done</span>` : `<button class="btn sm" data-i="${i}">Write with ChatGPT</button>`}</div></div>`;
-  }).join("") : `<p class="muted">No calendar found.</p>`;
+  // all date maths in India time (UTC+5:30), as plain YYYY-MM-DD strings
+  const IST = 5.5 * 3600e3;
+  const istDay = t => new Date(new Date(t).getTime() + IST).toISOString().slice(0, 10);
+  const today = istDay(Date.now());
+  const addDays = (ymd, n) => new Date(Date.parse(ymd + "T00:00:00Z") + n * 864e5).toISOString().slice(0, 10);
+  const weekday = ymd => new Date(ymd + "T00:00:00Z").getUTCDay();   // 0 Sun … 6 Sat
+  const fmt = ymd => { const d = new Date(ymd + "T00:00:00Z"); return { d: d.toLocaleDateString("en-IN", { day: "numeric", month: "short", timeZone: "UTC" }), w: d.toLocaleDateString("en-IN", { weekday: "short", timeZone: "UTC" }) }; };
+  const postFor = c => posts.find(p => p.title.toLowerCase().includes(String(c.keyword).toLowerCase()));
+  const rows = calendar.map((c, i) => ({ c, i, post: postFor(c) }));
+  // days already taken by published / scheduled posts
+  const taken = new Set(posts.filter(p => p.date && (p.status === "live" || p.status === "scheduled")).map(p => istDay(p.date)));
+  // give every unwritten topic the next free Mon/Wed/Fri, starting today
+  let day = today;
+  for (const r of rows) {
+    if (r.post && r.post.status !== "draft") { r.when = istDay(r.post.date); continue; }
+    while (![1, 3, 5].includes(weekday(day)) || taken.has(day)) day = addDays(day, 1);
+    r.when = day; taken.add(day); day = addDays(day, 1);
+  }
+  const doneRows = rows.filter(r => r.post && r.post.status !== "draft").sort((a, b) => a.when.localeCompare(b.when));
+  const nextRows = rows.filter(r => !(r.post && r.post.status !== "draft"));
+  const item = r => {
+    const { c, i, post } = r, g = cfg.groups.find(x => x.id === c.group), f = fmt(r.when);
+    const state = !post ? "" : post.status === "live" ? "live" : post.status === "scheduled" ? "scheduled" : "draft";
+    const badge = state === "live" ? `<span class="badge live">Published</span>` : state === "scheduled" ? `<span class="badge scheduled">Scheduled</span>` : "";
+    const btn = state === "draft" ? `<span class="badge draft">Draft</span> <button class="btn sm" data-edit="${e(post.slug)}">Continue</button>` : state ? `<button class="btn ghost sm" data-edit="${e(post.slug)}">Open</button>` : `<button class="btn sm" data-i="${i}">Write with ChatGPT</button>`;
+    const label = state === "live" ? "published" : state === "scheduled" ? "goes live" : r.when === today ? "today" : r.when < addDays(today, 7) ? "this week" : "planned";
+    return `<div class="citem ${state === "live" ? "done" : ""}"><div class="d">${f.d}<small>${f.w} · ${label}</small></div>
+    <div><h3>${state === "live" || state === "scheduled" ? "✓ " : ""}${e(c.title)}</h3><p><b>${e(g ? g.name : c.group)}</b> · keyword: <b>${e(c.keyword)}</b></p><p>Other: ${e((c.keywords || []).join("; "))}</p>${c.notes ? `<p>Notes: ${e(c.notes)}</p>` : ""}</div>
+    <div class="row" style="gap:6px;justify-content:flex-end">${badge}${btn}</div></div>`;
+  };
+  $("#cal").innerHTML = calendar.length
+    ? (doneRows.length ? `<h2 style="margin:6px 0 4px">Written</h2>${doneRows.map(item).join("")}` : "") + `<h2 style="margin:18px 0 4px">Coming up</h2>${nextRows.map(item).join("")}`
+    : `<p class="muted">No calendar found.</p>`;
   $$("#cal [data-i]").forEach(b => b.onclick = () => { pending = calendar[+b.dataset.i]; go("edit", "new"); });
+  $$("#cal [data-edit]").forEach(b => b.onclick = () => go("edit", b.dataset.edit));
 }
 
 /* read a video's size and grab a frame (at ~1 s) as the poster image */
