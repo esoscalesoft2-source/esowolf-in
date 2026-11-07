@@ -212,7 +212,7 @@ The team has more than 10 years of hands-on e-commerce experience.
 
 Founder Krishna M V is an Amazon business expert and marketplace growth strategist with 10+ years of Amazon experience. He has worked with 25+ brands and hosts the ESOWOLF live webinar.
 
-ESOWOLF is an **Authorized Partner of Amazon**.
+ESOWOLF is an **Amazon Verified Partner**.
 
 Here is how ESOWOLF can support your selling journey:
 
