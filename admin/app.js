@@ -1,5 +1,5 @@
 /* ESOWOLF team blog admin — single-page app. Loaded only on /admin/. */
-import { slugify, youTubeId, isValidSlug, parseChatGPT, seoScore, autoFixSeo, buildPrompt, preprocessMarkdown, escapeHtml as e, istInputToISO, isoToISTInput, formatIST } from "./shared.mjs?v=7";
+import { slugify, youTubeId, isValidSlug, parseChatGPT, seoScore, autoFixSeo, buildImagePrompt, buildPrompt, preprocessMarkdown, escapeHtml as e, istInputToISO, isoToISTInput, formatIST } from "./shared.mjs?v=8";
 
 const $ = (s, el = document) => el.querySelector(s);
 const $$ = (s, el = document) => [...el.querySelectorAll(s)];
@@ -151,6 +151,7 @@ async function editView(slug) {
       <div class="field"><label>Summary <small>(for blog cards)</small></label><textarea id="summary" rows="2"></textarea></div>
       <div class="grid2"><div class="field"><label>Topic group</label><select id="topic">${groupOpts}</select></div><div class="field"><label>Main keyword</label><input type="text" id="keyword"></div></div>
       <div class="grid2"><div class="field"><label>Other keywords <small>(separate with ;)</small></label><input type="text" id="keywords"></div><div class="field"><label>Short link code <small>(esowolf.in/go/…)</small></label><input type="text" id="short" placeholder="e.g. amazon-start"></div></div>
+      <div class="field"><label>Cover image prompt <small>(made from the title — copy it into ChatGPT, Gemini, Ideogram or any AI image tool, then upload the image below)</small></label><textarea class="code" id="imgPrompt" rows="7" readonly></textarea><div class="row" style="margin-top:8px"><button class="btn sm" type="button" id="copyImg">Copy image prompt</button><span class="hint" id="imgHint" style="margin:0"></span></div></div>
       <div class="field"><label>Cover image <small>(JPG/PNG/WebP up to 20 MB — we make a 1600×900 WebP and a 1200×630 share image)</small></label>
         <div class="cover"><img id="coverImg" alt="" hidden><div class="grow"><input type="file" id="coverFile" accept="image/*"><div class="hint" id="coverMsg"></div></div></div></div>
       <div class="field"><label>Cover alt text <small>(describe the picture)</small></label><input type="text" id="coverAlt"></div>
@@ -230,6 +231,7 @@ async function editView(slug) {
   F("topic").onchange = update;
   F("addFaq").onclick = () => { addFaqRow(); update(); };
   F("autofix").onclick = () => runAutoFix(false);
+  F("copyImg").onclick = async () => { try { await navigator.clipboard.writeText(F("imgPrompt").value); toast("Image prompt copied. Paste it into your AI image tool.", "good"); } catch { F("imgPrompt").select(); document.execCommand("copy"); toast("Image prompt copied."); } };
 
   /* videos: (a) YouTube link, (b) upload — to R2 when it is connected (any size), otherwise into the site itself
      (compressed in the browser to fit 25 MB). Either way a ![…](video "poster WxH") line goes in at the cursor. */
@@ -337,6 +339,8 @@ async function editView(slug) {
   }
   function refresh() {
     const p = get();
+    F("imgPrompt").value = buildImagePrompt(p, cfg);
+    F("imgHint").textContent = p.title ? "" : "Add the title first — the prompt updates as you type.";
     const tl = p.title.length, dl = p.description.length;
     F("cTitle").textContent = tl + " / 30–65"; F("cTitle").className = "count " + (tl >= 30 && tl <= 65 ? "ok" : "bad");
     F("cDesc").textContent = dl + " / 120–160"; F("cDesc").className = "count " + (dl >= 120 && dl <= 160 ? "ok" : "bad");

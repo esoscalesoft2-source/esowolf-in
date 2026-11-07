@@ -391,3 +391,46 @@ export function autoFixSeo(p, cfg, existingSlugs = []) {
   const left = s.checks.filter(c => !c.ok && c.id !== "cover").map(c => c.label);
   return { post: { ...p, body }, fixes, left };
 }
+
+/* ---------- cover image prompt (for any AI image tool) ----------
+   Built from the post's title, keyword and topic group. Nothing is generated here — the editor copies the text. */
+export function buildImagePrompt(p, cfg) {
+  const title = String(p.title || "").trim() || "[post title]";
+  const kw = String(p.keyword || "").trim();
+  const t = (title + " " + kw).toLowerCase();
+  const scenes = {
+    "amazon-selling": "a young Indian online seller (late 20s, smart-casual clothes) at a tidy home-office desk, looking at a laptop that shows a generic e-commerce seller dashboard with simple charts, a few brown cardboard parcels and a product on the desk",
+    "meesho-myntra-profit": "an Indian fashion seller in a small, organised clothing stockroom with folded garments and parcels, checking a laptop that shows a simple profit report with bar charts",
+    "whatsapp-automation": "an Indian small-business owner holding a smartphone that shows a friendly chat screen with automatic replies (generic chat app, no real logo), laptop and parcels softly blurred behind",
+    "ecommerce-basics": "an Indian small-business owner packing an online order at a clean desk with a laptop, parcels and a shipping label"
+  };
+  let scene = scenes[p.topic] || scenes["ecommerce-basics"];
+  // small, topic-specific details so each cover is different
+  const extras = [
+    [/suspend|deactivat|appeal|account health/, "the seller looks concerned but determined, a warning-style alert card floats beside the laptop"],
+    [/suppress|not showing|not visible|index|search/, "a large magnifying glass hovers over a product card on the screen, one card is greyed out as hidden"],
+    [/no orders|not selling|no sales|increase sales/, "a sales chart on the screen starts flat and then rises with an upward arrow"],
+    [/ads|acos|ppc|impression|sponsored/, "floating icons of a target, a coin and a click cursor around the laptop"],
+    [/fee|profit|margin|charges|cost|payment|settlement/, "floating coin stacks, a rupee symbol and a simple calculator"],
+    [/return|rto/, "a small stack of returned parcels with a circular arrow icon"],
+    [/approval|ungat|brand|category/, "a document with a big green tick and an approval stamp floating beside the laptop"],
+    [/image|photo|title|listing|a\+ content/, "a product listing card with a bright product photo, star rating and a 'before vs after' feel"],
+    [/gst|document|registration|account setup/, "neatly arranged business documents and a checklist with ticks on the desk"],
+    [/buy box/, "a highlighted 'Add to cart' style button glowing on the screen"],
+    [/whatsapp|chat|bot/, "chat bubbles with tick marks floating around the phone"]
+  ].filter(([re]) => re.test(t)).map(([, s]) => s).slice(0, 2);
+  const headline = title.length > 48 ? title.replace(/[:?–-].*$/, "").trim() : title;
+  return `Create a 16:9 blog cover image (1600×900 pixels) for an article titled "${title}".
+
+Scene: ${scene}${extras.length ? ", " + extras.join(", ") : ""}.
+
+Style: modern, clean, slightly illustrated 3D / semi-realistic look, bright and friendly, professional. Warm lighting. Brand colours: deep charcoal (#0E0E0E) and vivid orange (#F26A1B) as the main accent, with white highlights. Indian context.
+
+Text on the image: add only this headline in bold, easy-to-read letters at the top: "${headline}". No other words, no small text, no spelling mistakes.
+
+Layout: keep the main subject in the centre, leave clear space around the edges (the image is also shown cropped on mobile and social media). Leave the bottom-right corner free for a small logo.
+
+Do not include: real brand logos or trademarks (no Amazon, Meesho, Myntra, WhatsApp or Google logos), real people or celebrities, watermarks, prices, blurry or distorted hands and faces.${kw ? `
+
+Topic keyword (for the mood of the image, do not write it on the image): ${kw}` : ""}`;
+}
