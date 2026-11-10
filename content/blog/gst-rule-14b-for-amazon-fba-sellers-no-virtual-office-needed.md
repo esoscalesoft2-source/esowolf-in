@@ -10,6 +10,7 @@ short: "gst-rule-14b"
 cover: "/assets/blog/2026-11-10-1a0474ce"
 coverAlt: "Indian Amazon FBA seller at a desk with a laptop and GST registration documents, explaining GST Rule 14B registration using an Amazon warehouse address"
 date: "2026-11-10T15:47:44+05:30"
+updated: "2026-11-10T15:55:21+05:30"
 author: "esowolf"
 faqs: [{"q":"What is GST Rule 14B?","a":"It is a new rule in the CGST Rules, 2017, in force from 1 November 2026. It lets small sellers of goods who sell through e-commerce platforms register for GST in another state using the platform's warehouse as their principal place of business, without a separate office there."},{"q":"Who can apply under Rule 14B?","a":"Sellers who already have a regular GST registration in their home state, have no registration and no physical presence in the new state, sell goods only through e-commerce operators that collect TCS, and whose output tax on B2B supplies is not more than ₹2.5 lakh per month."},{"q":"Do I still need a virtual office (VPOB) for Amazon FBA in another state?","a":"If you qualify under Rule 14B, no. Amazon's fulfilment centre in that state can be your principal place of business, once Amazon gives consent on the GST portal."},{"q":"How long does Rule 14B registration take?","a":"Amazon has 7 working days to give consent. After the ARN is generated, the application is deemed approved after a field visit or after 30 days, whichever is earlier."},{"q":"Can I sell on my own website with a Rule 14B registration?","a":"No. A Rule 14B registration can be used only for supplies made through e-commerce operators. For your own website or offline sales in that state, you need a regular registration."},{"q":"What happens if Amazon withdraws its consent?","a":"You must change your principal place of business through FORM GST REG-14 within 30 days. If you don't, the registration is cancelled automatically."}]
 ---
@@ -17,7 +18,7 @@ GST Rule 14B is good news for Amazon FBA sellers who pay rent for virtual office
 
 This guide explains what the rule says, who qualifies, how to apply on the GST portal step by step, what limits apply, and how to close an old registration you no longer need.
 
-> This article is for general information. GST rules and portal steps can change, so please confirm with a qualified CA or tax professional before you file.
+> **Last checked: 10 November 2026** against the official notification and the GSTN advisory. This article is for general information. GST rules and portal steps can change, so please confirm with a qualified CA or tax professional before you file.
 
 ## What Is GST Rule 14B?
 
@@ -37,13 +38,13 @@ You must meet all of these conditions:
 
 | Condition | What it means for you |
 |---|---|
-| Home-state registration | You already have an active regular GST registration in the state where you physically run your business |
+| Home-state registration | You already have an active regular GST registration in your home state, where you have a real physical place of business (office, shop or godown) |
 | Same PAN | The new registration must be on the same PAN as your home-state GSTIN |
-| No presence in the new state | You have no physical presence and no active regular registration in the state you are applying for |
+| No presence in the new state | In the state you are applying for, you have no office, shop or godown of your own and no active regular GST registration. Your only presence there is your stock in the e-commerce warehouse |
 | Goods sold only through e-commerce | You sell goods only through operators that collect TCS under Section 52 (for example Amazon) |
 | B2B tax limit | Your output tax on supplies to registered buyers (CGST + SGST + IGST together) is not more than ₹2.5 lakh per month; supplies between your own GSTINs on the same PAN are not counted |
 | Operator consent | Amazon must approve the warehouse address on the GST portal within 7 working days |
-| Aadhaar | Biometric Aadhaar authentication and document verification must be completed |
+| Aadhaar | Biometric Aadhaar authentication and document verification are needed. If you already did them for your home-state GSTIN, you do not repeat them. If not, complete them within 15 days of submitting Part B |
 | One per state | Only one Rule 14B registration per PAN in each state |
 
 ### Documents you need
@@ -113,7 +114,7 @@ If you have an old GSTIN based on a virtual office and want to move to Rule 14B,
 4. Choose the reason that fits, such as discontinuance of business in that state, enter the date and submit.
 5. After the tax officer approves the cancellation, file GSTR-10 (the final return) within three months of the cancellation order.
 
-Do not apply under Rule 14B for the same state until the old cancellation is fully approved and closed. If you are unsure about stock, input tax credit or pending dues, speak to your CA first.
+Do not apply under Rule 14B for the same state until the old cancellation is fully approved and closed. Until then, the old GSTIN still counts as an active registration in that state, and Rule 14B is only for states where you have no active registration — so an early application can be rejected. If you are unsure about stock, input tax credit or pending dues, speak to your CA first.
 
 ## How ESOWOLF Helps Amazon Sellers Grow
 
@@ -125,4 +126,8 @@ ESOWOLF (Ezy Sell Online) is an e-commerce growth company from Thiruvarur, Tamil
 
 **Next step:** Planning to expand your Amazon FBA business to more states? [Book a meeting](https://booking.closer.esowolf.in/book/amazon-increase-sales) with our team to plan your Amazon growth, and check the GST side with your CA.
 
-**Official sources:** CBIC Notification No. 05/2026-Central Tax (26 October 2026), GST Council 57th meeting recommendations and CBIC FAQs, and the GSTN advisory on Rule 14B (1 November 2026) on gst.gov.in.
+**Official sources:**
+
+- CBIC Notification No. 05/2026-Central Tax dated 26 October 2026 (CGST Amendment Rules, 2026): [CBIC GST website](https://cbic-gst.gov.in/)
+- 57th GST Council meeting recommendations (8 October 2026): [GST Council press releases](https://www.gstcouncil.gov.in/en/press-release)
+- GSTN advisory on Rule 14B registration (1 November 2026): [GST portal news and updates](https://www.gst.gov.in/newsandupdates)
